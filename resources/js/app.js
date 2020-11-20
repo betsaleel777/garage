@@ -6,4 +6,5 @@
 
 import './bootstrap'
 import { createApp } from 'vue';
-createApp().mount("#app")
+import Exemple from './components/ExampleComponent.vue'
+createApp(Exemple).mount("#app")
