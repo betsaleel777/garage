@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Surcusale extends Model
 {
     use HasFactory;
+
+    protected $fillable = [''];
 }

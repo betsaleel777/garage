@@ -37,4 +37,9 @@ class DashboardController extends Controller
     {
         $titre = 'Finance Acceuil';
     }
+
+    public function systeme()
+    {
+        $titre = 'Acceuil Système';
+    }
 }
