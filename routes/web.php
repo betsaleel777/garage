@@ -72,10 +72,18 @@ Route::prefix('maintenance')->group(function () {
 Route::prefix('systeme')->group(function () {
     Route::get('/index', 'DashboardController@systeme')->name('systeme_index');
     Route::prefix('comptes')->group(function () {
-        Route::get('/index', 'Maintenance\Essai\EssaisController@index')->name('essais');
-        Route::get('/liste', 'Maintenance\Essai\EssaisController@liste')->name('essai_liste');
-        Route::get('/add', 'Maintenance\Essai\EssaisController@add')->name('essai_add');
-
+        Route::get('/index', 'Systeme\ComptesController@index')->name('comptes');
+        Route::get('/add', 'Systeme\ComptesController@add')->name('compte_add');
+        Route::get('/edit/{id}', 'Systeme\ComptesController@edit')->name('compte_edit');
     });
+
+    Route::prefix('types_reparation')->group(function () {
+        Route::get('/index', 'Systeme\TypesReparationsController@index')->name('types_reparations');
+        Route::get('/add', 'Systeme\TypesReparationsController@add')->name('types_reparation_add');
+        Route::post('/store', 'Systeme\TypesReparationsController@store')->name('types_reparation_store');
+        Route::get('/edit/{id}', 'Systeme\TypesReparationsController@edit')->name('types_reparation_edit');
+        Route::post('/update', 'Systeme\TypesReparationsController@update')->name('types_reparation_update');
+    });
+
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

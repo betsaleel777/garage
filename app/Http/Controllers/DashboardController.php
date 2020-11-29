@@ -41,5 +41,6 @@ class DashboardController extends Controller
     public function systeme()
     {
         $titre = 'Acceuil Système';
+        return view('systeme.index', compact('titre'));
     }
 }

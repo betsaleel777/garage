@@ -10,13 +10,11 @@ class ReparationsController extends Controller
     public function index()
     {
         $titre = 'Réparations';
-
     }
 
     public function add()
     {
         $titre = 'Ajouter un réparation';
-
     }
 
     public function store(Request $request)

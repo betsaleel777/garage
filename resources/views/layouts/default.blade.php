@@ -8,6 +8,9 @@
       @include('partials.navbar')
       {{-- sidebar --}}
       @include('partials.sidebar')
+
+      @include('partials.flash')
+
       @yield('content')
       {{-- configs --}}
       @include('partials.configs')
@@ -15,7 +18,7 @@
       @include('partials.footer')
    </div>
    <!-- jQuery -->
-   @yield('vuejs')
+   <script src="{{ asset('js/app.js') }}"></script>
    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
    <!-- Bootstrap 4 -->
    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

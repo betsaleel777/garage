@@ -17,12 +17,12 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1 class="m-0 text-dark">Comptes d'utilisateurs</h1>
+                  <h1 class="m-0 text-dark">Liste des types de réparations</h1>
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil compte</a></li>
-                     <li class="breadcrumb-item active">Liste compte</li>
+                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil Système</a></li>
+                     <li class="breadcrumb-item active">Liste Types</li>
                   </ol>
                </div><!-- /.col -->
             </div><!-- /.row -->
@@ -39,41 +39,27 @@
                   <div class="card">
                      <div class="card-header">
                         {{-- <h5 class="m-0">Featured</h5> --}}
-                        <a class="btn btn-primary" href="{{ route('compte_add') }}">Nouveau compte</a>
+                        <a class="btn btn-primary" href="{{ route('types_reparation_add') }}">Nouveau type</a>
                      </div>
                      <div class="card-body">
-                        <table id="receptions" class="table table-bordered table-hover">
+                        <table id="types" class="table table-bordered table-hover">
                            <thead>
                               <tr>
                                  <th>#</th>
                                  <th>Nom</th>
-                                 <th>Email</th>
-                                 <th>Type</th>
-                                 <th>Etat compte</th>
-                                 <th>Options</th>
+                                 <th>Prix</th>
+                                 <th>Option</th>
                               </tr>
                            </thead>
                            <tbody>
-                              @foreach ($users as $key => $user)
+                              @foreach ($types as $key => $type)
                                  <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $type->nom }}</td>
+                                    <td>{{ $type->prix_forfaitaire }}</td>
                                     <td>
-                                       @empty($user->type)
-                                          <span class="badge badge-primary">Admin</span>
-                                       @endempty
-                                    </td>
-                                    <td>
-                                       @if ($user->activation)
-                                          <span class="text-success">activer</span>
-                                       @else
-                                          <span class="text-success">desactiver</span>
-                                       @endif
-                                    </td>
-                                    <td>
-                                       <a class="btn btn-dark btn-xs" href="{{ route('compte_edit', $user) }}">
-                                          <i class="fas fa-edit"></i>
+                                       <a class="btn btn-dark btn-xs" href="{{ route('types_reparation_edit', $type) }}"><i
+                                             class="fas fa-edit"></i>
                                        </a>
                                     </td>
                                  </tr>
@@ -101,7 +87,7 @@
    <script src=" {{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }} "></script>
    <script>
       $(function() {
-         $('#receptions').DataTable({
+         $('#types').DataTable({
             "paging": true,
             "lengthChange": true,
             "searching": true,

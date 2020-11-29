@@ -9,5 +9,10 @@ class Surcusale extends Model
 {
     use HasFactory;
 
-    protected $fillable = [''];
+    protected $fillable = ['nom', 'lieu', 'gerant'];
+    const RULES = [
+        'nom' => 'required|max:191',
+        'lieu' => 'required|max:191',
+        'gerant' => 'required|max:191',
+    ];
 }

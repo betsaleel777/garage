@@ -5,6 +5,27 @@
  */
 
 import './bootstrap'
-import { createApp } from 'vue';
-import Exemple from './components/ExampleComponent.vue'
-createApp(Exemple).mount("#app")
+import Vue from 'vue';
+import NotificationsUser from './components/Notifications.vue'
+import Toast from "vue-toastification";
+const options = {
+    position: "top-right",
+    timeout: 5000,
+    closeOnClick: true,
+    pauseOnFocusLoss: true,
+    pauseOnHover: true,
+    draggable: true,
+    draggablePercent: 0.6,
+    hideProgressBar: true,
+    closeButton: "button",
+    icon: true,
+}
+Vue.use(Toast, options)
+
+new Vue({
+    el: '#app',
+    components: {
+        NotificationsUser
+    }
+})
+

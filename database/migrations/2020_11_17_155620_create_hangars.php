@@ -16,7 +16,7 @@ class CreateHangars extends Migration
         Schema::create('hangars', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->unsignedBigInteger('surcusale');
+            $table->unsignedBigInteger('surcusale')->nullable();
             $table->foreign('surcusale')->references('id')->on('surcusales')->onDelete('cascade');
             $table->timestamps();
         });
