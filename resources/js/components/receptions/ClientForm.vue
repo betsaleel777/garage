@@ -1,0 +1,352 @@
+<template>
+    <div>
+        <div class="form-group">
+            <label for="contact">Recherche client</label>
+            <input
+                v-model="contact"
+                class="form-control"
+                id="contact"
+                placeholder="renseignez le contact du client"
+            />
+            <span class="input-group-append">
+                <button
+                    @click="rechercher"
+                    type="button"
+                    class="btn btn-primary btn-flat"
+                >
+                    rechercher !
+                </button>
+            </span>
+        </div>
+        <div v-if="particulier">
+            <h5 class="text-primary">Client particulier</h5>
+            <hr />
+            <div class="form-group">
+                <label for="nom">Nom complet</label>
+                <input
+                    name="nom_complet"
+                    v-model="nom_complet"
+                    class="form-control"
+                    id="nom"
+                />
+                <span v-if="messages.nom_complet.exist" class="text-danger">{{
+                    messages.nom_complet.value
+                }}</span>
+            </div>
+            <div class="form-group">
+                <label for="telephone">Téléphone</label>
+                <input
+                    name="telephone"
+                    v-model="telephone"
+                    class="form-control"
+                    id="telephone"
+                />
+                <span v-if="messages.telephone.exist" class="text-danger">{{
+                    messages.telephone.value
+                }}</span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                    name="email"
+                    type="email"
+                    v-model="email"
+                    class="form-control"
+                    id="email"
+                />
+                <span v-if="messages.email.exist" class="text-danger">{{
+                    messages.email.value
+                }}</span>
+            </div>
+        </div>
+        <div v-if="assurance">
+            <h5 class="text-primary">Client Assurance</h5>
+            <hr />
+            <div class="form-group">
+                <label for="nom_assurance">Nom de l'assurance</label>
+                <input
+                    name="nom_assurance"
+                    v-model="nom_assurance"
+                    class="form-control"
+                    id="nom_assurance"
+                />
+                <span v-if="messages.nom_assurance.exist" class="text-danger">{{
+                    messages.nom_assurance.value
+                }}</span>
+            </div>
+            <div class="form-group">
+                <label for="representant_assurance"
+                    >Nom du représentant de l'assurance</label
+                >
+                <input
+                    name="representant_assurance"
+                    v-model="representant_assurance"
+                    class="form-control"
+                    id="representant_assurance"
+                />
+                <span
+                    v-if="messages.representant_assurance.exist"
+                    class="text-danger"
+                    >{{ messages.representant_assurance.value }}</span
+                >
+            </div>
+            <div class="form-group">
+                <label for="contact_assurance">Contact Assurance</label>
+                <input
+                    name="contact_assurance"
+                    v-model="contact_assurance"
+                    class="form-control"
+                    id="contact_assurance"
+                />
+                <span
+                    v-if="messages.contact_assurance.exist"
+                    class="text-danger"
+                    >{{ messages.contact_assurance.value }}</span
+                >
+            </div>
+            <div class="form-group">
+                <label for="email_assurance">Email Assurance</label>
+                <input
+                    name="email_assurance"
+                    v-model="email_assurance"
+                    class="form-control"
+                    id="email_assurance"
+                />
+                <span
+                    v-if="messages.email_assurance.exist"
+                    class="text-danger"
+                    >{{ messages.email_assurance.value }}</span
+                >
+            </div>
+        </div>
+        <div v-if="entreprise">
+            <h5 class="text-primary">Client Entreprise</h5>
+            <hr />
+            <div class="form-group">
+                <label for="nom_entreprise">Nom de l'entreprise</label>
+                <input
+                    name="nom_entreprise"
+                    v-model="nom_entreprise"
+                    class="form-control"
+                    id="nom_entreprise"
+                />
+                <span
+                    v-if="messages.nom_entreprise.exist"
+                    class="text-danger"
+                    >{{ messages.nom_entreprise.value }}</span
+                >
+            </div>
+            <div class="form-group">
+                <label for="representant_entreprise"
+                    >Nom du représentant de l'entreprise</label
+                >
+                <input
+                    name="representant_entreprise"
+                    v-model="representant_entreprise"
+                    class="form-control"
+                    id="representant_entreprise"
+                />
+                <span
+                    v-if="messages.representant_entreprise.exist"
+                    class="text-danger"
+                    >{{ messages.representant_entreprise.value }}</span
+                >
+            </div>
+            <div class="form-group">
+                <label for="contact_entreprise">Contact entreprise</label>
+                <input
+                    name="contact_entreprise"
+                    v-model="contact_entreprise"
+                    class="form-control"
+                    id="contact_entreprise"
+                />
+                <span
+                    v-if="messages.contact_entreprise.exist"
+                    class="text-danger"
+                    >{{ messages.contact_entreprise.value }}</span
+                >
+            </div>
+            <div class="form-group">
+                <label for="email_entreprise">Email entreprise</label>
+                <input
+                    name="email_entreprise"
+                    v-model="email_entreprise"
+                    class="form-control"
+                    id="email_entreprise"
+                />
+                <span
+                    v-if="messages.email_entreprise.exist"
+                    class="text-danger"
+                    >{{ messages.email_entreprise.value }}</span
+                >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description du client</label>
+            <textarea
+                name="description"
+                class="form-control"
+                v-model="description"
+                id="description"
+                cols="30"
+                rows="6"
+            ></textarea>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    props: {
+        erreurs: Array
+    },
+    data() {
+        return {
+            particulier: true,
+            assurance: true,
+            entreprise: true,
+            contact: "",
+            nom_complet: "",
+            telephone: "",
+            email: "",
+            nom_assurance: "",
+            representant_assurance: "",
+            contact_assurance: "",
+            email_assurance: "",
+            nom_entreprise: "",
+            representant_entreprise: "",
+            contact_entreprise: "",
+            email_entreprise: "",
+            description: "",
+            messages: {
+                nom_complet: {
+                    exist: false,
+                    value: null
+                },
+                telephone: {
+                    exist: false,
+                    value: null
+                },
+                email: {
+                    exist: false,
+                    value: null
+                },
+                nom_assurance: {
+                    exist: false,
+                    value: null
+                },
+                representant_assurance: {
+                    exist: false,
+                    value: null
+                },
+                contact_assurance: {
+                    exist: false,
+                    value: null
+                },
+                email_assurance: {
+                    exist: false,
+                    value: null
+                },
+                nom_entreprise: {
+                    exist: false,
+                    value: null
+                },
+                representant_entreprise: {
+                    exist: false,
+                    value: null
+                },
+                contact_entreprise: {
+                    exist: false,
+                    value: null
+                },
+                email_entreprise: {
+                    exist: false,
+                    value: null
+                }
+            }
+        };
+    },
+    methods: {
+        rechercher() {
+            axios
+                .get("/systeme/async/personne/find/" + this.contact)
+                .then(result => {
+                    let personne = result.data.personne;
+                    console.log(personne);
+                    if (personne) {
+                        this.$bvToast.toast(
+                            "Un client possedant ce contact existe",
+                            {
+                                title: "INFORMATION",
+                                solid: true,
+                                variant: "info"
+                            }
+                        );
+                        if (result.data.nature === "assurance") {
+                            this.particulier = false;
+                            this.entreprise = false;
+                            this.contact_assurance = personne.contact_assurance;
+                            this.email_assurance = personne.email_assurance;
+                            this.nom_assurance = personne.nom_assurance;
+                            this.representant_assurance =
+                                personne.representant_assurance;
+                        } else if (result.data.nature === "entreprise") {
+                            this.particulier = false;
+                            this.assurance = false;
+                            this.contact_entreprise =
+                                personne.contact_entreprise;
+                            this.email_entreprise = personne.email_entreprise;
+                            this.nom_entreprise = personne.nom_entreprise;
+                            this.representant_entreprise =
+                                personne.representant_entreprise;
+                        } else {
+                            this.entreprise = false;
+                            this.assurance = false;
+                            this.nom_complet = personne.nom_complet;
+                            this.telephone = personne.telephone;
+                            this.email = personne.email;
+                        }
+                    } else {
+                        console.log("doit toaster");
+                        this.$bvToast.toast(
+                            "Aucun client possedant ce contact n'as été trouvé",
+                            {
+                                title: "INFORMATION",
+                                solid: true,
+                                variant: "info"
+                            }
+                        );
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+        // valider() {
+        //     axios
+        //         .post("/systeme/async/personne/store", {
+        //             contact_assurance: this.contact_assurance,
+        //             email_assurance: this.email_assurance,
+        //             nom_assurance: this.nom_assurance,
+        //             representant_assurance: this.representant_assurance,
+        //             contact_entreprise: this.contact_entreprise,
+        //             email_entreprise: this.email_entreprise,
+        //             nom_entreprise: this.nom_entreprise,
+        //             representant_entreprise: this.representant_entreprise,
+        //             nom_complet: this.nom_complet,
+        //             telephone: this.telephone,
+        //             email: this.email
+        //         })
+        //         .then(result => {
+        //             if (result.data.message) {
+        //             }
+        //         })
+        //         .catch(err => {
+        //             console.log(err.response.data);
+        //         });
+        // }
+    }
+};
+</script>
+
+<style></style>

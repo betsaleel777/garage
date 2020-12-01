@@ -7,25 +7,19 @@
 import './bootstrap'
 import Vue from 'vue';
 import NotificationsUser from './components/Notifications.vue'
-import Toast from "vue-toastification";
-const options = {
-    position: "top-right",
-    timeout: 5000,
-    closeOnClick: true,
-    pauseOnFocusLoss: true,
-    pauseOnHover: true,
-    draggable: true,
-    draggablePercent: 0.6,
-    hideProgressBar: true,
-    closeButton: "button",
-    icon: true,
-}
-Vue.use(Toast, options)
+import ClientForm from './components/receptions/ClientForm.vue'
+import { ToastPlugin } from 'bootstrap-vue'
+
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+
+Vue.use(ToastPlugin)
 
 new Vue({
     el: '#app',
     components: {
-        NotificationsUser
+        NotificationsUser,
+        ClientForm
     }
 })
 

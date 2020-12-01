@@ -16,8 +16,8 @@ class CreatePersonnes extends Migration
         Schema::create('personnes', function (Blueprint $table) {
             $table->id();
             $table->string('matricule');
-            $table->string('nom_complet');
-            $table->string('telephone')->unique();
+            $table->string('nom_complet')->nullable();
+            $table->string('telephone')->unique()->nullable();
             $table->string('type')->default('prospect');
             $table->string('qualificatif')->default('bon');
             $table->string('email')->unique()->nullable();
@@ -25,9 +25,11 @@ class CreatePersonnes extends Migration
             $table->string('representant_assurance')->nullable();
             $table->string('nom_assurance')->nullable();
             $table->string('contact_assurance')->unique()->nullable();
+            $table->string('email_assurance', 255)->unique()->nullable();
             $table->string('representant_entreprise')->nullable();
             $table->string('nom_entreprise')->nullable();
             $table->string('contact_entreprise')->unique()->nullable();
+            $table->string('email_entreprise', 255)->unique()->nullable();
             $table->timestamps();
         });
     }

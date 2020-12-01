@@ -9,15 +9,28 @@ class Reception extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    public function __construct()
+    {
+        $this->immatriculer();
+    }
 
-    const RULES_ADD = [
-
+    protected $fillable = [
+        'code', 'nom_deposant', 'ressenti', 'etat_validation', 'statut', 'etat_vehicule',
+        'personne', 'vehicule_info', 'type_reparation', 'surcusale', 'hangar', 'user',
     ];
 
-    const RULES_EDIT = [
-
+    const RULES = [
+        'nom_deposant' => 'nullable',
+        'ressenti' => 'required',
+        'type_reparation' => 'required',
     ];
+
+    public function immatriculer(): void
+    {
+        $lettres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $chiffres = '0123456789';
+        $this->attributes['code'] = 'REC' . substr(str_shuffle($lettres), 0, 4) . \substr(\str_shuffle($chiffres), 0, 4);
+    }
 
     //relations
 }

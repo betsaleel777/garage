@@ -5,27 +5,21 @@ export default {
     props: {
         message: String,
         variant: String,
+        titre: String
     },
     mounted() {
         this.notifications();
     },
     methods: {
         notifications() {
-            if (this.variant === "info") {
-                this.$toast.info(this.message);
-            } else if (this.variant === "success") {
-                console.log("pass");
-                this.$toast.success(this.message);
-            } else if (this.variant === "warning") {
-                this.$toast.warning(this.message);
-            } else {
-                this.$toast.error(this.message);
-            }
-        },
-    },
+            this.$bvToast.toast(this.message, {
+                title: this.titre,
+                solid: true,
+                variant: this.variant
+            });
+        }
+    }
 };
 </script>
 
-<style>
-@import "~vue-toastification/dist/index.css";
-</style>
+<style></style>

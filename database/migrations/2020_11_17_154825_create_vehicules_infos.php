@@ -18,7 +18,7 @@ class CreateVehiculesInfos extends Migration
             $table->string('nom_deposant');
             $table->string('enjoliveur');
             $table->string('niveau_carburant');
-            $table->unsignedBigInteger('id_api');
+            $table->string('vehicule');
             $table->string('immatriculation');
             $table->string('chassis');
             $table->string('dmc');

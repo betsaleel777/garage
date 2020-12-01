@@ -85,5 +85,10 @@ Route::prefix('systeme')->group(function () {
         Route::post('/update', 'Systeme\TypesReparationsController@update')->name('types_reparation_update');
     });
 
+    Route::prefix('async')->group(function () {
+        Route::get('/personne/find/{contact}', 'PersonnesController@findjs');
+        Route::post('/personne/store', 'PersonnesController@storejs');
+    });
+
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
