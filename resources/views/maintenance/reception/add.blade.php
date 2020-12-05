@@ -5,7 +5,7 @@
    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 @endsection
 @section('module-navbar')
-   @include('partials.modules.nav-systeme')
+   @include('partials.modules.nav-maintenance')
 @endsection
 @section('content')
    <!-- Content Wrapper. Contains page content -->
@@ -160,7 +160,7 @@
                               <select class="form-control select2" name="type_reparation" id="type">
                                  <option selected disabled> .....</option>
                                  @foreach ($types as $id => $type)
-                                    <option @if (old('type_reparation') === $id)
+                                    <option @if (old('type_reparation') == $id)
                                        selected
                                  @endif value="{{ $id }}">{{ $type }}</option>
                                  @endforeach
@@ -169,9 +169,18 @@
                                  <span class="text-danger">{{ $message }}</span>
                               @enderror
                            </div>
-                           <h5 class="text-primary">Etat du véhicule</h5>
-                           <hr />
                            <div class="row">
+                              <div class="col-md-10">
+                                 <h5 class="text-primary">Etat du véhicule</h5>
+                              </div>
+                              <div class="col-md-2">
+                                 <button type="button" onclick="welldone()" class="btn btn-primary ui-button">
+                                    <i class="fas fa-check"></i> Tout bon
+                                 </button>
+                              </div>
+                           </div>
+                           <hr />
+                           <div id="etat" class="row">
                               <div class="col-md-6">
                                  <h6>Intérieur</h6>
                                  <div class="form-group">
@@ -193,7 +202,7 @@
                                     <select name="retroviseurs_int" class="form-control" id="retroviseur">
                                        <option selected disabled> ....</option>
                                        @foreach ($etats as $etat)
-                                          <option @if (old('retroviseur_int') === $etat)
+                                          <option @if (old('retroviseurs_int') === $etat)
                                              selected
                                        @endif value="{{ $etat }}">{{ $etat }}</option>
                                        @endforeach
@@ -217,16 +226,16 @@
                                     @enderror
                                  </div>
                                  <div class="form-group">
-                                    <label for="essuies_glaces">Essuies glaces</label>
-                                    <select name="essuies_glaces" class="form-control" id="essuies_glaces">
+                                    <label for="essuies_glace">Essuies glaces</label>
+                                    <select name="essuies_glace" class="form-control" id="essuies_glace">
                                        <option selected disabled> ....</option>
                                        @foreach ($etats as $etat)
-                                          <option @if (old('essuies_glaces') === $etat)
+                                          <option @if (old('essuies_glace') === $etat)
                                              selected
                                        @endif value="{{ $etat }}">{{ $etat }}</option>
                                        @endforeach
                                     </select>
-                                    @error('essuies_glaces')
+                                    @error('essuies_glace')
                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                  </div>
@@ -693,6 +702,8 @@
    <!-- /.content-wrapper -->
 @endsection
 @section('scripts')
+   <script src="{{ asset('js/addutils.js') }}"></script>
+
    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>

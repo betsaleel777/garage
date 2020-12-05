@@ -31,8 +31,14 @@
                <div class="col-lg-12">
                   <div class="card">
                      <div class="card-header">
-                        <h5 class="m-0"><a class="text-right" href="{{ route('reception_liste') }}">Liste réceptions</a>
-                        </h5>
+                        <div class="row">
+                           <div class="col-md-10"></div>
+                           <div class="col-md-2">
+                              <a class="btn btn-primary ui-button" href="{{ route('reception_liste') }}">Liste
+                                 réceptions
+                              </a>
+                           </div>
+                        </div>
                      </div>
                      <div class="card-body">
                         {{-- <h6 class="card-title">Special title treatment</h6>

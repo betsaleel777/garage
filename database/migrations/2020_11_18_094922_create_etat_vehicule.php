@@ -29,8 +29,8 @@ class CreateEtatVehicule extends Migration
             $table->string('ouverture_portes_int', 20);
             $table->string('roues', 20);
             $table->string('feux_arrieres', 20);
-            $table->string('balais_essuis_glace_av', 20);
-            $table->string('balais_essuis_glace_ar', 20);
+            $table->string('balais_essuies_glace_av', 20);
+            $table->string('balais_essuies_glace_ar', 20);
             $table->string('trape_carburant', 20);
             $table->string('ouverture_portes_ext', 20);
             $table->string('retroviseurs_ext', 20);

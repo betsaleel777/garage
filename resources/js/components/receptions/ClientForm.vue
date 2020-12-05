@@ -18,6 +18,39 @@
                 </button>
             </span>
         </div>
+        <div class="form-check form-check-inline">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                id="inlineCheckbox1"
+                v-model="particulier"
+            />
+            <label class="form-check-label" for="inlineCheckbox1"
+                >Particulier</label
+            >
+        </div>
+        <div class="form-check form-check-inline">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                id="inlineCheckbox2"
+                v-model="entreprise"
+            />
+            <label class="form-check-label" for="inlineCheckbox2"
+                >Entreprise</label
+            >
+        </div>
+        <div class="form-check form-check-inline">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                id="inlineCheckbox3"
+                v-model="assurance"
+            />
+            <label class="form-check-label" for="inlineCheckbox3"
+                >Assurance</label
+            >
+        </div>
         <div v-if="particulier">
             <h5 class="text-primary">Client particulier</h5>
             <hr />
@@ -282,6 +315,7 @@ export default {
                                 variant: "info"
                             }
                         );
+                        this.description = personne.description;
                         if (result.data.nature === "assurance") {
                             this.particulier = false;
                             this.entreprise = false;
@@ -307,7 +341,6 @@ export default {
                             this.email = personne.email;
                         }
                     } else {
-                        console.log("doit toaster");
                         this.$bvToast.toast(
                             "Aucun client possedant ce contact n'as été trouvé",
                             {

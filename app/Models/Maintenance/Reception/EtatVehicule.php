@@ -9,7 +9,7 @@ class EtatVehicule extends Model
 {
     use HasFactory;
     protected $table = 'etats_vehicules';
-    protected $fillable = ['eclairage_int', 'retroviseurs_int', 'klaxon', 'essuies_glaces', 'radio', 'climatisation',
+    protected $fillable = ['eclairage_int', 'retroviseurs_int', 'klaxon', 'essuies_glace', 'radio', 'climatisation',
         'frein_stationnement', 'sieges', 'tableau_bord', 'leve_vitre', 'verouillage_portes', 'ouverture_portes_int',
         'roues', 'feux_arrieres', 'balais_essuies_glace_av', 'balais_essuies_glace_ar', 'trape_carburant', 'ouverture_portes_ext',
         'retroviseurs_ext', 'cle_contact', 'clignotants', 'veilleuses', 'feux_croisement', 'feux_recul', 'feux_stop',
@@ -21,7 +21,7 @@ class EtatVehicule extends Model
         'eclairage_int' => 'required',
         'retroviseurs_int' => 'required',
         'klaxon' => 'required',
-        'essuies_glaces' => 'required',
+        'essuies_glace' => 'required',
         'radio' => 'required',
         'climatisation' => 'required',
         'frein_stationnement' => 'required',

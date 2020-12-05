@@ -46,34 +46,43 @@
                            <thead>
                               <tr>
                                  <th>#</th>
-                                 <th>Browser</th>
-                                 <th>Platform(s)</th>
-                                 <th>Engine version</th>
-                                 <th>CSS grade</th>
+                                 <th>Code</th>
+                                 <th>Date</th>
+                                 <th>Type réparation</th>
+                                 <th>Déposant</th>
+                                 <th>Utilisateur</th>
+                                 <th>Statut</th>
+                                 <th>Validation</th>
+                                 <th>Options</th>
                               </tr>
                            </thead>
                            <tbody>
                               @foreach ($receptions as $key => $reception)
                                  <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>Internet
-                                       Explorer 4.0
+                                    <td>{{ $reception->code }}</td>
+                                    <td>{{ $reception->created_at->format('d-m-Y') }}</td>
+                                    <td>{{ $reception->reparation->nom }}</td>
+                                    <td>{{ mb_strtoupper($reception->nom_deposant) }}</td>
+                                    <td>{{ $reception->utilisateur->name }}</td>
+                                    <td><b class="text-primary">{{ $reception->statut }}</b></td>
+                                    <td>
+                                       @if ($reception->est_valide())
+                                          <b class="text-success">{{ $reception->etat_validation }}</b>
+                                       @else
+                                          <b class="text-danger">{{ $reception->etat_validation }}</b>
+                                       @endif
                                     </td>
-                                    <td>Win 95+</td>
-                                    <td> 4</td>
-                                    <td>X</td>
+                                    <td>
+                                       <a href="{{ route('reception_edit', $reception) }}"><i
+                                             class="fas fa-lg fa-edit"></i></a>
+                                       <a href="{{ route('reception_show', $reception) }}"><i
+                                             class="fas fa-lg fa-eye"></i></a>
+                                       <delete-button :identifiant="{{ $reception->id }}"></delete-button>
+                                    </td>
                                  </tr>
                               @endforeach
                            </tbody>
-                           <tfoot>
-                              <tr>
-                                 <th>Rendering engine</th>
-                                 <th>Browser</th>
-                                 <th>Platform(s)</th>
-                                 <th>Engine version</th>
-                                 <th>CSS grade</th>
-                              </tr>
-                           </tfoot>
                         </table>
                      </div>
                      <!-- /.card-body -->
@@ -102,8 +111,6 @@
             "searching": true,
             "ordering": true,
             "info": true,
-            "autoWidth": true,
-            "responsive": true,
          });
       });
 

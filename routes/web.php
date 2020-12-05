@@ -26,6 +26,11 @@ Route::prefix('maintenance')->group(function () {
         Route::get('/show/{id}', 'Maintenance\Reception\ReceptionsController@show')->name('reception_show');
         Route::post('/store', 'Maintenance\Reception\ReceptionsController@store')->name('reception_store');
         Route::post('/update', 'Maintenance\Reception\ReceptionsController@update')->name('reception_update');
+        Route::get('/valider/{id}', 'Maintenance\Reception\ReceptionsController@valider')->name('reception_valider');
+        Route::get('/imprimer/{id}', 'Maintenance\Reception\ReceptionsController@print')->name('reception_print');
+        //with js
+        Route::get('/delete/{id}', 'Maintenance\Reception\ReceptionsController@delete');
+        Route::get('/force/delete/{id}', 'Maintenance\Reception\ReceptionsController@forceDelete');
     });
 
     Route::prefix('diagnostique')->group(function () {
@@ -36,6 +41,7 @@ Route::prefix('maintenance')->group(function () {
         Route::get('/show/{id}', 'Maintenance\Diagnostique\DiagnostiquesController@show')->name('diagnostique_show');
         Route::post('/store', 'Maintenance\Diagnostique\DiagnostiquesController@store')->name('diagnostique_store');
         Route::post('/update', 'Maintenance\Diagnostique\DiagnostiquesController@update')->name('diagnostique_update');
+        Route::get('/delete/{id}', 'Maintenance\Diagnostique\DiagnostiquesController@delete')->name('diagnostique_delete');
     });
 
     Route::prefix('essai')->group(function () {
