@@ -12,6 +12,8 @@ class VehiculeInfo extends Model
     protected $fillable = ['nom_deposant', 'enjoliveur', 'niveau_carburant', 'vehicule', 'immatriculation',
         'chassis', 'dmc', 'date_sitca', 'date_assurance', 'kilometrage_actuel', 'prochaine_vidange'];
 
+    protected $dates = ['date_sitca', 'date_assurance', 'created_at'];
+
     const RULES = [
         'enjoliveur' => 'required',
         'niveau_carburant' => 'required',

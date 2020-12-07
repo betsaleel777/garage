@@ -156,6 +156,20 @@
                               @enderror
                            </div>
                            <div class="form-group">
+                              <label for="date_reception">Date Réception</label>
+                              <div class="input-group date" id="date_reception" data-target-input="nearest">
+                                 <input value="{{ old('date_reception') }}" name="date_reception" type="text"
+                                    class="form-control datetimepicker-input" data-target="#date_reception" />
+                                 <div class="input-group-append" data-target="#date_reception"
+                                    data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                 </div>
+                              </div>
+                              @error('date_reception')
+                                 <span class="text-danger">{{ $message }}</span>
+                              @enderror
+                           </div>
+                           <div class="form-group">
                               <label for="type">Type de réparation</label>
                               <select class="form-control select2" name="type_reparation" id="type">
                                  <option selected disabled> .....</option>
@@ -703,7 +717,6 @@
 @endsection
 @section('scripts')
    <script src="{{ asset('js/addutils.js') }}"></script>
-
    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
@@ -713,6 +726,9 @@
             format: 'DD/MM/YYYY'
          });
          $('#date_assurance').datetimepicker({
+            format: 'DD/MM/YYYY'
+         });
+         $('#date_reception').datetimepicker({
             format: 'DD/MM/YYYY'
          });
          $('.select2').select2({

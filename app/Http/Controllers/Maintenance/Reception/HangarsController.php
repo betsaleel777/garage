@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class HangarsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $titre = 'Hangars';

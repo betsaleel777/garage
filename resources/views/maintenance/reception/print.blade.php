@@ -312,6 +312,211 @@
                </div>
             </div>
          </section>
+         <br>
+         <br>
+         <br>
+         <br>
+         @if (!empty($reception->preessai))
+            <section>
+               <div class="content">
+                  <div class="container-fluid">
+                     <div class="row">
+                        <!-- /.col-md-6 -->
+                        <div class="col-md-12">
+                           <div class="card">
+                              <div class="row">
+                                 <div class="col-md-10">
+                                    <h3> FICHE DE PRE-DIAGNOSTIQUE</h3>
+                                 </div>
+                                 <div style="text-align: right" class="col-md-2">
+                                    <h4>{{ $reception->preessai->date_preessais->format('d-m-Y') }}</h4>
+                                 </div>
+                              </div>
+                              <div class="card-body">
+                                 <table class="show-table">
+                                    <thead>
+                                       <tr>
+                                          <th style="width:30%">INSPECTION</th>
+                                          <th>COMMENTAIRES</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr>
+                                          <td>Mettre le kit de protection interne</td>
+                                          <td>{{ $reception->preessai->protection_interne }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Mettre la housse de protection</td>
+                                          <td>{{ $reception->preessai->housse_protection }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td class="active-row" colspan="2">
+                                             <b>CONTROLE INTERIEUR</b>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td>Eclairage intérieur</td>
+                                          <td>{{ $reception->preessai->eclairage_int }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Klaxon</td>
+                                          <td>{{ $reception->preessai->klaxon }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Jeu de pédale de frein</td>
+                                          <td>{{ $reception->preessai->pedale_frein }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Jeu de pédale embrayage</td>
+                                          <td>{{ $reception->preessai->pedale_embreillage }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Frein à main</td>
+                                          <td>{{ $reception->preessai->frein_main }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Fonctionnement des ceintures de sécurité</td>
+                                          <td>{{ $reception->preessai->housse_protection }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Fonctionnement des feux et phares</td>
+                                          <td>{{ $reception->preessai->housse_protection }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Mettre la housse de protection</td>
+                                          <td>{{ $reception->preessai->housse_protection }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Fonctionnement balais E/G, moteur, bocale lave glace</td>
+                                          <td>{{ $reception->preessai->housse_protection }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Fonctionnement des lèves vitres</td>
+                                          <td>{{ $reception->preessai->housse_protection }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td class="active-row" colspan="2">
+                                             <b>CONTROLE EXTERIEUR</b>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td>Eraflures</td>
+                                          <td>{{ $reception->preessai->eraflures }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Corrosion, rouille</td>
+                                          <td>{{ $reception->preessai->corrosion_rouille }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Elements endommagés</td>
+                                          <td>{{ $reception->preessai->elements_endommages }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Clarté des feux et phares</td>
+                                          <td>{{ $reception->preessai->feux_phares }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Etat des balais E/G</td>
+                                          <td>{{ $reception->preessai->etat_balais_eg }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Trappe à carburant</td>
+                                          <td>{{ $reception->preessai->trape_carburant }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Poignées portes</td>
+                                          <td>{{ $reception->preessai->eraflures }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Pneux, pression, profondeur d'usure</td>
+                                          <td>{{ $reception->preessai->pneux_pression_usure }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td class="active-row" colspan="2">
+                                             <b>SOUS LE CAPOT</b>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td>Niveau des liquides</td>
+                                          <td>{{ $reception->preessai->niveaux_liquides }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Raccords et durite de carburant</td>
+                                          <td>{{ $reception->preessai->raccords_durite }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Etat de la batterie et des cosses</td>
+                                          <td>{{ $reception->preessai->batterie_cosses }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Etat du radiateur</td>
+                                          <td>{{ $reception->preessai->etat_radiateur }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td class="active-row" colspan="2">
+                                             <b>SOUS LA CAROSSERIE</b>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td>Plaquettes, disques et tambours de frein</td>
+                                          <td>{{ $reception->preessai->disques_tambours_frein }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Intérieur des pneus</td>
+                                          <td>{{ $reception->preessai->pneux_int }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Suspensions</td>
+                                          <td>{{ $reception->preessai->suspensions }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Direction, Volant</td>
+                                          <td>{{ $reception->preessai->volant_direction }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Pot d’échappement</td>
+                                          <td>{{ $reception->preessai->pot_echappement }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Etat des silent-blocs</td>
+                                          <td>{{ $reception->preessai->silent_bloc }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Tuyauterie de frein</td>
+                                          <td>{{ $reception->preessai->tuyauterie_frein }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Fuite d’huile</td>
+                                          <td>{{ $reception->preessai->fuite_huile }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Etat general sous la carrosserie</td>
+                                          <td>{{ $reception->preessai->sous_carrosserie }}</td>
+                                       </tr>
+                                       <tr>
+                                          <td class="active-row" colspan="2">
+                                             <b>TEST ROUTIER NECESSAIRE</b>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td>Ressenti test routier</td>
+                                          <td>{{ $reception->preessai->test_routier }}</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                              <div class="card-footer">
+                                 <span class="text-footer-print">BOITE POSTALE + SIEGE SOCIAL + TELEPHONE</span>
+                                 <span class="text-footer-print">NUMERO RCCM + NUMERO CC + SITE WEB</span>
+                                 <span class="text-footer-print">NOM DE BANQUE + NUMERO DE COMPTE </span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+         @endif
       </div>
    </div>
 @endsection

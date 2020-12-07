@@ -188,6 +188,20 @@
                               @enderror
                            </div>
                            <div class="form-group">
+                              <label for="date_reception">Date Réception</label>
+                              <div class="input-group date" id="date_reception" data-target-input="nearest">
+                                 <input name="date_reception" type="text" class="form-control datetimepicker-input"
+                                    data-target="#date_reception" />
+                                 <div class="input-group-append" data-target="#date_reception"
+                                    data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                 </div>
+                              </div>
+                              @error('date_reception')
+                                 <span class="text-danger">{{ $message }}</span>
+                              @enderror
+                           </div>
+                           <div class="form-group">
                               <label for="type">Type de réparation</label>
                               <select class="form-control select2" name="type_reparation" id="type">
                                  <option selected disabled> .....</option>
@@ -304,7 +318,7 @@
                                     @enderror
                                  </div>
                                  <div class="form-group">
-                                    <label for="sieges">sieges</label>
+                                    <label for="sieges">Sièges</label>
                                     <select name="sieges" class="form-control" id="sieges">
                                        <option selected disabled> ....</option>
                                        @foreach ($etats as $etat)
@@ -332,7 +346,7 @@
                                     @enderror
                                  </div>
                                  <div class="form-group">
-                                    <label for="leve_vitre">Leve-vitre</label>
+                                    <label for="leve_vitre">Lève-vitre</label>
                                     <select name="leve_vitre" class="form-control" id="leve_vitre">
                                        <option selected disabled> ....</option>
                                        @foreach ($etats as $etat)
@@ -463,7 +477,7 @@
                                     @enderror
                                  </div>
                                  <div class="form-group">
-                                    <label for="feux_arriere">Feux arrieres</label>
+                                    <label for="feux_arriere">Feux arrières</label>
                                     <select name="feux_arrieres" class="form-control" id="feux_arriere">
                                        <option selected disabled> ....</option>
                                        @foreach ($etats as $etat)
@@ -733,12 +747,17 @@
          $('#date_sitca').datetimepicker({
             format: 'DD/MM/YYYY',
             locale: "fr",
-            defaultDate: "{{ $reception->vehicule->date_sitca }}",
+            defaultDate: "{{ $reception->vehicule->date_sitca->format('d-m-Y') }}",
          });
          $('#date_assurance').datetimepicker({
             format: 'DD/MM/YYYY',
             locale: "fr",
-            defaultDate: "{{ $reception->vehicule->date_assurance }}",
+            defaultDate: "{{ $reception->vehicule->date_assurance->format('d-m-Y') }}",
+         });
+         $('#date_reception').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: "fr",
+            defaultDate: "{{ $reception->date_reception->format('d-m-Y') }}",
          });
          $('.select2').select2({
             theme: 'bootstrap4'

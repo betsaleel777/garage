@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ReceptionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public static function cars()
     {
@@ -44,7 +48,7 @@ class ReceptionsController extends Controller
 
     public function liste()
     {
-        $receptions = Reception::with('utilisateur', 'reparation')->get();
+        $receptions = Reception::with('utilisateur', 'reparation', 'preessai')->get();
         $titre = 'Liste Réception';
         return view('maintenance.reception.liste', compact('titre', 'receptions'));
     }
@@ -106,7 +110,7 @@ class ReceptionsController extends Controller
         //modification de vehicule_info
         $data_to_update = $request->only(
             'nom_deposant', 'enjoliveur', 'niveau_carburant', 'vehicule', 'immatriculation',
-            'chassis', 'dmc', 'date_sitca', 'date_assurance', 'kilometrage_actuel', 'prochaine_vidange'
+            'chassis', 'dmc', 'date_sitca', 'date_assurance', 'kilometrage_actuel', 'prochaine_vidange', 'date_reception'
         );
         VehiculeInfo::where('id', $reception->vehicule_info)->update($data_to_update);
 
@@ -114,7 +118,7 @@ class ReceptionsController extends Controller
         $data_to_update = $request->except(
             '_token', 'reception', 'nom_deposant', 'type_reparation', 'ressenti', 'enjoliveur', 'niveau_carburant',
             'vehicule', 'immatriculation', 'chassis', 'dmc', 'date_sitca', 'date_assurance', 'kilometrage_actuel',
-            'prochaine_vidange', 'personne'
+            'prochaine_vidange', 'personne', 'date_reception'
         );
         EtatVehicule::where('id', $reception->etat_vehicule)->update($data_to_update);
 
@@ -124,7 +128,7 @@ class ReceptionsController extends Controller
 
     public function show(int $id)
     {
-        $reception = Reception::with('vehicule', 'reparation', 'etat', 'personneLinked')->find($id);
+        $reception = Reception::with('vehicule', 'reparation', 'etat', 'personneLinked', 'preessai')->find($id);
         $titre = 'Réception ' . $reception->code;
         return view('maintenance.reception.show', compact('reception', 'titre'));
     }
@@ -172,7 +176,7 @@ class ReceptionsController extends Controller
     }
 
     function print(int $id) {
-        $reception = Reception::with('vehicule', 'reparation', 'etat', 'personneLinked')->find($id);
+        $reception = Reception::with('vehicule', 'reparation', 'etat', 'personneLinked', 'preessai')->find($id);
         $titre = "$reception->code";
         return view('maintenance.reception.print', compact('reception', 'titre'));
     }

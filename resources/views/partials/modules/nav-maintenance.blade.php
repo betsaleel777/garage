@@ -15,11 +15,6 @@
          class="nav-link @php if($controller == 'DiagnostiquesController') { echo 'text-pink' ;} @endphp">Diagnostiques</a>
    </li>
    <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{ route('essais') }}"
-         class="nav-link @php if($controller == 'EssaisController') { echo 'text-pink' ;} @endphp">Essais
-         véhicule</a>
-   </li>
-   <li class="nav-item d-none d-sm-inline-block">
       <a href="{{ route('reparations') }}"
          class="nav-link @php if($controller == 'ReparationsController') { echo 'text-pink' ;} @endphp">Réparations</a>
    </li>

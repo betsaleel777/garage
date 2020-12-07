@@ -5,7 +5,8 @@ export default {
     props: {
         message: String,
         variant: String,
-        titre: String
+        titre: String,
+        lien: String
     },
     mounted() {
         this.notifications();
@@ -15,7 +16,8 @@ export default {
             this.$bvToast.toast(this.message, {
                 title: this.titre,
                 solid: true,
-                variant: this.variant
+                variant: this.variant,
+                href: this.lien
             });
         }
     }

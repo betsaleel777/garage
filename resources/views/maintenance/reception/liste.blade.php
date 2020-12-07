@@ -38,8 +38,15 @@
                <div class="col-lg-12">
                   <div class="card">
                      <div class="card-header">
-                        {{-- <h5 class="m-0">Featured</h5> --}}
-                        <a class="btn btn-primary" href="{{ route('reception_add') }}">Nouvelle Réception</a>
+                        <div class="row">
+                           <div class="col-md-3">
+                              <a class="btn btn-primary ui-button" href="{{ route('reception_add') }}">Nouvelle
+                                 Réception</a>
+                           </div>
+                           <div class="col-md-3">
+                              <a class="btn btn-primary ui-button" href="{{ route('preessai_add') }}">Pré-diagnostique</a>
+                           </div>
+                        </div>
                      </div>
                      <div class="card-body">
                         <table id="receptions" class="table table-bordered table-hover">
@@ -74,6 +81,10 @@
                                        @endif
                                     </td>
                                     <td>
+                                       @if (!empty($reception->preessai))
+                                          <a href="{{ route('preessai_edit', $reception->preessai->id) }}"><i
+                                                class="fas fa-lg fa-plus-circle"></i></a>
+                                       @endif
                                        <a href="{{ route('reception_edit', $reception) }}"><i
                                              class="fas fa-lg fa-edit"></i></a>
                                        <a href="{{ route('reception_show', $reception) }}"><i

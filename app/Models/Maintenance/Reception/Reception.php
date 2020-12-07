@@ -2,6 +2,7 @@
 
 namespace App\Models\Maintenance\Reception;
 
+use App\Models\Maintenance\Essai\Preessai;
 use App\Models\Personne;
 use App\Models\Systeme\TypesReparation;
 use App\Models\User;
@@ -14,15 +15,16 @@ class Reception extends Model
 
     protected $fillable = [
         'code', 'nom_deposant', 'ressenti', 'etat_validation', 'statut', 'etat_vehicule',
-        'personne', 'vehicule_info', 'type_reparation', 'surcusale', 'hangar', 'user',
+        'personne', 'vehicule_info', 'type_reparation', 'surcusale', 'hangar', 'user', 'date_reception',
     ];
 
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at', 'date_reception'];
 
     const RULES = [
         'nom_deposant' => 'nullable',
         'ressenti' => 'required',
         'type_reparation' => 'required',
+        'date_reception' => 'required',
     ];
 
     public function immatriculer(): void
@@ -72,5 +74,10 @@ class Reception extends Model
     public function personneLinked()
     {
         return $this->belongsTo(Personne::class, 'personne');
+    }
+
+    public function preessai()
+    {
+        return $this->hasOne(Preessai::class, 'reception');
     }
 }

@@ -45,13 +45,22 @@ Route::prefix('maintenance')->group(function () {
     });
 
     Route::prefix('essai')->group(function () {
-        Route::get('/index', 'Maintenance\Essai\EssaisController@index')->name('essais');
-        Route::get('/liste', 'Maintenance\Essai\EssaisController@liste')->name('essai_liste');
-        Route::get('/add', 'Maintenance\Essai\EssaisController@add')->name('essai_add');
-        Route::get('/edit/{id}', 'Maintenance\Essai\EssaisController@edit')->name('essai_edit');
-        Route::get('/show/{id}', 'Maintenance\Essai\EssaisController@show')->name('essai_show');
-        Route::post('/store', 'Maintenance\Essai\EssaisController@store')->name('essai_store');
-        Route::post('/update', 'Maintenance\Essai\EssaisController@update')->name('essai_update');
+        Route::prefix('pre')->group(function () {
+            Route::get('/liste', 'Maintenance\Essai\PreessaisController@liste')->name('preessai_liste');
+            Route::get('/add', 'Maintenance\Essai\PreessaisController@add')->name('preessai_add');
+            Route::get('/edit/{id}', 'Maintenance\Essai\PreessaisController@edit')->name('preessai_edit');
+            Route::post('/store', 'Maintenance\Essai\PreessaisController@store')->name('preessai_store');
+            Route::post('/update', 'Maintenance\Essai\PreessaisController@update')->name('preessai_update');
+        });
+        Route::prefix('post')->group(function () {
+            Route::get('/liste', 'Maintenance\Essai\EssaisController@liste')->name('postessai_liste');
+            Route::get('/add', 'Maintenance\Essai\EssaisController@add')->name('postessai_add');
+            Route::get('/edit/{id}', 'Maintenance\Essai\EssaisController@edit')->name('postessai_edit');
+            Route::get('/show/{id}', 'Maintenance\Essai\EssaisController@show')->name('postessai_show');
+            Route::post('/store', 'Maintenance\Essai\EssaisController@store')->name('postessai_store');
+            Route::post('/update', 'Maintenance\Essai\EssaisController@update')->name('postessai_update');
+        });
+
     });
 
     Route::prefix('reparation')->group(function () {
