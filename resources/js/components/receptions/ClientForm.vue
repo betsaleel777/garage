@@ -1,8 +1,9 @@
 <template>
     <div>
-        <div class="form-group">
-            <label for="contact">Recherche client</label>
+        <label for="contact">Recherche client</label>
+        <div class="form-group input-group">
             <input
+                type="text"
                 v-model="contact"
                 class="form-control"
                 id="contact"
@@ -14,46 +15,51 @@
                     type="button"
                     class="btn btn-primary btn-flat"
                 >
-                    rechercher !
+                    rechercher
                 </button>
             </span>
         </div>
         <div class="form-check form-check-inline">
             <input
                 class="form-check-input"
-                type="checkbox"
-                id="inlineCheckbox1"
-                v-model="particulier"
+                type="radio"
+                @change="cocher"
+                name="kind"
+                id="inlineradio1"
+                value="particulier"
+                v-model="kind"
             />
-            <label class="form-check-label" for="inlineCheckbox1"
+            <label class="form-check-label" for="inlineradio1"
                 >Particulier</label
             >
         </div>
         <div class="form-check form-check-inline">
             <input
                 class="form-check-input"
-                type="checkbox"
-                id="inlineCheckbox2"
-                v-model="entreprise"
+                type="radio"
+                @change="cocher"
+                name="kind"
+                id="inlineradio2"
+                value="entreprise"
+                v-model="kind"
             />
-            <label class="form-check-label" for="inlineCheckbox2"
+            <label class="form-check-label" for="inlineradio2"
                 >Entreprise</label
             >
         </div>
         <div class="form-check form-check-inline">
             <input
                 class="form-check-input"
-                type="checkbox"
-                id="inlineCheckbox3"
-                v-model="assurance"
+                type="radio"
+                @change="cocher"
+                name="kind"
+                id="inlineradio3"
+                value="assurance"
+                v-model="kind"
             />
-            <label class="form-check-label" for="inlineCheckbox3"
-                >Assurance</label
-            >
+            <label class="form-check-label" for="inlineradio3">Assurance</label>
         </div>
         <div v-if="particulier">
-            <h5 class="text-primary">Client particulier</h5>
-            <hr />
             <div class="form-group">
                 <label for="nom">Nom complet</label>
                 <input
@@ -93,8 +99,6 @@
             </div>
         </div>
         <div v-if="assurance">
-            <h5 class="text-primary">Client Assurance</h5>
-            <hr />
             <div class="form-group">
                 <label for="nom_assurance">Nom de l'assurance</label>
                 <input
@@ -153,8 +157,6 @@
             </div>
         </div>
         <div v-if="entreprise">
-            <h5 class="text-primary">Client Entreprise</h5>
-            <hr />
             <div class="form-group">
                 <label for="nom_entreprise">Nom de l'entreprise</label>
                 <input
@@ -214,17 +216,6 @@
                 >
             </div>
         </div>
-        <div class="form-group">
-            <label for="description">Description du client</label>
-            <textarea
-                name="description"
-                class="form-control"
-                v-model="description"
-                id="description"
-                cols="30"
-                rows="6"
-            ></textarea>
-        </div>
     </div>
 </template>
 
@@ -235,9 +226,10 @@ export default {
     },
     data() {
         return {
-            particulier: true,
-            assurance: true,
-            entreprise: true,
+            particulier: false,
+            assurance: false,
+            entreprise: false,
+            kind: null,
             contact: "",
             nom_complet: "",
             telephone: "",
@@ -250,7 +242,6 @@ export default {
             representant_entreprise: "",
             contact_entreprise: "",
             email_entreprise: "",
-            description: "",
             messages: {
                 nom_complet: {
                     exist: false,
@@ -300,12 +291,27 @@ export default {
         };
     },
     methods: {
+        cocher() {
+            console.log("cocher is running");
+            if (this.kind === "assurance") {
+                this.assurance = true;
+                this.particulier = !this.assurance;
+                this.entreprise = !this.assurance;
+            } else if (this.kind === "entreprise") {
+                this.entreprise = true;
+                this.particulier = !this.entreprise;
+                this.assurance = !this.entreprise;
+            } else {
+                this.particulier = true;
+                this.entreprise = !this.particulier;
+                this.assurance = !this.particulier;
+            }
+        },
         rechercher() {
             axios
                 .get("/systeme/async/personne/find/" + this.contact)
                 .then(result => {
                     let personne = result.data.personne;
-                    console.log(personne);
                     if (personne) {
                         this.$bvToast.toast(
                             "Un client possedant ce contact existe",
@@ -315,8 +321,10 @@ export default {
                                 variant: "info"
                             }
                         );
-                        this.description = personne.description;
+
                         if (result.data.nature === "assurance") {
+                            this.kind = "assurance";
+                            this.assurance = true;
                             this.particulier = false;
                             this.entreprise = false;
                             this.contact_assurance = personne.contact_assurance;
@@ -325,6 +333,8 @@ export default {
                             this.representant_assurance =
                                 personne.representant_assurance;
                         } else if (result.data.nature === "entreprise") {
+                            this.kind = "entreprise";
+                            this.entreprise = true;
                             this.particulier = false;
                             this.assurance = false;
                             this.contact_entreprise =
@@ -334,6 +344,8 @@ export default {
                             this.representant_entreprise =
                                 personne.representant_entreprise;
                         } else {
+                            this.kind = "particulier";
+                            this.particulier = true;
                             this.entreprise = false;
                             this.assurance = false;
                             this.nom_complet = personne.nom_complet;
@@ -351,33 +363,8 @@ export default {
                         );
                     }
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => {});
         }
-        // valider() {
-        //     axios
-        //         .post("/systeme/async/personne/store", {
-        //             contact_assurance: this.contact_assurance,
-        //             email_assurance: this.email_assurance,
-        //             nom_assurance: this.nom_assurance,
-        //             representant_assurance: this.representant_assurance,
-        //             contact_entreprise: this.contact_entreprise,
-        //             email_entreprise: this.email_entreprise,
-        //             nom_entreprise: this.nom_entreprise,
-        //             representant_entreprise: this.representant_entreprise,
-        //             nom_complet: this.nom_complet,
-        //             telephone: this.telephone,
-        //             email: this.email
-        //         })
-        //         .then(result => {
-        //             if (result.data.message) {
-        //             }
-        //         })
-        //         .catch(err => {
-        //             console.log(err.response.data);
-        //         });
-        // }
     }
 };
 </script>

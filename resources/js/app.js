@@ -9,6 +9,10 @@ import Vue from 'vue';
 import NotificationsUser from './components/Notifications.vue'
 import ClientForm from './components/receptions/ClientForm.vue'
 import DeleteButton from './components/DeleteButton.vue'
+import ModalPreessaiAdd from './components/preessais/ModalPreessaiAdd.vue'
+import ModalPreessaiEdit from './components/preessais/ModalPreessaiEdit.vue'
+import FormDiagnostique from './components/diagnostiques/FormDiagnostique.vue'
+import OldIntervention from './components/diagnostiques/OldIntervention.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 //plugins
@@ -28,7 +32,11 @@ new Vue({
     components: {
         NotificationsUser,
         ClientForm,
-        DeleteButton
+        DeleteButton,
+        ModalPreessaiAdd,
+        ModalPreessaiEdit,
+        FormDiagnostique,
+        OldIntervention
     }
 })
 

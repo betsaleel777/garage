@@ -7,7 +7,6 @@ use App\Models\Maintenance\Reception\EtatVehicule;
 use App\Models\Maintenance\Reception\Reception;
 use App\Models\Maintenance\Reception\VehiculeInfo;
 use App\Models\Personne;
-use App\Models\Systeme\TypesReparation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,18 +17,18 @@ class ReceptionsController extends Controller
         $this->middleware('auth');
     }
 
-    public static function cars()
-    {
-        $ch = curl_init();
+    // public static function cars()
+    // {
+    //     $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://private-anon-24cefce97e-carsapi1.apiary-mock.com/cars");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, false);
+    //     curl_setopt($ch, CURLOPT_URL, "https://private-anon-24cefce97e-carsapi1.apiary-mock.com/cars");
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //     curl_setopt($ch, CURLOPT_HEADER, false);
 
-        $response = curl_exec($ch);
-        curl_close($ch);
-        return $response;
-    }
+    //     $response = curl_exec($ch);
+    //     curl_close($ch);
+    //     return $response;
+    // }
 
     public function index()
     {
@@ -40,29 +39,48 @@ class ReceptionsController extends Controller
     public function add()
     {
         $titre = 'Ajouter une réception';
-        $niveaux = [0, 1 / 4, 1 / 2, 3 / 4, 1];
-        $etats = ["inexistant", "bon", "passable", "mauvais"];
-        $types = TypesReparation::get()->pluck('nom', 'id');
-        return view('maintenance.reception.add', compact('titre', 'etats', 'niveaux', 'types'));
+        $categories = [
+            'citadine',
+            'berline break',
+            'berline familliale',
+            'berline grande routière',
+            'berline limousine',
+            'SUV urbains',
+            'SUV familiaux',
+            'SUV 4x4',
+            'monospace',
+            'ludospace',
+            'coupé',
+            'cabriolet',
+            'utilitaire',
+            'utilitaire léger',
+            'camion',
+        ];
+        return view('maintenance.reception.add', compact('titre', 'categories'));
     }
 
     public function liste()
     {
-        $receptions = Reception::with('utilisateur', 'reparation', 'preessai')->get();
+        $receptions = Reception::with('utilisateur')->get();
         $titre = 'Liste Réception';
         return view('maintenance.reception.liste', compact('titre', 'receptions'));
     }
 
     public function store(Request $request)
     {
-        $rules = array_merge(VehiculeInfo::RULES, EtatVehicule::RULES, Reception::RULES);
+
+        $rules = array_merge(VehiculeInfo::RULES, EtatVehicule::RULES);
         $request->validate($rules);
+        // dd($request->all());
         if (!empty($request->telephone)) {
             $data = Personne::where('telephone', $request->telephone)->get()->first();
-        } elseif (!empty($request->contact_entreprrise)) {
+        } elseif (!empty($request->contact_entreprise)) {
             $data = Personne::orWhere('contact_entreprise', $request->contact_entreprise)->get()->first();
         } elseif (!empty($request->contact_assurance)) {
             $data = Personne::where('contact_assurance', $request->contact_assurance)->get()->first();
+        } else {
+            $message = "le client n'a pas été selectionné";
+            return redirect()->back()->with('danger', $message)->withInput();
         }
 
         if (empty($data)) {
@@ -72,8 +90,13 @@ class ReceptionsController extends Controller
         } else {
             $personne = $data;
         }
+
+        $vehicule_info = VehiculeInfo::where('chassis', $request->chassis)->get()->first();
+        if (empty($vehicule_info)) {
+            $vehicule_info = VehiculeInfo::create($request->all());
+        }
+
         $etat_vehicule = EtatVehicule::create($request->all());
-        $vehicule_info = VehiculeInfo::create($request->all());
         $reception = new Reception($request->all());
         $reception->immatriculer();
         $reception->personne = $personne->id;
@@ -88,37 +111,52 @@ class ReceptionsController extends Controller
     public function edit(int $id)
     {
         //verifier si utilisateur a cet droit
-        $reception = Reception::with('vehicule', 'reparation', 'etat', 'personneLinked')->find($id);
+        $reception = Reception::with('vehicule', 'etat', 'personneLinked')->find($id);
         $personnes = Personne::get()->pluck('matricule', 'id');
         $titre = 'Modifier ' . $reception->code;
-        $niveaux = [0, 1 / 4, 1 / 2, 3 / 4, 1];
-        $etats = ["inexistant", "bon", "passable", "mauvais"];
-        $types = TypesReparation::get()->pluck('nom', 'id');
-        return view('maintenance.reception.edit', compact('personnes', 'reception', 'titre', 'etats', 'niveaux', 'types'));
+        $categories = [
+            'citadine',
+            'berline break',
+            'berline familliale',
+            'berline grande routière',
+            'berline limousine',
+            'SUV urbains',
+            'SUV familiaux',
+            'SUV 4x4',
+            'monospace',
+            'ludospace',
+            'coupé',
+            'cabriolet',
+            'utilitaire',
+            'utilitaire léger',
+            'camion',
+        ];
+        return view('maintenance.reception.edit', compact('personnes', 'categories', 'reception', 'titre'));
     }
 
     public function update(Request $request)
     {
-        $rules = array_merge(VehiculeInfo::RULES, EtatVehicule::RULES, Reception::RULES);
+        $rules = array_merge(VehiculeInfo::RULES, EtatVehicule::RULES);
         $request->validate($rules);
         $reception = Reception::find($request->reception);
 
         //modification de reception
-        $data_to_update = $request->only('nom_deposant', 'type_reparation', 'ressenti');
+        $data_to_update = $request->only('nom_deposant', 'ressenti');
         Reception::where('id', $request->reception)->update($data_to_update);
 
         //modification de vehicule_info
         $data_to_update = $request->only(
-            'nom_deposant', 'enjoliveur', 'niveau_carburant', 'vehicule', 'immatriculation',
-            'chassis', 'dmc', 'date_sitca', 'date_assurance', 'kilometrage_actuel', 'prochaine_vidange', 'date_reception'
+            'nom_deposant', 'enjoliveur', 'niveau_carburant', 'immatriculation',
+            'chassis', 'dmc', 'date_sitca', 'date_assurance', 'kilometrage_actuel', 'prochaine_vidange',
+            'marque', 'modele', 'type_vehicule', 'annee', 'couleur'
         );
         VehiculeInfo::where('id', $reception->vehicule_info)->update($data_to_update);
 
         //modification de etat_vehicule
         $data_to_update = $request->except(
-            '_token', 'reception', 'nom_deposant', 'type_reparation', 'ressenti', 'enjoliveur', 'niveau_carburant',
-            'vehicule', 'immatriculation', 'chassis', 'dmc', 'date_sitca', 'date_assurance', 'kilometrage_actuel',
-            'prochaine_vidange', 'personne', 'date_reception'
+            '_token', 'reception', 'nom_deposant', 'ressenti', 'enjoliveur', 'niveau_carburant',
+            'immatriculation', 'chassis', 'dmc', 'date_sitca', 'date_assurance', 'kilometrage_actuel',
+            'prochaine_vidange', 'personne', 'marque', 'modele', 'type_vehicule', 'annee', 'couleur'
         );
         EtatVehicule::where('id', $reception->etat_vehicule)->update($data_to_update);
 
@@ -128,7 +166,7 @@ class ReceptionsController extends Controller
 
     public function show(int $id)
     {
-        $reception = Reception::with('vehicule', 'reparation', 'etat', 'personneLinked', 'preessai')->find($id);
+        $reception = Reception::with('vehicule', 'etat', 'personneLinked')->find($id);
         $titre = 'Réception ' . $reception->code;
         return view('maintenance.reception.show', compact('reception', 'titre'));
     }
@@ -172,12 +210,19 @@ class ReceptionsController extends Controller
         $reception->valider();
         $reception->save();
         $message = "la reception $reception->code a été validée avec succès";
-        return redirect()->route('reception_edit', $id)->with('success', $message);
+        return redirect()->route('reception_liste')->with('success', $message);
     }
 
     function print(int $id) {
-        $reception = Reception::with('vehicule', 'reparation', 'etat', 'personneLinked', 'preessai')->find($id);
+        $reception = Reception::with('vehicule', 'etat', 'personneLinked')->find($id);
         $titre = "$reception->code";
         return view('maintenance.reception.print', compact('reception', 'titre'));
+    }
+
+    //async function
+    public function findjs(int $id)
+    {
+        $reception = Reception::find($id);
+        return response()->json(['reception' => $reception]);
     }
 }

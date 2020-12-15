@@ -2,30 +2,21 @@
 
 namespace App\Models\Maintenance\Reception;
 
+use App\Models\Maintenance\Diagnostique\Diagnostique;
+use App\Models\Maintenance\Diagnostique\Prediagnostique;
 use App\Models\Maintenance\Essai\Preessai;
 use App\Models\Personne;
-use App\Models\Systeme\TypesReparation;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Reception extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'code', 'nom_deposant', 'ressenti', 'etat_validation', 'statut', 'etat_vehicule',
-        'personne', 'vehicule_info', 'type_reparation', 'surcusale', 'hangar', 'user', 'date_reception',
+        'personne', 'vehicule_info', 'type_reparation', 'surcusale', 'hangar', 'user',
     ];
 
-    protected $dates = ['created_at', 'updated_at', 'date_reception'];
-
-    const RULES = [
-        'nom_deposant' => 'nullable',
-        'ressenti' => 'required',
-        'type_reparation' => 'required',
-        'date_reception' => 'required',
-    ];
+    protected $dates = ['created_at', 'updated_at'];
 
     public function immatriculer(): void
     {
@@ -42,11 +33,37 @@ class Reception extends Model
     public function valider()
     {
         $this->attributes['etat_validation'] = 'validé';
+        $this->attributes['statut'] = "à l'essais";
+    }
+
+    public function reparer()
+    {
+        $this->attributes['statut'] = "attente réparation";
     }
 
     public function invalider()
     {
         $this->attributes['etat_validation'] = null;
+    }
+
+    public function scopeValide($query)
+    {
+        return $query->where('etat_validation', 'validé');
+    }
+
+    public function scopeDiagnosticable($query)
+    {
+        return $query->where('statut', 'attente diagnostique');
+    }
+
+    public function scopeDiagnosticableAdmin($query)
+    {
+        return $query->orWhere('statut', 'attente diagnostique')->orWhere('statut', 'attente réparation');
+    }
+
+    public function scopeReparable($query)
+    {
+        return $query->where('statut', 'attente réparation');
     }
 
     //relations
@@ -59,11 +76,6 @@ class Reception extends Model
     public function vehicule()
     {
         return $this->belongsTo(VehiculeInfo::class, 'vehicule_info');
-    }
-
-    public function reparation()
-    {
-        return $this->belongsTo(TypesReparation::class, 'type_reparation');
     }
 
     public function etat()
@@ -79,5 +91,15 @@ class Reception extends Model
     public function preessai()
     {
         return $this->hasOne(Preessai::class, 'reception');
+    }
+
+    public function diagnostique()
+    {
+        return $this->hasOne(Diagnostique::class, 'reception');
+    }
+
+    public function prediagnostique()
+    {
+        return $this->hasOne(Prediagnostique::class, 'reception');
     }
 }

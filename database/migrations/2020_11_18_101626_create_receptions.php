@@ -23,12 +23,10 @@ class CreateReceptions extends Migration
             $table->unsignedBigInteger('etat_vehicule');
             $table->unsignedBigInteger('personne');
             $table->unsignedBigInteger('vehicule_info');
-            $table->unsignedBigInteger('type_reparation');
             $table->unsignedBigInteger('surcusale')->nullable();
             $table->unsignedBigInteger('hangar')->nullable();
             $table->foreign('personne')->references('id')->on('personnes')->onDelete('cascade');
             $table->foreign('vehicule_info')->references('id')->on('vehicules_infos')->onDelete('cascade');
-            $table->foreign('type_reparation')->references('id')->on('types_reparations')->onDelete('cascade');
             $table->foreign('etat_vehicule')->references('id')->on('etats_vehicules')->onDelete('cascade');
             $table->foreign('surcusale')->references('id')->on('surcusales')->onDelete('cascade');
             $table->foreign('hangar')->references('id')->on('hangars')->onDelete('cascade');

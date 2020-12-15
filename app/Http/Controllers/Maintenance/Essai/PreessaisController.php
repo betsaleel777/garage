@@ -17,53 +17,46 @@ class PreessaisController extends Controller
 
     public function liste()
     {
-        $preessais = Preessai::with('receptionLinked', 'utilisateur')->get();
-        $titre = 'Liste Pressais';
-        return view('maintenance.essais.pre.liste', compact('titre', 'preessais'));
-    }
-
-    public function add()
-    {
-        $titre = 'Nouvel essai';
-        $receptions = Reception::get()->pluck('code', 'id');
-        return view('maintenance.essais.pre.add', compact('titre', 'receptions'));
+        $receptions = Reception::with('utilisateur', 'preessai')->orderBy('id', 'desc')->valide()->get();
+        //retirer les reception déjà liée à un preessai
+        $titre = 'Essais avant réparations';
+        return view('maintenance.essais.pre.liste', compact('titre', 'receptions'));
     }
 
     public function store(Request $request)
     {
         $request->validate(Preessai::RULES);
-        $reception = Reception::with('preessai')->find($request->reception);
-
-        if (empty($reception->preessai)) {
-            $preessai = new Preessai($request->all());
-            $preessai->immatriculer();
-            $preessai->user = Auth::id();
-            $preessai->save();
-            $message = "Le pré-diagnostique $preessai->code a été enregistré avec succès";
-            return redirect()->route('reception_liste')->with('success', $message)->withInput();
-        } else {
-            $message = "Un pré-diagnostique a déjà été enregistré pour la réception $reception->code, suivre le lien ci après pour procéder à une modification du pré-diagnostique";
-            session()->flash('lien', '/maintenance/essai/pre/edit/' . $reception->preessai->id);
-            return redirect()->back()->with('warning', $message)->withInput();
-        }
+        $reception = Reception::find($request->reception);
+        $preessai = new Preessai($request->all());
+        $preessai->user = Auth::id();
+        $preessai->save();
+        $message = "Un essais avant réparation vient d'être enregistré avec succès pour la reception: $reception->code";
+        session()->flash('success', $message);
+        return;
     }
 
-    public function edit(int $id)
+    public function valider(int $id)
     {
         $preessai = Preessai::find($id);
-        $receptions = Reception::get()->pluck('code', 'id');
-        $titre = 'Modifier ' . $preessai->code;
-        return view('maintenance.essais.pre.edit', compact('preessai', 'titre', 'receptions'));
+        $preessai->valider();
+        $preessai->save();
+        $reception = Reception::find($preessai->reception);
+        $reception->statut = 'attente diagnostique';
+        $reception->save();
+        $message = "l'essais avant réparation de la reception: $reception->code a été validé avec succès";
+        return redirect()->route('preessai_liste')->with('success', $message);
     }
 
     public function update(Request $request)
     {
-        $preessai = Preessai::select('id', 'code')->find($request->preessai);
         $request->validate(Preessai::RULES);
-        $data_preessai = $request->except('_token', 'preessai');
-        Preessai::where('id', $request->preessai)->update($data_preessai);
-        $message = "le pré-diagnostique $preessai->code a été modifié avec succès";
-        return redirect()->route('preessai_edit', $preessai->id)->with('success', $message);
+        $reception = Reception::with('preessai')->find($request->reception);
+        $preessai = Preessai::find($reception->preessai->id);
+        $preessai->commentaire = $request->commentaire;
+        $preessai->save();
+        $message = "l'essais concernant la reception $reception->code a été mis à jour.";
+        session()->flash('success', $message);
+        return;
     }
 
     //post essais functions

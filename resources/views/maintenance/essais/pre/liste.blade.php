@@ -21,8 +21,8 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('essais') }}">Acceuil Essais</a></li>
-                     <li class="breadcrumb-item active">Essais Pré-diagnostique</li>
+                     <li class="breadcrumb-item"><a href="{{ route('essais') }}">Tableau des Essais</a></li>
+                     <li class="breadcrumb-item active">Essais avant réparations</li>
                   </ol>
                </div><!-- /.col -->
             </div><!-- /.row -->
@@ -38,47 +38,66 @@
                <div class="col-lg-12">
                   <div class="card">
                      <div class="card-header">
-                        {{-- <h5 class="m-0">Featured</h5> --}}
-                        <a class="btn btn-primary" href="{{ route('preessai_add') }}">Nouveau essai</a>
                      </div>
                      <div class="card-body">
-                        <table id="preessais" class="table table-bordered table-hover">
+                        <table id="receptions" class="table table-bordered table-hover">
                            <thead>
                               <tr>
                                  <th>#</th>
                                  <th>Code</th>
                                  <th>Date</th>
-                                 <th>Réception</th>
+                                 <th>Déposant</th>
                                  <th>Utilisateur</th>
-                                 <th>Validation</th>
+                                 <th>Statut</th>
+                                 <th>Validation Essai</th>
                                  <th>Options</th>
                               </tr>
                            </thead>
                            <tbody>
-                              @foreach ($preessais as $key => $preessai)
+                              @foreach ($receptions as $key => $reception)
                                  <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $preessai->code }}</td>
-                                    <td>{{ $preessai->created_at->format('d-m-Y') }}</td>
+                                    <td>{{ $reception->code }}</td>
+                                    <td>{{ $reception->created_at->format('d-m-Y') }}</td>
+                                    <td>{{ mb_strtoupper($reception->nom_deposant) }}</td>
+                                    <td>{{ $reception->utilisateur->name }}</td>
+                                    <td><b class="text-primary">{{ $reception->statut }}</b></td>
                                     <td>
-                                       <a href="{{ route('reception_show', $preessai->receptionLinked->id) }}">
-                                          {{ $preessai->receptionLinked->code }}
-                                       </a>
-                                    </td>
-                                    <td>{{ $preessai->utilisateur->name }}</td>
-                                    <td>
-                                       @if ($preessai->est_valide())
-                                          <b class="text-success">{{ $preessai->etat_validation }}</b>
+                                       @empty($reception->preessai)
+                                          <b class="text-danger">{{ 'non validé' }}</b>
                                        @else
-                                          <b class="text-danger">{{ $preessai->etat_validation }}</b>
-                                       @endif
+                                          @if ($reception->preessai->est_valide())
+                                             <b class="text-success">{{ $reception->preessai->etat_validation }}</b>
+                                          @else
+                                             <b class="text-danger">{{ $reception->preessai->etat_validation }}</b>
+                                          @endif
+                                       @endempty
                                     </td>
                                     <td>
-                                       <a href="{{ route('preessai_edit', $preessai) }}"><i
-                                             class="fas fa-lg fa-edit"></i></a>
-                                       <a href="{{ route('preessai_show', $preessai) }}"><i
-                                             class="fas fa-lg fa-eye"></i></a>
-                                       <delete-button :identifiant="{{ $preessai->id }}"></delete-button>
+                                       <div class="row">
+                                          @if (!empty($reception->preessai))
+                                             @if (!$reception->preessai->est_valide())
+                                                <div class="col-md-3">
+                                                   <modal-preessai-edit :ressenti='"{{ $reception->ressenti }}"'
+                                                      :code="'{{ $reception->code }}'" :reception="{{ $reception->id }}">
+                                                      {{ $reception->preessai->commentaire }}
+                                                   </modal-preessai-edit>
+                                                </div>
+                                                <div class="col-md-3">
+                                                   <a class="text-success"
+                                                      href="{{ route('preessai_valider', $reception->preessai->id) }}">
+                                                      <i class="fas fa-lg fa-check-circle"></i>
+                                                   </a>
+                                                </div>
+                                             @endif
+                                          @else
+                                             <div class="col-md-6">
+                                                <modal-preessai-add :ressenti="'{{ $reception->ressenti }}'"
+                                                   :code="'{{ $reception->code }}'" :reception="{{ $reception->id }}">
+                                                </modal-preessai-add>
+                                             </div>
+                                          @endif
+                                       </div>
                                     </td>
                                  </tr>
                               @endforeach
@@ -105,7 +124,7 @@
    <script src=" {{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }} "></script>
    <script>
       $(function() {
-         $('#preessais').DataTable({
+         $('#receptions').DataTable({
             "paging": true,
             "lengthChange": true,
             "searching": true,

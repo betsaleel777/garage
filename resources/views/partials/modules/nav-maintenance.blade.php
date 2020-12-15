@@ -11,6 +11,10 @@
          class="nav-link @php if($controller == 'ReceptionsController') { echo 'text-pink' ;} @endphp">Réceptions</a>
    </li>
    <li class="nav-item d-none d-sm-inline-block">
+      <a href="{{ route('essais') }}"
+         class="nav-link @php if($controller == 'EssaisController' or $controller == 'PreessaisController') { echo 'text-pink' ;} @endphp">Essais</a>
+   </li>
+   <li class="nav-item d-none d-sm-inline-block">
       <a href="{{ route('diagnostiques') }}"
          class="nav-link @php if($controller == 'DiagnostiquesController') { echo 'text-pink' ;} @endphp">Diagnostiques</a>
    </li>

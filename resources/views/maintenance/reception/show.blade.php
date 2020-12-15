@@ -31,52 +31,97 @@
                <!-- /.col-md-6 -->
                <div class="col-lg-12">
                   <div class="card">
+                     @if (!$reception->est_valide())
+                        <div class="card-header">
+                           <div class="row">
+                              <div class="col-md-10"></div>
+                              <div class="col-md-2">
+                                 <a class="btn btn-success ui-button" href="{{ route('reception_valider', $reception) }}">
+                                    <i class="fas fa-lg fa-check-circle"></i>
+                                    valider
+                                 </a>
+                              </div>
+                           </div>
+                        </div>
+                     @endif
                      <div class="row">
                         <div class="col-md-8">
                            <a target="_blank" class="btn btn-primary" href="{{ route('reception_print', $reception) }}">
                               <i class="fas fa-print"></i> imprimer
                            </a>
                         </div>
-                        <div style="text-align: right" class="col-md-4">
-                           <h4><span>{{ $reception->created_at->format('d-m-Y') }}</span></h4>
+                        <div class="col-md-4">
+                           <h4><b>Date de réception:</b><span> {{ $reception->created_at->format('d-m-Y') }}</span></h4>
+                           <h4 class="text-danger"><b>Numéro OR:</b><span> {{ $reception->code }}</span>
+                           </h4>
                         </div>
                      </div>
                      <div class="card-body">
                         <div class="row">
                            <div class="col-md-6">
-                              <h3>CLIENT</h3>
-                              <dl class="row">
-                                 @if ($reception->personneLinked->nature() === 'particulier')
-                                    <dt class="col-md-3">Client:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->nom_complet }}</dd>
-                                    <dt class="col-md-3">Email:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->email }}</dd>
-                                    <dt class="col-md-3">Contact:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->telephone }}</dd>
-                                 @endif
-                                 @if ($reception->personneLinked->nature() === 'assurance')
-                                    <dt class="col-md-3">Assurance:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->nom_assurance }}</dd>
-                                    <dt class="col-md-3">Représentant:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->representant_assurance }}</dd>
-                                    <dt class="col-md-3">Email:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->email_assurance }}</dd>
-                                    <dt class="col-md-3">Contact:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->contact_assurance }}</dd>
-                                 @endif
-                                 @if ($reception->personneLinked->nature() === 'entreprise')
-                                    <dt class="col-md-3">Entreprise:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->nom_entreprise }}</dd>
-                                    <dt class="col-md-3">Représentant:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->representant_entreprise }}</dd>
-                                    <dt class="col-md-3">Email:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->email_entreprise }}</dd>
-                                    <dt class="col-md-3">Contact:</dt>
-                                    <dd class="col-md-8">{{ $reception->personneLinked->contact_entreprise }}</dd>
-                                 @endif
-                                 <dt class="col-md-3">Déposant:</dt>
-                                 <dd class="col-md-8">{{ $reception->nom_deposant }}</dd>
-                              </dl>
+                              <h3>IDENTIFICATION DU CLIENT</h3>
+                              @if ($reception->personneLinked->nature() === 'particulier')
+                                 <table style="width: 75%" class="table table-bordered">
+                                    <tbody>
+                                       <tr>
+                                          <th>Client</th>
+                                          <td>{{ $reception->personneLinked->nom_complet }}</td>
+                                       </tr>
+                                       <tr>
+                                          <th>Email</th>
+                                          <td>{{ $reception->personneLinked->email }}</td>
+                                       </tr>
+                                       <tr>
+                                          <th>Contact</th>
+                                          <td>{{ $reception->personneLinked->telephone }}</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              @endif
+                              @if ($reception->personneLinked->nature() === 'assurance')
+                                 <table style="width: 50%" class="table table-bordered">
+                                    <tbody>
+                                       <tr>
+                                          <th>Assurance</th>
+                                          <td>{{ $reception->personneLinked->nom_assurance }}</td>
+                                       </tr>
+                                       <tr>
+                                          <th>Représentant</th>
+                                          <td>{{ $reception->personneLinked->representant_assurance }}</td>
+                                       </tr>
+                                       <tr>
+                                          <th>Email</th>
+                                          <td>{{ $reception->personneLinked->email_assurance }}</td>
+                                       </tr>
+                                       <tr>
+                                          <th>Contact</th>
+                                          <td>{{ $reception->personneLinked->contact_assurance }}</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              @endif
+                              @if ($reception->personneLinked->nature() === 'entreprise')
+                                 <table class="table table-bordered">
+                                    <tbody>
+                                       <tr>
+                                          <th>Entreprise</th>
+                                          <td>{{ $reception->personneLinked->nom_entreprise }}</td>
+                                       </tr>
+                                       <tr>
+                                          <th>Représentant</th>
+                                          <td>{{ $reception->personneLinked->representant_entreprise }}</td>
+                                       </tr>
+                                       <tr>
+                                          <th>Email</th>
+                                          <td>{{ $reception->personneLinked->email_entreprise }}</td>
+                                       </tr>
+                                       <tr>
+                                          <th>Contact</th>
+                                          <td>{{ $reception->personneLinked->contact_entreprise }}</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              @endif
                            </div>
                            <div class="col-md-6">
                               <h3>RESSENTI DU CLIENT</h3>
@@ -84,9 +129,9 @@
                            </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <h3>CHECKLIST</h3>
+                        <div style="margin-bottom: 2%" class="row">
                            <div class="col-md-6">
-                              <h3>ETAT DU VEHICULE</h3>
                               <table class="show-table">
                                  <thead>
                                     <tr>
@@ -140,7 +185,7 @@
                                     </tr>
                                     <tr>
                                        <td>Vérouillage des portes</td>
-                                       <td>{{ $reception->etat->verouillage_portes }}</td>
+                                       <td>{{ $reception->etat->verrouillage_portes }}</td>
                                     </tr>
                                     <tr>
                                        <td>Ouverture des portes intérieur</td>
@@ -169,6 +214,12 @@
                                        <td>Trappe de carburant</td>
                                        <td>{{ $reception->etat->trape_carburant }}</td>
                                     </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                           <div class="col-md-6">
+                              <table class="show-table">
+                                 <tbody>
                                     <tr>
                                        <td>Ouverture des portes extérieur</td>
                                        <td>{{ $reception->etat->ouverture_portes_ext }}</td>
@@ -251,13 +302,21 @@
                                  </tbody>
                               </table>
                            </div>
+                        </div>
+                        <div class="row">
                            <div class="col-md-6">
-                              <h3>VEHICULE</h3>
+                              <h3>IDENTIFICATION DU VEHICULE</h3>
                               <table class="show-table">
                                  <tbody>
                                     <tr class="active-row">
-                                       <th>Marque + model</th>
-                                       <td>{{ $reception->vehicule->vehicule }}</td>
+                                       <th>Déposant</th>
+                                       <td>{{ $reception->vehicule->nom_deposant }}</td>
+                                    </tr>
+                                    <tr class="active-row">
+                                       <th>Véhicule</th>
+                                       <td>
+                                          {{ $reception->vehicule->marque . ' ' . $reception->vehicule->modele . ' ' . $reception->vehicule->type_vehicule . ' ' . $reception->vehicule->annee . ' ' . $reception->vehicule->couleur }}
+                                       </td>
                                     </tr>
                                     <tr class="active-row">
                                        <th>Immatriculation</th>
@@ -273,11 +332,11 @@
                                     </tr>
                                     <tr class="active-row">
                                        <th>Date SITCA</th>
-                                       <td>{{ $reception->vehicule->date_sitca }}</td>
+                                       <td>{{ $reception->vehicule->date_sitca->format('d-m-Y') }}</td>
                                     </tr>
                                     <tr class="active-row">
                                        <th>Date assurance</th>
-                                       <td>{{ $reception->vehicule->date_assurance }}</td>
+                                       <td>{{ $reception->vehicule->date_assurance->format('d-m-Y') }}</td>
                                     </tr>
                                     <tr class="active-row">
                                        <th>Kilométrage actuel</th>
@@ -298,195 +357,10 @@
                                  </tbody>
                               </table>
                            </div>
+                           <div class="col-md-6"></div>
                         </div>
                      </div>
                   </div>
-                  @if (!empty($reception->preessai))
-                     <hr>
-                     <div class="card">
-                        <div class="row">
-                           <div class="col-md-10">
-                              FICHE DE PRE-DIAGNOSTIQUE
-                           </div>
-                           <div style="text-align: right" class="col-md-2">
-                              {{ $reception->preessai->date_preessais->format('d-m-Y') }}
-                           </div>
-                        </div>
-                        <div class="card-body">
-                           <table class="show-table">
-                              <thead>
-                                 <tr>
-                                    <th style="width:30%">INSPECTION</th>
-                                    <th>COMMENTAIRES</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>Mettre le kit de protection interne</td>
-                                    <td>{{ $reception->preessai->protection_interne }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Mettre la housse de protection</td>
-                                    <td>{{ $reception->preessai->housse_protection }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td class="active-row" colspan="2">
-                                       <b>CONTROLE INTERIEUR</b>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Eclairage intérieur</td>
-                                    <td>{{ $reception->preessai->eclairage_int }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Klaxon</td>
-                                    <td>{{ $reception->preessai->klaxon }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Jeu de pédale de frein</td>
-                                    <td>{{ $reception->preessai->pedale_frein }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Jeu de pédale embrayage</td>
-                                    <td>{{ $reception->preessai->pedale_embreillage }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Frein à main</td>
-                                    <td>{{ $reception->preessai->frein_main }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Fonctionnement des ceintures de sécurité</td>
-                                    <td>{{ $reception->preessai->housse_protection }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Fonctionnement des feux et phares</td>
-                                    <td>{{ $reception->preessai->housse_protection }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Mettre la housse de protection</td>
-                                    <td>{{ $reception->preessai->housse_protection }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Fonctionnement balais E/G, moteur, bocale lave glace</td>
-                                    <td>{{ $reception->preessai->housse_protection }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Fonctionnement des lèves vitres</td>
-                                    <td>{{ $reception->preessai->housse_protection }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td class="active-row" colspan="2">
-                                       <b>CONTROLE EXTERIEUR</b>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Eraflures</td>
-                                    <td>{{ $reception->preessai->eraflures }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Corrosion, rouille</td>
-                                    <td>{{ $reception->preessai->corrosion_rouille }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Elements endommagés</td>
-                                    <td>{{ $reception->preessai->elements_endommages }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Clarté des feux et phares</td>
-                                    <td>{{ $reception->preessai->feux_phares }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Etat des balais E/G</td>
-                                    <td>{{ $reception->preessai->etat_balais_eg }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Trappe à carburant</td>
-                                    <td>{{ $reception->preessai->trape_carburant }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Poignées portes</td>
-                                    <td>{{ $reception->preessai->eraflures }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Pneux, pression, profondeur d'usure</td>
-                                    <td>{{ $reception->preessai->pneux_pression_usure }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td class="active-row" colspan="2">
-                                       <b>SOUS LE CAPOT</b>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Niveau des liquides</td>
-                                    <td>{{ $reception->preessai->niveaux_liquides }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Raccords et durite de carburant</td>
-                                    <td>{{ $reception->preessai->raccords_durite }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Etat de la batterie et des cosses</td>
-                                    <td>{{ $reception->preessai->batterie_cosses }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Etat du radiateur</td>
-                                    <td>{{ $reception->preessai->etat_radiateur }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td class="active-row" colspan="2">
-                                       <b>SOUS LA CAROSSERIE</b>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Plaquettes, disques et tambours de frein</td>
-                                    <td>{{ $reception->preessai->disques_tambours_frein }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Intérieur des pneus</td>
-                                    <td>{{ $reception->preessai->pneux_int }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Suspensions</td>
-                                    <td>{{ $reception->preessai->suspensions }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Direction, Volant</td>
-                                    <td>{{ $reception->preessai->volant_direction }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Pot d’échappement</td>
-                                    <td>{{ $reception->preessai->pot_echappement }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Etat des silent-blocs</td>
-                                    <td>{{ $reception->preessai->silent_bloc }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Tuyauterie de frein</td>
-                                    <td>{{ $reception->preessai->tuyauterie_frein }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Fuite d’huile</td>
-                                    <td>{{ $reception->preessai->fuite_huile }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Etat general sous la carrosserie</td>
-                                    <td>{{ $reception->preessai->sous_carrosserie }}</td>
-                                 </tr>
-                                 <tr>
-                                    <td class="active-row" colspan="2">
-                                       <b>TEST ROUTIER NECESSAIRE</b>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Ressenti test routier</td>
-                                    <td>{{ $reception->preessai->test_routier }}</td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                  @endif
                </div>
             </div>
          </div>

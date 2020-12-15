@@ -41,10 +41,8 @@
                         <div class="row">
                            <div class="col-md-3">
                               <a class="btn btn-primary ui-button" href="{{ route('reception_add') }}">Nouvelle
-                                 Réception</a>
-                           </div>
-                           <div class="col-md-3">
-                              <a class="btn btn-primary ui-button" href="{{ route('preessai_add') }}">Pré-diagnostique</a>
+                                 Réception
+                              </a>
                            </div>
                         </div>
                      </div>
@@ -55,7 +53,6 @@
                                  <th>#</th>
                                  <th>Code</th>
                                  <th>Date</th>
-                                 <th>Type réparation</th>
                                  <th>Déposant</th>
                                  <th>Utilisateur</th>
                                  <th>Statut</th>
@@ -69,7 +66,6 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $reception->code }}</td>
                                     <td>{{ $reception->created_at->format('d-m-Y') }}</td>
-                                    <td>{{ $reception->reparation->nom }}</td>
                                     <td>{{ mb_strtoupper($reception->nom_deposant) }}</td>
                                     <td>{{ $reception->utilisateur->name }}</td>
                                     <td><b class="text-primary">{{ $reception->statut }}</b></td>
@@ -81,15 +77,13 @@
                                        @endif
                                     </td>
                                     <td>
-                                       @if (!empty($reception->preessai))
-                                          <a href="{{ route('preessai_edit', $reception->preessai->id) }}"><i
-                                                class="fas fa-lg fa-plus-circle"></i></a>
+                                       @if (!$reception->est_valide())
+                                          <a href="{{ route('reception_edit', $reception) }}"><i
+                                                class="fas fa-lg fa-edit"></i></a>
+                                          <delete-button :identifiant="{{ $reception->id }}"></delete-button>
                                        @endif
-                                       <a href="{{ route('reception_edit', $reception) }}"><i
-                                             class="fas fa-lg fa-edit"></i></a>
                                        <a href="{{ route('reception_show', $reception) }}"><i
                                              class="fas fa-lg fa-eye"></i></a>
-                                       <delete-button :identifiant="{{ $reception->id }}"></delete-button>
                                     </td>
                                  </tr>
                               @endforeach

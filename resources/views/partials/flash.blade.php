@@ -6,7 +6,7 @@
 
 
 @if ($message = Session::get('danger'))
-   <notifications-user :message='"{{ $message }}"' :variant="'error'" :titre="'OPERATION ECHOUEE'"
+   <notifications-user :message='"{{ $message }}"' :variant="'danger'" :titre="'OPERATION ECHOUEE'"
       :lien="'{{ Session::get('lien') }}'"></notifications-user>
 @endif
 

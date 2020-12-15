@@ -33,22 +33,30 @@ Route::prefix('maintenance')->group(function () {
         Route::get('/force/delete/{id}', 'Maintenance\Reception\ReceptionsController@forceDelete');
     });
 
+    Route::prefix('prediagnostique')->group(function () {
+        Route::get('/index', 'Maintenance\Diagnostique\PrediagnostiquesController@index')->name('prediagnostiques');
+        Route::get('/liste', 'Maintenance\Diagnostique\PrediagnostiquesController@liste')->name('prediagnostique_liste');
+        Route::get('/edit/{id}', 'Maintenance\Diagnostique\PrediagnostiquesController@edit')->name('prediagnostique_edit');
+        Route::post('/store', 'Maintenance\Diagnostique\PrediagnostiquesController@store')->name('prediagnostique_store');
+        Route::post('/update', 'Maintenance\Diagnostique\PrediagnostiquesController@update')->name('prediagnostique_update');
+        Route::get('/delete/{id}', 'Maintenance\Diagnostique\PrediagnostiquesController@delete')->name('prediagnostique_delete');
+    });
+
     Route::prefix('diagnostique')->group(function () {
         Route::get('/index', 'Maintenance\Diagnostique\DiagnostiquesController@index')->name('diagnostiques');
         Route::get('/liste', 'Maintenance\Diagnostique\DiagnostiquesController@liste')->name('diagnostique_liste');
-        Route::get('/add', 'Maintenance\Diagnostique\DiagnostiquesController@add')->name('diagnostique_add');
-        Route::get('/edit/{id}', 'Maintenance\Diagnostique\DiagnostiquesController@edit')->name('diagnostique_edit');
-        Route::get('/show/{id}', 'Maintenance\Diagnostique\DiagnostiquesController@show')->name('diagnostique_show');
-        Route::post('/store', 'Maintenance\Diagnostique\DiagnostiquesController@store')->name('diagnostique_store');
-        Route::post('/update', 'Maintenance\Diagnostique\DiagnostiquesController@update')->name('diagnostique_update');
-        Route::get('/delete/{id}', 'Maintenance\Diagnostique\DiagnostiquesController@delete')->name('diagnostique_delete');
+        Route::get('/complete/{reception}', 'Maintenance\Diagnostique\DiagnostiquesController@complete')->name('diagnostique_complete');
+        Route::get('/show/{reception}', 'Maintenance\Diagnostique\DiagnostiquesController@show')->name('diagnostique_show');
+        //with js
+        Route::post('/fermer', 'Maintenance\Diagnostique\DiagnostiquesController@fermer');
     });
 
     Route::prefix('essai')->group(function () {
+        Route::get('/index', 'Maintenance\Essai\EssaisController@index')->name('essais');
         Route::prefix('pre')->group(function () {
             Route::get('/liste', 'Maintenance\Essai\PreessaisController@liste')->name('preessai_liste');
-            Route::get('/add', 'Maintenance\Essai\PreessaisController@add')->name('preessai_add');
             Route::get('/edit/{id}', 'Maintenance\Essai\PreessaisController@edit')->name('preessai_edit');
+            Route::get('/valider/{id}', 'Maintenance\Essai\PreessaisController@valider')->name('preessai_valider');
             Route::post('/store', 'Maintenance\Essai\PreessaisController@store')->name('preessai_store');
             Route::post('/update', 'Maintenance\Essai\PreessaisController@update')->name('preessai_update');
         });
@@ -100,9 +108,20 @@ Route::prefix('systeme')->group(function () {
         Route::post('/update', 'Systeme\TypesReparationsController@update')->name('types_reparation_update');
     });
 
+    Route::prefix('atelier')->group(function () {
+        Route::get('/index', 'Systeme\AteliersController@index')->name('ateliers');
+        Route::get('/add', 'Systeme\AteliersController@add')->name('atelier_add');
+        Route::post('/store', 'Systeme\AteliersController@store')->name('atelier_store');
+        Route::get('/edit/{id}', 'Systeme\AteliersController@edit')->name('atelier_edit');
+        Route::post('/update', 'Systeme\AteliersController@update')->name('atelier_update');
+    });
+
     Route::prefix('async')->group(function () {
         Route::get('/personne/find/{contact}', 'PersonnesController@findjs');
         Route::post('/personne/store', 'PersonnesController@storejs');
+        Route::get('/reception/find/{id}', 'Maintenance\Reception\ReceptionsController@findjs');
+        Route::get('/diagnostique/find/{reception}', 'Maintenance\Diagnostique\DiagnostiquesController@findjs');
+        Route::post('/intervention/store', 'Maintenance\InterventionsController@storejs');
     });
 
 });

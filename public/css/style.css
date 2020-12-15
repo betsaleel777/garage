@@ -3,7 +3,7 @@
 }
 .show-table {
     border-collapse: collapse;
-    margin: 5px 0;
+    margin: 3px 0;
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 100%;
@@ -16,7 +16,7 @@
 }
 .show-table th,
 .show-table td {
-    padding: 3px 6px;
+    padding: 2px 5px;
 }
 .show-table tbody tr {
     border-bottom: 1px solid #dddddd;

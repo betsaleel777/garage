@@ -32,15 +32,16 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="row">
-                           <div class="col-md-8"></div>
-                           <div class="col-md-2">
-                              <a class="btn btn-primary ui-button" href="{{ route('preessai_liste') }}">Liste
-                                 pre-essais
+                           <div class="col-md-6"></div>
+                           <div class="col-md-3">
+                              <a class="btn btn-primary ui-button" href="{{ route('preessai_liste') }}">
+                                 <small>Essais
+                                    avant réparations</small>
                               </a>
                            </div>
-                           <div class="col-md-2">
-                              <a class="btn btn-primary ui-button" href="{{ route('postessai_liste') }}">Liste
-                                 post-essais
+                           <div class="col-md-3">
+                              <a class="btn btn-primary ui-button" href="{{ route('postessai_liste') }}">
+                                 <small>Essais après réparations</small>
                               </a>
                            </div>
                         </div>
@@ -49,7 +50,7 @@
                         {{-- <h6 class="card-title">Special title treatment</h6>
                         --}}
                         <p class="card-text">cette page doit contenir les statistiques pertinantes qui serviront de contenu
-                           au dashbord mais uniquement concernant les pré et post essais diagnostique</p>
+                           au dashbord mais uniquement concernant les essais avant et après réparations</p>
                         {{-- <a href="#" class="btn btn-primary">Go somewhere</a>
                         --}}
                      </div>

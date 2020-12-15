@@ -34,50 +34,78 @@
                      <!-- /.col-md-6 -->
                      <div class="col-lg-12">
                         <div class="card">
-                           <div class="row">
-                              <div class="col-md-8">
-                                 <h3>FICHE DE RECEPTION</h3>
-                              </div>
-                              <div style="text-align: right" class="col-md-4">
-                                 <h4><span>{{ $reception->created_at->format('d-m-Y') }}</span></h4>
-                              </div>
+                           <div class="card-header">
+                              <center>
+                                 <h5><b>FICHE DE RECEPTION</b></h5>
+                              </center>
                            </div>
                            <div class="card-body">
                               <div class="row">
+                                 <div class="col-md-8">
+                                    <span>logo</span>
+                                 </div>
+                                 <div class="col-md-4">
+                                    <h5><b>Date de réception:</b><span>
+                                          {{ $reception->created_at->format('d-m-Y') }}</span>
+                                    </h5>
+                                    <h5 class="text-danger"><b>Numéro OR:</b><span>
+                                          {{ $reception->code }}</span>
+                                    </h5>
+                                 </div>
+                              </div>
+                              <div class="row">
                                  <div class="col-md-6">
-                                    <h3>CLIENT</h3>
-                                    <dl class="row">
-                                       @if ($reception->personneLinked->nature() === 'particulier')
-                                          <dt class="col-md-3">Client:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->nom_complet }}</dd>
-                                          <dt class="col-md-3">Email:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->email }}</dd>
-                                          <dt class="col-md-3">Contact:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->telephone }}</dd>
-                                       @endif
-                                       @if ($reception->personneLinked->nature() === 'assurance')
-                                          <dt class="col-md-3">Client Assurance:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->nom_assurance }}</dd>
-                                          <dt class="col-md-3">Représentant:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->representant_assurance }}
-                                          </dd>
-                                          <dt class="col-md-3">Email:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->email_assurance }}</dd>
-                                          <dt class="col-md-3">Contact Assurance:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->contact_assurance }}</dd>
-                                       @endif
-                                       @if ($reception->personneLinked->nature() === 'entreprise')
-                                          <dt class="col-md-3">Client Entreprise:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->nom_entreprise }}</dd>
-                                          <dt class="col-md-3">Représentant:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->representant_entreprise }}
-                                          </dd>
-                                          <dt class="col-md-3">Email:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->email_entreprise }}</dd>
-                                          <dt class="col-md-3">Contact entreprise:</dt>
-                                          <dd class="col-md-8">{{ $reception->personneLinked->contact_entreprise }}</dd>
-                                       @endif
-                                    </dl>
+                                    <h3>IDENTIFICATION DU CLIENT</h3>
+                                    @if ($reception->personneLinked->nature() === 'particulier')
+                                       <table style="width: 75%" class="table">
+                                          <tbody>
+                                             <tr>
+                                                <th>Client</th>
+                                                <td>{{ $reception->personneLinked->nom_complet }}</td>
+                                             </tr>
+                                             <tr>
+                                                <th>Email</th>
+                                                <td>{{ $reception->personneLinked->email }}</td>
+                                             </tr>
+                                             <tr>
+                                                <th>Contact</th>
+                                                <td>{{ $reception->personneLinked->telephone }}</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    @endif
+                                    @if ($reception->personneLinked->nature() === 'assurance')
+                                       <table style="width: 50%" class="table table-bordered">
+                                          <tbody>
+                                             <tr>
+                                                <th>Assurance</th>
+                                                <td>{{ $reception->personneLinked->nom_assurance }}</td>
+                                             </tr>
+                                             <tr>
+                                                <th>Représentant</th>
+                                                <td>{{ $reception->personneLinked->representant_assurance }}</td>
+                                             </tr>
+                                             <tr>
+                                                <th>Email</th>
+                                                <td>{{ $reception->personneLinked->email_assurance }}</td>
+                                             </tr>
+                                             <tr>
+                                                <th>Contact</th>
+                                                <td>{{ $reception->personneLinked->contact_assurance }}</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    @endif
+                                    @if ($reception->personneLinked->nature() === 'entreprise')
+                                       <dt class="col-md-3">Entreprise:</dt>
+                                       <dd class="col-md-8">{{ $reception->personneLinked->nom_entreprise }}</dd>
+                                       <dt class="col-md-3">Représentant:</dt>
+                                       <dd class="col-md-8">{{ $reception->personneLinked->representant_entreprise }}</dd>
+                                       <dt class="col-md-3">Email:</dt>
+                                       <dd class="col-md-8">{{ $reception->personneLinked->email_entreprise }}</dd>
+                                       <dt class="col-md-3">Contact:</dt>
+                                       <dd class="col-md-8">{{ $reception->personneLinked->contact_entreprise }}</dd>
+                                    @endif
                                  </div>
                                  <div class="col-md-6">
                                     <h3>RESSENTI DU CLIENT</h3>
@@ -87,7 +115,7 @@
                               <hr>
                               <div class="row">
                                  <div class="col-md-6">
-                                    <h3>ETAT DU VEHICULE</h3>
+                                    <h3>CHECKLIST</h3>
                                     <table class="show-table">
                                        <thead>
                                           <tr>
@@ -141,7 +169,7 @@
                                           </tr>
                                           <tr>
                                              <td>Vérouillage des portes</td>
-                                             <td>{{ $reception->etat->verouillage_portes }}</td>
+                                             <td>{{ $reception->etat->verrouillage_portes }}</td>
                                           </tr>
                                           <tr>
                                              <td>Ouverture des portes intérieur</td>
@@ -253,12 +281,18 @@
                                     </table>
                                  </div>
                                  <div class="col-md-6">
-                                    <h3>VEHICULE</h3>
+                                    <h3>IDENTIFICATION DU VEHICULE</h3>
                                     <table class="show-table">
                                        <tbody>
                                           <tr class="active-row">
-                                             <th>Marque + model</th>
-                                             <td>{{ $reception->vehicule->vehicule }}</td>
+                                             <th>Déposant</th>
+                                             <td>{{ $reception->vehicule->nom_deposant }}</td>
+                                          </tr>
+                                          <tr class="active-row">
+                                             <th>Véhicule</th>
+                                             <td>
+                                                {{ $reception->vehicule->marque . ' ' . $reception->vehicule->modele . ' ' . $reception->vehicule->type_vehicule . ' ' . $reception->vehicule->annee . ' ' . $reception->vehicule->couleur }}
+                                             </td>
                                           </tr>
                                           <tr class="active-row">
                                              <th>Immatriculation</th>
@@ -274,11 +308,11 @@
                                           </tr>
                                           <tr class="active-row">
                                              <th>Date SITCA</th>
-                                             <td>{{ $reception->vehicule->date_sitca }}</td>
+                                             <td>{{ $reception->vehicule->date_sitca->format('d-m-Y') }}</td>
                                           </tr>
                                           <tr class="active-row">
                                              <th>Date assurance</th>
-                                             <td>{{ $reception->vehicule->date_assurance }}</td>
+                                             <td>{{ $reception->vehicule->date_assurance->format('d-m-Y') }}</td>
                                           </tr>
                                           <tr class="active-row">
                                              <th>Kilométrage actuel</th>
@@ -302,9 +336,9 @@
                               </div>
                            </div>
                            <div class="card-footer">
-                              <span class="text-footer-print">BOITE POSTALE + SIEGE SOCIAL + TELEPHONE</span>
-                              <span class="text-footer-print">NUMERO RCCM + NUMERO CC + SITE WEB</span>
-                              <span class="text-footer-print">NOM DE BANQUE + NUMERO DE COMPTE </span>
+                              <span class="text-muted">boite postal + siège + téléphone + RCCM + CC + site + Numéro de
+                                 compte bancaire
+                              </span>
                            </div>
                         </div>
                      </div>
@@ -312,11 +346,7 @@
                </div>
             </div>
          </section>
-         <br>
-         <br>
-         <br>
-         <br>
-         @if (!empty($reception->preessai))
+         {{-- @if (!empty($reception->preessai))
             <section>
                <div class="content">
                   <div class="container-fluid">
@@ -516,7 +546,7 @@
                   </div>
                </div>
             </section>
-         @endif
+         @endif --}}
       </div>
    </div>
 @endsection

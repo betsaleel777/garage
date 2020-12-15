@@ -25,7 +25,7 @@ class CreateEtatVehicule extends Migration
             $table->string('sieges', 20);
             $table->string('tableau_bord', 20);
             $table->string('leve_vitre', 20);
-            $table->string('verouillage_portes', 20);
+            $table->string('verrouillage_portes', 20);
             $table->string('ouverture_portes_int', 20);
             $table->string('roues', 20);
             $table->string('feux_arrieres', 20);

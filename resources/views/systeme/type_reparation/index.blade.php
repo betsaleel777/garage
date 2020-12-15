@@ -34,8 +34,9 @@
       <div class="content">
          <div class="container-fluid">
             <div class="row">
+               <div class="col-md-2"></div>
                <!-- /.col-md-6 -->
-               <div class="col-lg-12">
+               <div class="col-md-8">
                   <div class="card">
                      <div class="card-header">
                         {{-- <h5 class="m-0">Featured</h5> --}}
@@ -58,8 +59,8 @@
                                     <td>{{ $type->nom }}</td>
                                     <td>{{ $type->prix_forfaitaire }}</td>
                                     <td>
-                                       <a class="btn btn-dark btn-xs" href="{{ route('types_reparation_edit', $type) }}"><i
-                                             class="fas fa-edit"></i>
+                                       <a class="text-primary" href="{{ route('types_reparation_edit', $type) }}"><i
+                                             class="fas fa-lg fa-edit"></i>
                                        </a>
                                     </td>
                                  </tr>
@@ -71,6 +72,7 @@
                   </div>
                </div>
                <!-- /.col-md-6 -->
+               <div class="col-md-2"></div>
             </div>
             <!-- /.row -->
          </div><!-- /.container-fluid -->

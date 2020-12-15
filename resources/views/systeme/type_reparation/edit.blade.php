@@ -28,8 +28,9 @@
       <div class="content">
          <div class="container-fluid">
             <div class="row">
-               <!-- /.col-md-6 -->
-               <div class="col-lg-12">
+               <div class="col-md-2"></div>
+               <!-- /.col-md-8 -->
+               <div class="col-md-8">
                   <div class="card">
                      <div class="card-header">
                         {{-- <h5 class="m-0">Featured</h5> --}}
@@ -54,14 +55,15 @@
                               @enderror
                            </div>
                            <div style="text-align: right" class="form-group">
-                              <button type="submit" class="btn btn-primary">Soumettre</button>
+                              <button type="submit" class="btn btn-primary">Enregistrer</button>
                            </div>
                         </form>
                      </div>
                      <!-- /.card-body -->
                   </div>
                </div>
-               <!-- /.col-md-6 -->
+               <!-- /.col-md-8 -->
+               <div class="col-md-2"></div>
             </div>
             <!-- /.row -->
          </div><!-- /.container-fluid -->

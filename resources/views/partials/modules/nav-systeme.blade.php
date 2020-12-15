@@ -15,4 +15,10 @@
          class="nav-link @php if($controller == 'TypesReparationsController') { echo 'text-pink' ;} @endphp">Type
          réparation</a>
    </li>
+   <li class="nav-item d-none d-sm-inline-block">
+      <a href="{{ route('ateliers') }}"
+         class="nav-link @php if($controller == 'AteliersController') { echo 'text-pink' ;} @endphp">
+         Ateliers
+      </a>
+   </li>
 </ul>
