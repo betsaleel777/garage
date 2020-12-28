@@ -78,9 +78,7 @@
                                           @if (!empty($reception->preessai))
                                              @if (!$reception->preessai->est_valide())
                                                 <div class="col-md-3">
-                                                   <modal-preessai-edit :ressenti='"{{ $reception->ressenti }}"'
-                                                      :code="'{{ $reception->code }}'" :reception="{{ $reception->id }}">
-                                                      {{ $reception->preessai->commentaire }}
+                                                   <modal-preessai-edit :bigreception="{{ json_encode($reception) }}">
                                                    </modal-preessai-edit>
                                                 </div>
                                                 <div class="col-md-3">
@@ -92,8 +90,7 @@
                                              @endif
                                           @else
                                              <div class="col-md-6">
-                                                <modal-preessai-add :ressenti="'{{ $reception->ressenti }}'"
-                                                   :code="'{{ $reception->code }}'" :reception="{{ $reception->id }}">
+                                                <modal-preessai-add :bigreception="{{ json_encode($reception) }}">
                                                 </modal-preessai-add>
                                              </div>
                                           @endif

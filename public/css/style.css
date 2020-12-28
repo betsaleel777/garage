@@ -36,3 +36,9 @@
 .text-footer-print {
     font-size: x-small;
 }
+.count-notif {
+    position: absolute;
+    top: 2px;
+    right: -6px;
+    opacity: 0.7;
+}

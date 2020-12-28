@@ -24,13 +24,11 @@ class DashboardController extends Controller
     public function crm()
     {
         $titre = 'CRM Acceuil';
-
     }
 
     public function stock()
     {
         $titre = 'Stock Acceuil';
-
     }
 
     public function finance()

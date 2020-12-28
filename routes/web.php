@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
  */
 Auth::routes();
 Route::get('/', 'DashboardController@index')->name('acceuil');
+Route::get('/deconnexion', 'Auth\LoginController@logout')->name('deconnexion');
 Route::prefix('maintenance')->group(function () {
     Route::get('/index', 'DashboardController@maintenance')->name('maintenance_index');
 
@@ -55,18 +56,15 @@ Route::prefix('maintenance')->group(function () {
         Route::get('/index', 'Maintenance\Essai\EssaisController@index')->name('essais');
         Route::prefix('pre')->group(function () {
             Route::get('/liste', 'Maintenance\Essai\PreessaisController@liste')->name('preessai_liste');
-            Route::get('/edit/{id}', 'Maintenance\Essai\PreessaisController@edit')->name('preessai_edit');
             Route::get('/valider/{id}', 'Maintenance\Essai\PreessaisController@valider')->name('preessai_valider');
             Route::post('/store', 'Maintenance\Essai\PreessaisController@store')->name('preessai_store');
             Route::post('/update', 'Maintenance\Essai\PreessaisController@update')->name('preessai_update');
         });
         Route::prefix('post')->group(function () {
-            Route::get('/liste', 'Maintenance\Essai\EssaisController@liste')->name('postessai_liste');
-            Route::get('/add', 'Maintenance\Essai\EssaisController@add')->name('postessai_add');
-            Route::get('/edit/{id}', 'Maintenance\Essai\EssaisController@edit')->name('postessai_edit');
-            Route::get('/show/{id}', 'Maintenance\Essai\EssaisController@show')->name('postessai_show');
-            Route::post('/store', 'Maintenance\Essai\EssaisController@store')->name('postessai_store');
-            Route::post('/update', 'Maintenance\Essai\EssaisController@update')->name('postessai_update');
+            Route::get('/liste', 'Maintenance\Essai\PostessaisController@liste')->name('postessai_liste');
+            Route::post('/store', 'Maintenance\Essai\PostessaisController@store')->name('postessai_store');
+            Route::post('/update', 'Maintenance\Essai\PostessaisController@update')->name('postessai_update');
+            Route::get('/valider/{id}', 'Maintenance\Essai\PostessaisController@valider')->name('postessai_valider');
         });
 
     });
@@ -74,11 +72,10 @@ Route::prefix('maintenance')->group(function () {
     Route::prefix('reparation')->group(function () {
         Route::get('/index', 'Maintenance\Reparation\ReparationsController@index')->name('reparations');
         Route::get('/liste', 'Maintenance\Reparation\ReparationsController@liste')->name('reparation_liste');
-        Route::get('/add', 'Maintenance\Reparation\ReparationsController@add')->name('reparation_add');
-        Route::get('/edit/{id}', 'Maintenance\Reparation\ReparationsController@edit')->name('reparation_edit');
-        Route::get('/show/{id}', 'Maintenance\Reparation\ReparationsController@show')->name('reparation_show');
-        Route::post('/store', 'Maintenance\Reparation\ReparationsController@store')->name('reparation_store');
-        Route::post('/update', 'Maintenance\Reparation\ReparationsController@update')->name('reparation_update');
+        Route::get('/complete/{reception}', 'Maintenance\Reparation\ReparationsController@complete')->name('reparation_complete');
+        Route::get('/show/{reception}', 'Maintenance\Reparation\ReparationsController@show')->name('reparation_show');
+        //with js
+        Route::post('/fermer', 'Maintenance\Reparation\ReparationsController@fermer');
     });
 
     Route::prefix('hangars')->group(function () {
@@ -120,8 +117,10 @@ Route::prefix('systeme')->group(function () {
         Route::get('/personne/find/{contact}', 'PersonnesController@findjs');
         Route::post('/personne/store', 'PersonnesController@storejs');
         Route::get('/reception/find/{id}', 'Maintenance\Reception\ReceptionsController@findjs');
+        Route::get('/vehicule/find/{matricule}', 'Maintenance\Reception\ReceptionsController@findVehiculejs');
         Route::get('/diagnostique/find/{reception}', 'Maintenance\Diagnostique\DiagnostiquesController@findjs');
         Route::post('/intervention/store', 'Maintenance\InterventionsController@storejs');
+        Route::post('/intervention/reparation/store', 'Maintenance\InterventionsController@reparationStorejs');
     });
 
 });

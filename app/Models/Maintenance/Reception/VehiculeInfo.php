@@ -21,12 +21,17 @@ class VehiculeInfo extends Model
         'couleur' => 'required',
         'annee' => 'required',
         'niveau_carburant' => 'required',
-        'immatriculation' => 'required|unique:vehicules_infos',
-        'chassis' => 'required|unique:vehicules_infos',
+        'immatriculation' => 'required',
+        'chassis' => 'required',
         'dmc' => 'required',
         'date_sitca' => 'required',
         'date_assurance' => 'required',
         'kilometrage_actuel' => 'required',
         'prochaine_vidange' => 'required',
     ];
+
+    public function enjoliveurs()
+    {
+        return $this->belongsToMany(Enjoliveur::class, 'enjoliveurs_vehicules', 'vehicule_info', 'enjoliveur')->withTimestamps();
+    }
 }

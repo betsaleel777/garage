@@ -8,19 +8,23 @@ import './bootstrap'
 import Vue from 'vue';
 import NotificationsUser from './components/Notifications.vue'
 import ClientForm from './components/receptions/ClientForm.vue'
+import VehiculeInfoForm from './components/receptions/VehiculeInfoForm.vue'
 import DeleteButton from './components/DeleteButton.vue'
 import ModalPreessaiAdd from './components/preessais/ModalPreessaiAdd.vue'
 import ModalPreessaiEdit from './components/preessais/ModalPreessaiEdit.vue'
+import ModalPostessaiAdd from './components/postessais/ModalPostessaiAdd.vue'
+import ModalPostessaiEdit from './components/postessais/ModalPostessaiEdit.vue'
 import FormDiagnostique from './components/diagnostiques/FormDiagnostique.vue'
-import OldIntervention from './components/diagnostiques/OldIntervention.vue'
+import OldIntervention from './components/OldIntervention.vue'
+import FormReparation from './components/reparations/FormReparation.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 //plugins
 import { ToastPlugin } from 'bootstrap-vue'
 import { ModalPlugin } from 'bootstrap-vue'
 //style
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-vue/dist/bootstrap-vue.min.css';
 
 //initialisation des plugins
 Vue.use(ModalPlugin)
@@ -32,11 +36,15 @@ new Vue({
     components: {
         NotificationsUser,
         ClientForm,
+        VehiculeInfoForm,
         DeleteButton,
         ModalPreessaiAdd,
         ModalPreessaiEdit,
+        ModalPostessaiAdd,
+        ModalPostessaiEdit,
         FormDiagnostique,
-        OldIntervention
+        OldIntervention,
+        FormReparation
     }
 })
 

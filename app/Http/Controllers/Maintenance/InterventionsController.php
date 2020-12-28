@@ -39,4 +39,23 @@ class InterventionsController extends Controller
         $message = "l'utilisateur $user_name de l'atelier " . $new_intervention->atelierLinked->nom . " vient d'enregistrer une intervention.";
         return response()->json(['message' => $message, 'intervention' => $intervention]);
     }
+
+    public function reparationStorejs(Request $request)
+    {
+        $request->validate(Intervention::RULES);
+        $intervention = new Intervention($request->all());
+        $intervention->user = Auth::id();
+        $intervention->save();
+        $username = Auth::user()->name;
+        $new_intervention = Intervention::with('atelierLinked')->find($intervention->id);
+        $intervention = [
+            'id' => $new_intervention->id,
+            'atelier' => $new_intervention->atelierLinked->nom,
+            'utilisateur' => $username,
+            'commentaire' => $new_intervention->commentaire,
+            'created_from' => $new_intervention->created_at->diffForHumans(['parts' => 3, 'short' => true]),
+        ];
+        $message = "l'utilisateur $username de l'atelier " . $new_intervention->atelierLinked->nom . " vient d'enregistrer une intervention.";
+        return response()->json(['message' => $message, 'intervention' => $intervention]);
+    }
 }

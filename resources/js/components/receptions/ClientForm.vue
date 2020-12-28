@@ -1,66 +1,77 @@
 <template>
     <div>
-        <label for="contact">Recherche client</label>
-        <div class="form-group input-group">
-            <input
-                type="text"
-                v-model="contact"
-                class="form-control"
-                id="contact"
-                placeholder="renseignez le contact du client"
-            />
-            <span class="input-group-append">
-                <button
-                    @click="rechercher"
-                    type="button"
-                    class="btn btn-primary btn-flat"
-                >
-                    rechercher
-                </button>
-            </span>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="contact">Recherche client</label>
+                <div class="form-group input-group">
+                    <input
+                        type="text"
+                        v-model="contact"
+                        class="form-control"
+                        id="contact"
+                        placeholder="renseignez le contact du client"
+                    />
+                    <span class="input-group-append">
+                        <button
+                            @click="rechercher"
+                            type="button"
+                            class="btn btn-primary btn-flat"
+                        >
+                            rechercher
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="">Type de client</label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            @change="cocher"
+                            name="kind"
+                            id="inlineradio1"
+                            value="particulier"
+                            v-model="kind"
+                        />
+                        <label class="form-check-label" for="inlineradio1"
+                            >Particulier</label
+                        >
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            @change="cocher"
+                            name="kind"
+                            id="inlineradio2"
+                            value="entreprise"
+                            v-model="kind"
+                        />
+                        <label class="form-check-label" for="inlineradio2"
+                            >Entreprise</label
+                        >
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            @change="cocher"
+                            name="kind"
+                            id="inlineradio3"
+                            value="assurance"
+                            v-model="kind"
+                        />
+                        <label class="form-check-label" for="inlineradio3"
+                            >Assurance</label
+                        >
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-check form-check-inline">
-            <input
-                class="form-check-input"
-                type="radio"
-                @change="cocher"
-                name="kind"
-                id="inlineradio1"
-                value="particulier"
-                v-model="kind"
-            />
-            <label class="form-check-label" for="inlineradio1"
-                >Particulier</label
-            >
-        </div>
-        <div class="form-check form-check-inline">
-            <input
-                class="form-check-input"
-                type="radio"
-                @change="cocher"
-                name="kind"
-                id="inlineradio2"
-                value="entreprise"
-                v-model="kind"
-            />
-            <label class="form-check-label" for="inlineradio2"
-                >Entreprise</label
-            >
-        </div>
-        <div class="form-check form-check-inline">
-            <input
-                class="form-check-input"
-                type="radio"
-                @change="cocher"
-                name="kind"
-                id="inlineradio3"
-                value="assurance"
-                v-model="kind"
-            />
-            <label class="form-check-label" for="inlineradio3">Assurance</label>
-        </div>
-        <div v-if="particulier">
-            <div class="form-group">
+        <div v-if="particulier" class="row">
+            <div class="form-group col-md-4">
                 <label for="nom">Nom complet</label>
                 <input
                     name="nom_complet"
@@ -72,7 +83,7 @@
                     messages.nom_complet.value
                 }}</span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="telephone">Téléphone</label>
                 <input
                     name="telephone"
@@ -84,7 +95,7 @@
                     messages.telephone.value
                 }}</span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="email">Email</label>
                 <input
                     name="email"
@@ -98,8 +109,8 @@
                 }}</span>
             </div>
         </div>
-        <div v-if="assurance">
-            <div class="form-group">
+        <div v-if="assurance" class="row">
+            <div class="form-group col-md-6">
                 <label for="nom_assurance">Nom de l'assurance</label>
                 <input
                     name="nom_assurance"
@@ -111,7 +122,7 @@
                     messages.nom_assurance.value
                 }}</span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="representant_assurance"
                     >Nom du représentant de l'assurance</label
                 >
@@ -127,7 +138,7 @@
                     >{{ messages.representant_assurance.value }}</span
                 >
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="contact_assurance">Contact Assurance</label>
                 <input
                     name="contact_assurance"
@@ -141,7 +152,7 @@
                     >{{ messages.contact_assurance.value }}</span
                 >
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="email_assurance">Email Assurance</label>
                 <input
                     name="email_assurance"
@@ -156,8 +167,8 @@
                 >
             </div>
         </div>
-        <div v-if="entreprise">
-            <div class="form-group">
+        <div v-if="entreprise" class="row">
+            <div class="form-group col-md-6">
                 <label for="nom_entreprise">Nom de l'entreprise</label>
                 <input
                     name="nom_entreprise"
@@ -171,7 +182,7 @@
                     >{{ messages.nom_entreprise.value }}</span
                 >
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="representant_entreprise"
                     >Nom du représentant de l'entreprise</label
                 >
@@ -187,7 +198,7 @@
                     >{{ messages.representant_entreprise.value }}</span
                 >
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="contact_entreprise">Contact entreprise</label>
                 <input
                     name="contact_entreprise"
@@ -201,7 +212,7 @@
                     >{{ messages.contact_entreprise.value }}</span
                 >
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="email_entreprise">Email entreprise</label>
                 <input
                     name="email_entreprise"

@@ -3,7 +3,6 @@
         <a class="text-primary" @click="runModal"
             ><i class="fas fa-lg fa-edit"></i
         ></a>
-        <div hidden ref="myslot"><slot></slot></div>
         <b-modal
             @ok="enregistrer"
             size="lg"
@@ -40,14 +39,14 @@ export default {
         BVModal
     },
     props: {
-        reception: Number,
-        code: String,
-        ressenti: String,
-        comment: String
+        bigreception: Object
     },
     data() {
         return {
             commentaire: "",
+            reception: null,
+            code: null,
+            ressenti: null,
             messages: {
                 ressenti: {
                     exist: false,
@@ -57,7 +56,10 @@ export default {
         };
     },
     mounted() {
-        this.commentaire = this.$refs.myslot.textContent.trim();
+        this.reception = this.bigreception.id;
+        this.code = this.bigreception.code;
+        this.ressenti = this.bigreception.ressenti;
+        this.commentaire = this.bigreception.preessai.commentaire;
     },
     methods: {
         runModal() {

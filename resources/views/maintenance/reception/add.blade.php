@@ -1335,218 +1335,213 @@
                                  </div>
                                  <div class="form-group">
                                     <label>Enjoliveur</label><br>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="enjoliveur" id="en1" value="AVG"
-                                          @if (old('enjoliveur') === 'AVG')
-                                       checked
-                                       @endif>
-                                       <label class="form-check-label" for="en1">AVG</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="enjoliveur" id="en2" value="AVD"
-                                          @if (old('enjoliveur') === 'AVD')
-                                       checked
-                                       @endif>
-                                       <label class="form-check-label" for="en2">AVD</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="enjoliveur" id="en3" value="ARG"
-                                          @if (old('enjoliveur') === 'ARG')
-                                       checked
-                                       @endif>
-                                       <label class="form-check-label" for="en3">ARG</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="enjoliveur" id="en4" value="ARD"
-                                          @if (old('enjoliveur') === 'ARD')
-                                       checked
-                                       @endif>
-                                       <label class="form-check-label" for="en4">ARD</label>
-                                    </div>
-                                    @error('enjoliveur')
-                                       <span class="text-danger">{{ $message }}</span>
+                                    @foreach ($enjoliveurs as $key => $enjoliveur)
+                                       <div class="form-check form-check-inline">
+                                          <input class="form-check-input" type="checkbox" name="enjoliveur[]"
+                                             id="en{{ $key + 1 }}" value="{{ $enjoliveur->id }}" @if (is_array(old('enjoliveur')))
+                                          @if (in_array($enjoliveur->id, old('enjoliveur')))
+                                             checked
+                                          @endif
+                                    @endif>
+                                    <label class="form-check-label" for="en{{ $key + 1 }}">{{ $enjoliveur->nom }}</label>
+                                 </div>
+                                 @endforeach
+                              </div>
+                              {{-- <div class="form-group">
+                                 <label for="immatriculation">Immatriculation</label>
+                                 <input value="{{ old('immatriculation') }}" name="immatriculation" class="form-control"
+                                    id="immatriculation" />
+                                 @error('immatriculation')
+                                 <span class="text-danger">{{ $message }}</span>
+                                 @enderror
+                              </div>
+                              <div class=" form-group row">
+                                 <div class="col-4">
+                                    <label for="marque">Marque</label>
+                                    <input value="{{ old('marque') }}" name="marque" id="marque" type="text"
+                                       class="form-control" placeholder="audi">
+                                    @error('marque')
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                  </div>
-                                 <div class="form-group">
-                                    <label for="immatriculation">Immatriculation</label>
-                                    <input value="{{ old('immatriculation') }}" name="immatriculation" class="form-control"
-                                       id="immatriculation" />
-                                    @error('immatriculation')
-                                       <span class="text-danger">{{ $message }}</span>
+                                 <div class="col-3">
+                                    <label for="modele">Modèle</label>
+                                    <input value="{{ old('modele') }}" name="modele" id="modele" type="text"
+                                       class="form-control" placeholder="A6">
+                                    @error('modele')
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                  </div>
-                                 <div class=" form-group row">
-                                    <div class="col-4">
-                                       <label for="marque">Marque</label>
-                                       <input value="{{ old('marque') }}" name="marque" id="marque" type="text"
-                                          class="form-control" placeholder="audi">
-                                       @error('marque')
-                                          <span class="text-danger">{{ $message }}</span>
-                                       @enderror
-                                    </div>
-                                    <div class="col-3">
-                                       <label for="modele">Modèle</label>
-                                       <input value="{{ old('modele') }}" name="modele" id="modele" type="text"
-                                          class="form-control" placeholder="A6">
-                                       @error('modele')
-                                          <span class="text-danger">{{ $message }}</span>
-                                       @enderror
-                                    </div>
-                                    <div class="col-5">
-                                       <label for="type_vehicule">Type</label>
-                                       <select name="type_vehicule" id="type_vehicule" class="form-control select2">
-                                          <option selected disabled> .....</option>
-                                          @foreach ($categories as $categorie)
-                                             <option @if (old('type_vehicule') == $categorie)
-                                                selected
-                                          @endif value="{{ $categorie }}">{{ $categorie }}</option>
-                                          @endforeach
-                                       </select>
-                                       @error('type_vehicule')
-                                          <span class="text-danger">{{ $message }}</span>
-                                       @enderror
-                                    </div>
-                                    <div class="col-6">
-                                       <label for="annee">Année</label>
-                                       <input value="{{ old('annee') }}" name="annee" id="annee" type="text"
-                                          class="form-control" placeholder="2012">
-                                       @error('annee')
-                                          <span class="text-danger">{{ $message }}</span>
-                                       @enderror
-                                    </div>
-                                    <div class="col-6">
-                                       <label for="couleur">Couleur</label>
-                                       <input value="{{ old('couleur') }}" name="couleur" id="couleur" type="text"
-                                          class="form-control" placeholder="orange">
-                                       @error('couleur')
-                                          <span class="text-danger">{{ $message }}</span>
-                                       @enderror
-                                    </div>
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="chassis">Chassis</label>
-                                    <input value="{{ old('chassis') }}" name="chassis" class="form-control" id="chassis" />
-                                    @error('chassis')
-                                       <span class="text-danger">{{ $message }}</span>
+                                 <div class="col-5">
+                                    <label for="type_vehicule">Type</label>
+                                    <select name="type_vehicule" id="type_vehicule" class="form-control select2">
+                                       <option selected disabled> .....</option>
+                                       @foreach ($categories as $categorie)
+                                          <option @if (old('type_vehicule') == $categorie)
+                                             selected
+                                       @endif value="{{ $categorie }}">{{ $categorie }}</option>
+                                       @endforeach
+                                    </select>
+                                    @error('type_vehicule')
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                  </div>
-                                 <div class="form-group">
-                                    <label for="dmc">dmc</label>
-                                    <input value="{{ old('dmc') }}" name="dmc" class="form-control" id="dmc" />
-                                    @error('dmc')
-                                       <span class="text-danger">{{ $message }}</span>
+                                 <div class="col-6">
+                                    <label for="annee">Année</label>
+                                    <input value="{{ old('annee') }}" name="annee" id="annee" type="text"
+                                       class="form-control" placeholder="2012">
+                                    @error('annee')
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                  </div>
-                                 <div class="form-group">
-                                    <label for="date_sitca">Date de dernière visite technique</label>
-                                    <div class="input-group date" id="date_sitca" data-target-input="nearest">
-                                       <input value="{{ old('date_sitca') }}" name="date_sitca" type="text"
-                                          class="form-control datetimepicker-input" data-target="#date_sitca" />
-                                       <div class="input-group-append" data-target="#date_sitca"
-                                          data-toggle="datetimepicker">
-                                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                       </div>
-                                    </div>
-                                    @error('date_sitca')
-                                       <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="date_assurance">Date d'assurance</label>
-                                    <div class="input-group date" id="date_assurance" data-target-input="nearest">
-                                       <input value="{{ old('date_assurance') }}" name="date_assurance" type="text"
-                                          class="form-control datetimepicker-input" data-target="#date_assurance" />
-                                       <div class="input-group-append" data-target="#date_assurance"
-                                          data-toggle="datetimepicker">
-                                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                       </div>
-                                    </div>
-                                    @error('date_assurance')
-                                       <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="kilometrage_actuel">Kilometrage Actuel</label>
-                                    <input value="{{ old('kilometrage_actuel') }}" name="kilometrage_actuel"
-                                       class="form-control" id="kilometrage_actuel" />
-                                    @error('kilometrage_actuel')
-                                       <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="prochaine_vidange">Prochaine Vidange</label>
-                                    <input value="{{ old('prochaine_vidange') }}" name="prochaine_vidange"
-                                       class="form-control" id="prochaine_vidange" />
-                                    @error('prochaine_vidange')
-                                       <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                 </div>
-                                 <div class="form-group">
-                                    <label>Niveau de carburant</label><br>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="niveau_carburant" id="ca1"
-                                          value="0" @if (old('niveau_carburant') == '0')
-                                       checked
-                                       @endif>
-                                       <label class="form-check-label" for="ca1">0</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="niveau_carburant" id="ca2"
-                                          value="1/4" @if (old('niveau_carburant') == '1/4')
-                                       checked
-                                       @endif>
-                                       <label class="form-check-label" for="ca2">1/4</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="niveau_carburant" id="ca3"
-                                          value="1/2" @if (old('niveau_carburant') == '1/2')
-                                       checked
-                                       @endif>
-                                       <label class="form-check-label" for="ca3">1/2</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="niveau_carburant" id="ca4"
-                                          value="3/4" @if (old('niveau_carburant') == '3/4')
-                                       checked
-                                       @endif>
-                                       <label class="form-check-label" for="ca4">3/4</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="niveau_carburant" id="ca5"
-                                          value="1" @if (old('niveau_carburant') == '1')
-                                       checked
-                                       @endif>
-                                       <label class="form-check-label" for="ca5">1</label>
-                                    </div>
-                                    @error('niveau_carburant')
-                                       <span class="text-danger">{{ $message }}</span>
+                                 <div class="col-6">
+                                    <label for="couleur">Couleur</label>
+                                    <input value="{{ old('couleur') }}" name="couleur" id="couleur" type="text"
+                                       class="form-control" placeholder="orange">
+                                    @error('couleur')
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                  </div>
                               </div>
-                           </div>
-                           <div class="row">
-                              <div class="form-group col-md-12">
-                                 <label for="ressenti">Ressenti du client</label>
-                                 <textarea class="form-control" name="ressenti" id="ressenti" cols="30"
-                                    rows="6">{{ old('ressenti') }}</textarea>
+                              <div class="form-group">
+                                 <label for="chassis">Chassis</label>
+                                 <input value="{{ old('chassis') }}" name="chassis" class="form-control" id="chassis" />
+                                 @error('chassis')
+                                 <span class="text-danger">{{ $message }}</span>
+                                 @enderror
+                              </div> --}}
+                              @php
+                              $erreurs = [];
+                              if(!empty($errors)){
+                              $erreurs = array_merge($erreurs,['immatriculation' => $errors->first('immatriculation')]);
+                              $erreurs = array_merge($erreurs,['marque' => $errors->first('marque')]);
+                              $erreurs = array_merge($erreurs,['annee' => $errors->first('annee')]);
+                              $erreurs = array_merge($erreurs,['modele' => $errors->first('modele')]);
+                              $erreurs = array_merge($erreurs,['couleur' => $errors->first('couleur')]);
+                              $erreurs = array_merge($erreurs,['chassis' => $errors->first('chassis')]);
+                              $erreurs = array_merge($erreurs,['type_vehicule' => $errors->first('type_vehicule')]);
+                              }
+                              @endphp
+                              <vehicule-info-form :errors="{{ json_encode($erreurs) }}"
+                                 :old="{{ json_encode(Session::getOldInput()) }}"
+                                 :immatriculations="{{ json_encode($immatriculations) }}"
+                                 :types_vehicules="{{ json_encode($categories) }}"></vehicule-info-form>
+                              <div class="form-group">
+                                 <label for="dmc">dmc</label>
+                                 <input value="{{ old('dmc') }}" name="dmc" class="form-control" id="dmc" />
+                                 @error('dmc')
+                                    <span class="text-danger">{{ $message }}</span>
+                                 @enderror
+                              </div>
+                              <div class="form-group">
+                                 <label for="date_sitca">Date de dernière visite technique</label>
+                                 <div class="input-group date" id="date_sitca" data-target-input="nearest">
+                                    <input value="{{ old('date_sitca') }}" name="date_sitca" type="text"
+                                       class="form-control datetimepicker-input" data-target="#date_sitca" />
+                                    <div class="input-group-append" data-target="#date_sitca" data-toggle="datetimepicker">
+                                       <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                 </div>
+                                 @error('date_sitca')
+                                    <span class="text-danger">{{ $message }}</span>
+                                 @enderror
+                              </div>
+                              <div class="form-group">
+                                 <label for="date_assurance">Date d'assurance</label>
+                                 <div class="input-group date" id="date_assurance" data-target-input="nearest">
+                                    <input value="{{ old('date_assurance') }}" name="date_assurance" type="text"
+                                       class="form-control datetimepicker-input" data-target="#date_assurance" />
+                                    <div class="input-group-append" data-target="#date_assurance"
+                                       data-toggle="datetimepicker">
+                                       <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                 </div>
+                                 @error('date_assurance')
+                                    <span class="text-danger">{{ $message }}</span>
+                                 @enderror
+                              </div>
+                              <div class="form-group">
+                                 <label for="kilometrage_actuel">Kilometrage Actuel</label>
+                                 <input value="{{ old('kilometrage_actuel') }}" name="kilometrage_actuel"
+                                    class="form-control" id="kilometrage_actuel" />
+                                 @error('kilometrage_actuel')
+                                    <span class="text-danger">{{ $message }}</span>
+                                 @enderror
+                              </div>
+                              <div class="form-group">
+                                 <label for="prochaine_vidange">Prochaine Vidange</label>
+                                 <input value="{{ old('prochaine_vidange') }}" name="prochaine_vidange"
+                                    class="form-control" id="prochaine_vidange" />
+                                 @error('prochaine_vidange')
+                                    <span class="text-danger">{{ $message }}</span>
+                                 @enderror
+                              </div>
+                              <div class="form-group">
+                                 <label>Niveau de carburant</label><br>
+                                 <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="niveau_carburant" id="ca1" value="0"
+                                       @if (old('niveau_carburant') == '0')
+                                    checked
+                                    @endif>
+                                    <label class="form-check-label" for="ca1">0</label>
+                                 </div>
+                                 <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="niveau_carburant" id="ca2"
+                                       value="1/4" @if (old('niveau_carburant') == '1/4')
+                                    checked
+                                    @endif>
+                                    <label class="form-check-label" for="ca2">1/4</label>
+                                 </div>
+                                 <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="niveau_carburant" id="ca3"
+                                       value="1/2" @if (old('niveau_carburant') == '1/2')
+                                    checked
+                                    @endif>
+                                    <label class="form-check-label" for="ca3">1/2</label>
+                                 </div>
+                                 <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="niveau_carburant" id="ca4"
+                                       value="3/4" @if (old('niveau_carburant') == '3/4')
+                                    checked
+                                    @endif>
+                                    <label class="form-check-label" for="ca4">3/4</label>
+                                 </div>
+                                 <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="niveau_carburant" id="ca5" value="1"
+                                       @if (old('niveau_carburant') == '1')
+                                    checked
+                                    @endif>
+                                    <label class="form-check-label" for="ca5">1</label>
+                                 </div>
+                                 @error('niveau_carburant')
+                                    <span class="text-danger">{{ $message }}</span>
+                                 @enderror
                               </div>
                            </div>
-                           <div style="text-align: right" class="form-group">
-                              <button type="submit" class="btn btn-primary">
-                                 enregistrer
-                              </button>
-                           </div>
-                        </form>
                      </div>
-                     <!-- /.card-body -->
+                     <div class="row">
+                        <div class="form-group col-md-12">
+                           <label for="ressenti">Ressenti du client</label>
+                           <textarea class="form-control" name="ressenti" id="ressenti" cols="30"
+                              rows="6">{{ old('ressenti') }}</textarea>
+                        </div>
+                     </div>
+                     <div style="text-align: right" class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                           enregistrer
+                        </button>
+                     </div>
+                     </form>
                   </div>
+                  <!-- /.card-body -->
                </div>
-               <!-- /.col-md-6 -->
             </div>
-            <!-- /.row -->
-         </div><!-- /.container-fluid -->
-      </div>
-      <!-- /.content -->
+            <!-- /.col-md-6 -->
+         </div>
+         <!-- /.row -->
+      </div><!-- /.container-fluid -->
+   </div>
+   <!-- /.content -->
    </div>
    <!-- /.content-wrapper -->
 @endsection

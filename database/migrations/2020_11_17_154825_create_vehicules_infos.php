@@ -16,7 +16,6 @@ class CreateVehiculesInfos extends Migration
         Schema::create('vehicules_infos', function (Blueprint $table) {
             $table->id();
             $table->string('nom_deposant');
-            $table->string('enjoliveur');
             $table->string('niveau_carburant');
             $table->string('vehicule');
             $table->string('immatriculation');

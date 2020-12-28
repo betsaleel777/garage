@@ -4,7 +4,9 @@ namespace App\Models\Maintenance\Reception;
 
 use App\Models\Maintenance\Diagnostique\Diagnostique;
 use App\Models\Maintenance\Diagnostique\Prediagnostique;
+use App\Models\Maintenance\Essai\Postessai;
 use App\Models\Maintenance\Essai\Preessai;
+use App\Models\Maintenance\Reparation\Reparation;
 use App\Models\Personne;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +19,14 @@ class Reception extends Model
     ];
 
     protected $dates = ['created_at', 'updated_at'];
+
+    const STATUS_RECENT = 'arrivé recente';
+    const STATUS_RECEPTION_DOWN = "attente pré-essais";
+    const STATUS_PREESSAI_DOWN = 'attente diagnostique';
+    const STATUS_DIAGNOSTIQUE_DOWN = 'attente réparation';
+    const STATUS_REPARATION_DOWN = 'attente post-essais';
+    const STATUS_REPARATION_REJECT = 'réparation rejétée';
+    const STATUS_POSTESSAI_DOWN = 'réparé';
 
     public function immatriculer(): void
     {
@@ -33,12 +43,12 @@ class Reception extends Model
     public function valider()
     {
         $this->attributes['etat_validation'] = 'validé';
-        $this->attributes['statut'] = "à l'essais";
+        $this->attributes['statut'] = self::STATUS_RECEPTION_DOWN;
     }
 
     public function reparer()
     {
-        $this->attributes['statut'] = "attente réparation";
+        $this->attributes['statut'] = self::STATUS_DIAGNOSTIQUE_DOWN;
     }
 
     public function invalider()
@@ -51,23 +61,52 @@ class Reception extends Model
         return $query->where('etat_validation', 'validé');
     }
 
+    public function scopeRecent($query)
+    {
+        return $query->where('statut', self::STATUS_RECENT);
+    }
+
+    public function scopePreEssayable($query)
+    {
+        return $query->orWhere('statut', self::STATUS_RECEPTION_DOWN);
+    }
+
+    public function scopePreEssayableAdmin($query)
+    {
+        return $query->preEssayable()->orWhere('statut', self::STATUS_PREESSAI_DOWN);
+    }
+
     public function scopeDiagnosticable($query)
     {
-        return $query->where('statut', 'attente diagnostique');
+        return $query->orWhere('statut', self::STATUS_PREESSAI_DOWN);
     }
 
     public function scopeDiagnosticableAdmin($query)
     {
-        return $query->orWhere('statut', 'attente diagnostique')->orWhere('statut', 'attente réparation');
+        return $query->diagnosticable()->orWhere('statut', self::STATUS_DIAGNOSTIQUE_DOWN);
     }
 
     public function scopeReparable($query)
     {
-        return $query->where('statut', 'attente réparation');
+        return $query->orWhere('statut', self::STATUS_DIAGNOSTIQUE_DOWN)->orWhere('statut', self::STATUS_REPARATION_REJECT);
+    }
+
+    public function scopeReparableAdmin($query)
+    {
+        return $query->reparable()->orWhere('statut', self::STATUS_REPARATION_DOWN);
+    }
+
+    public function scopePostEssayable($query)
+    {
+        return $query->orWhere('statut', self::STATUS_REPARATION_DOWN);
+    }
+
+    public function scopePostEssayableAdmin($query)
+    {
+        return $query->postEssayable()->orWhere('statut', self::STATUS_POSTESSAI_DOWN);
     }
 
     //relations
-
     public function utilisateur()
     {
         return $this->belongsTo(User::class, 'user');
@@ -93,6 +132,11 @@ class Reception extends Model
         return $this->hasOne(Preessai::class, 'reception');
     }
 
+    public function postessai()
+    {
+        return $this->hasOne(Postessai::class, 'reception');
+    }
+
     public function diagnostique()
     {
         return $this->hasOne(Diagnostique::class, 'reception');
@@ -101,5 +145,10 @@ class Reception extends Model
     public function prediagnostique()
     {
         return $this->hasOne(Prediagnostique::class, 'reception');
+    }
+
+    public function reparation()
+    {
+        return $this->hasOne(Reparation::class, 'reception');
     }
 }

@@ -15,9 +15,15 @@ class PreessaisController extends Controller
         $this->middleware('auth');
     }
 
+    public static function decompte()
+    {
+        session()->put('essais', Reception::preEssayable()->get()->count() + Reception::postEssayable()->get()->count());
+        session()->put('diagnostiques', Reception::diagnosticable()->get()->count());
+    }
+
     public function liste()
     {
-        $receptions = Reception::with('utilisateur', 'preessai')->orderBy('id', 'desc')->valide()->get();
+        $receptions = Reception::with('utilisateur', 'preessai')->orderBy('id', 'desc')->preEssayableAdmin()->get();
         //retirer les reception déjà liée à un preessai
         $titre = 'Essais avant réparations';
         return view('maintenance.essais.pre.liste', compact('titre', 'receptions'));
@@ -30,6 +36,7 @@ class PreessaisController extends Controller
         $preessai = new Preessai($request->all());
         $preessai->user = Auth::id();
         $preessai->save();
+        self::decompte();
         $message = "Un essais avant réparation vient d'être enregistré avec succès pour la reception: $reception->code";
         session()->flash('success', $message);
         return;
@@ -43,6 +50,7 @@ class PreessaisController extends Controller
         $reception = Reception::find($preessai->reception);
         $reception->statut = 'attente diagnostique';
         $reception->save();
+        self::decompte();
         $message = "l'essais avant réparation de la reception: $reception->code a été validé avec succès";
         return redirect()->route('preessai_liste')->with('success', $message);
     }

@@ -4,13 +4,14 @@ namespace App\Models\Maintenance;
 
 use App\Models\Maintenance\Diagnostique\Diagnostique;
 use App\Models\Maintenance\Reparation\Reparation;
+use App\Models\Maintenance\Reparation\ReparationTerminee;
 use App\Models\Systeme\Atelier;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Intervention extends Model
 {
-    protected $fillable = ['commentaire', 'atelier', 'user', 'surcusale', 'diagnostique', 'reparation'];
+    protected $fillable = ['commentaire', 'atelier', 'user', 'surcusale', 'diagnostique', 'reparation', 'reparation_terminee'];
     protected $dates = ['created_at'];
 
     const RULES = [
@@ -37,6 +38,11 @@ class Intervention extends Model
     public function reparationLinked()
     {
         return $this->belongsTo(Reparation::class, 'reparation');
+    }
+
+    public function reparationFinished()
+    {
+        return $this->belongsTo(ReparationTerminee::class, 'reparation_terminee');
     }
 
 }

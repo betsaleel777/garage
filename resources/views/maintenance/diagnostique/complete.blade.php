@@ -137,9 +137,9 @@ use Carbon\Carbon;
                                     </div>
                                  </div>
                                  <hr>
+                                 <h3>CHECKLIST</h3>
                                  <div class="row">
                                     <div class="col-md-6">
-                                       <h3>CHECKLIST</h3>
                                        <table class="show-table">
                                           <thead>
                                              <tr>
@@ -222,6 +222,12 @@ use Carbon\Carbon;
                                                 <td>Trappe de carburant</td>
                                                 <td>{{ $reception->etat->trape_carburant }}</td>
                                              </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <table class="show-table">
+                                          <tbody>
                                              <tr>
                                                 <td>Ouverture des portes extérieur</td>
                                                 <td>{{ $reception->etat->ouverture_portes_ext }}</td>
@@ -900,19 +906,9 @@ use Carbon\Carbon;
                   </div>
                </div>
                {{-- formulaire intervention diagnostique --}}
-               @if ($reception->diagnostique->est_valide())
-                  <div class="col-md-12">
-                     <div class="alert alert-info alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h5><i class="icon fas fa-info"></i> BON A SAVOIR</h5>
-                        Cette réception est fermée, elle ne peut plus être completée.
-                     </div>
-                  </div>
-               @else
-                  <div class="col-md-12">
-                     <form-diagnostique :ateliers="{{ $ateliers }}" :reception="{{ $reception->id }}"></form-diagnostique>
-                  </div>
-               @endif
+               <div class="col-md-12">
+                  <form-diagnostique :ateliers="{{ $ateliers }}" :reception="{{ $reception->id }}"></form-diagnostique>
+               </div>
             </div>
             <!-- /.row -->
 

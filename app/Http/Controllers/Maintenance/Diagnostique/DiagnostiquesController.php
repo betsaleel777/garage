@@ -6,14 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Maintenance\Diagnostique\Diagnostique;
 use App\Models\Maintenance\Intervention;
 use App\Models\Maintenance\Reception\Reception;
+use App\Models\Maintenance\Reparation\Reparation;
 use App\Models\Systeme\Atelier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DiagnostiquesController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public static function decompte()
+    {
+        session()->put('diagnostiques', Reception::diagnosticable()->get()->count());
+        session()->put('reparations', Reparation::notFinished()->get()->count());
     }
 
     public function index()
@@ -32,11 +40,11 @@ class DiagnostiquesController extends Controller
     public function complete(int $reception)
     {
         $titre = 'Completer un diagnostique';
-        $reception = Reception::with('diagnostique', 'prediagnostique', 'preessai', 'preessai.utilisateur', 'utilisateur', 'vehicule', 'etat', 'personneLinked')->find($reception);
+        $reception = Reception::with('diagnostique', 'prediagnostique', 'preessai.utilisateur', 'utilisateur', 'vehicule', 'etat', 'personneLinked')->find($reception);
         $ateliers = Atelier::select('id', 'nom')->get();
         $interventions = json_encode([]);
-        $data = Intervention::where('diagnostique', $reception->diagnostique->id)->with('atelierLinked', 'utilisateur')->get()->all();
         if (!empty($reception->diagnostique)) {
+            $data = Intervention::where('diagnostique', $reception->diagnostique->id)->with('atelierLinked', 'utilisateur')->get()->all();
             $interventions = array_map(function ($element) {
                 return [
                     'id' => $element->id,
@@ -62,6 +70,16 @@ class DiagnostiquesController extends Controller
         $diagnostique->save();
         $reception->reparer();
         $reception->save();
+        //créer un ordre de travail
+        $reparation = new Reparation();
+        $reparation->immatriculer();
+        $reparation->diagnostique = $reception->diagnostique->id;
+        $reparation->reception = $reception->id;
+        $reparation->preessai = $reception->preessai->id;
+        $reparation->user = Auth::id();
+        $reparation->save();
+        //créer un devis
+        self::decompte();
         $message = "la réception $reception->code a été fermée avec success";
         $new_diagnostique = Diagnostique::find($diagnostique->id);
         $data_diagnostique = [
@@ -75,7 +93,7 @@ class DiagnostiquesController extends Controller
     public function show(int $reception)
     {
         $titre = 'Détails du diagnostique';
-        $reception = Reception::with('diagnostique', 'prediagnostique', 'preessai', 'preessai.utilisateur', 'utilisateur', 'vehicule', 'etat', 'personneLinked')->find($reception);
+        $reception = Reception::with('diagnostique', 'prediagnostique', 'preessai.utilisateur', 'utilisateur', 'vehicule', 'etat', 'personneLinked')->find($reception);
         $interventions = json_encode([]);
         $data = Intervention::where('diagnostique', $reception->diagnostique->id)->with('atelierLinked', 'utilisateur')->get()->all();
         if (!empty($reception->diagnostique)) {

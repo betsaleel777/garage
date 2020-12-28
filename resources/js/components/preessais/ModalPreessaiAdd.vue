@@ -39,13 +39,14 @@ export default {
         BVModal
     },
     props: {
-        reception: Number,
-        code: String,
-        ressenti: String
+        bigreception: Object
     },
     data() {
         return {
             commentaire: "",
+            reception: null,
+            code: null,
+            ressenti: null,
             messages: {
                 ressenti: {
                     exist: false,
@@ -53,6 +54,11 @@ export default {
                 }
             }
         };
+    },
+    mounted() {
+        this.reception = this.bigreception.id;
+        this.code = this.bigreception.code;
+        this.ressenti = this.bigreception.ressenti;
     },
     methods: {
         runModal() {

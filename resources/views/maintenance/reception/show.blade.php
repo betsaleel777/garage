@@ -348,7 +348,7 @@
                                     </tr>
                                     <tr class="active-row">
                                        <th>Enjoliveur</th>
-                                       <td>{{ $reception->vehicule->enjoliveur }}</td>
+                                       <td>{{ $enjoliveurs }}</td>
                                     </tr>
                                     <tr class="active-row">
                                        <th>Niveau de carburant</th>
@@ -357,7 +357,10 @@
                                  </tbody>
                               </table>
                            </div>
-                           <div class="col-md-6"></div>
+                           <div class="col-md-6">
+                              <img style="padding: 12% ; margin-top: 2%; margin-left:4%"
+                                 src="{{ asset('images/dessein.png') }}" width="508" height="369" alt="dessein">
+                           </div>
                         </div>
                      </div>
                   </div>

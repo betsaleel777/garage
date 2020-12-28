@@ -1,0 +1,16 @@
+{
+    "include": [
+        "./resources/js/**/*"
+    ],
+    "compilerOptions": {
+        "module": "es2016",
+        "moduleResolution": "node",
+        "target": "es6",
+        "sourceMap": true,
+        "paths": {
+            "components/*": [
+                "resources/js/components/*"
+            ]
+        }
+    }
+}

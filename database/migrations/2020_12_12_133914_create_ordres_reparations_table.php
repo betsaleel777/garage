@@ -16,12 +16,12 @@ class CreateOrdresReparationsTable extends Migration
         Schema::create('ordres_reparations', function (Blueprint $table) {
             $table->id();
             $table->string('code', 10)->unique();
-            $table->string('couleur', 15);
+            $table->string('couleur', 15)->default('red');
             $table->unsignedBigInteger('diagnostique');
             $table->unsignedBigInteger('reception');
             $table->unsignedBigInteger('preessai');
             $table->unsignedBigInteger('user');
-            $table->unsignedBigInteger('surcusale');
+            $table->unsignedBigInteger('surcusale')->nullable();
             $table->foreign('diagnostique')->references('id')->on('diagnostiques')->onDelete('cascade');
             $table->foreign('surcusale')->references('id')->on('surcusales')->onDelete('cascade');
             $table->foreign('reception')->references('id')->on('receptions')->onDelete('cascade');
