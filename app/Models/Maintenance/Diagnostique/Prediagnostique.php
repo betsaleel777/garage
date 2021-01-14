@@ -27,6 +27,11 @@ class Prediagnostique extends Model
         return $this->belongsTo(Reception::class, 'reception');
     }
 
+    public function cocher()
+    {
+        return $this->hasOne(PrediagnostiqueCocher::class, 'prediagnostique');
+    }
+
     public function utilisateur()
     {
         return $this->belongsTo(User::class, 'user');

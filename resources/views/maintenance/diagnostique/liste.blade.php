@@ -49,7 +49,6 @@
                                  <th>Déposant</th>
                                  <th>Utilisateur</th>
                                  <th>Statut</th>
-                                 <th>Validation Diagnostique</th>
                                  <th>Options</th>
                               </tr>
                            </thead>
@@ -63,37 +62,21 @@
                                     <td>{{ $reception->utilisateur->name }}</td>
                                     <td><b class="text-primary">{{ $reception->statut }}</b></td>
                                     <td>
-                                       @empty($reception->diagnostique)
-                                          <b class="text-danger">{{ 'non validé' }}</b>
-                                       @else
-                                          @if ($reception->diagnostique->est_valide())
-                                             <b class="text-success">{{ $reception->diagnostique->etat_validation }}</b>
-                                          @else
-                                             <b class="text-danger">{{ $reception->diagnostique->etat_validation }}</b>
-                                          @endif
-                                       @endempty
-                                    </td>
-                                    <td>
                                        @if (!empty($reception->diagnostique))
-                                          @if ($reception->diagnostique->est_valide())
-                                             <div class="row">
-                                                <div class="col-md-3">
-                                                   <a class="text-primary"
-                                                      href="{{ route('diagnostique_show', $reception) }}">
-                                                      <i class="fas fa-lg fa-eye"></i>
-                                                   </a>
-                                                </div>
+                                          <div class="row">
+                                             <div class="col-md-3">
+                                                <a class="text-primary"
+                                                   href="{{ route('diagnostique_complete', $reception) }}">
+                                                   <i class="far fa-lg fa-file-alt"></i>
+                                                </a>
                                              </div>
-                                          @else
-                                             <div class="row">
-                                                <div class="col-md-3">
-                                                   <a class="text-primary"
-                                                      href="{{ route('diagnostique_complete', $reception) }}">
-                                                      <i class="far fa-lg fa-file-alt"></i>
-                                                   </a>
-                                                </div>
+                                             <div class="col-md-3">
+                                                <a class="text-primary"
+                                                   href="{{ route('diagnostique_show', $reception) }}">
+                                                   <i class="fas fa-lg fa-eye"></i>
+                                                </a>
                                              </div>
-                                          @endif
+                                          </div>
                                        @else
                                           <div class="row">
                                              <div class="col-md-3">

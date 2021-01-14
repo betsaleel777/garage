@@ -31,24 +31,18 @@
                <!-- /.col-md-6 -->
                <div class="col-lg-12">
                   <div class="card">
-                     @if (!$reception->est_valide())
-                        <div class="card-header">
-                           <div class="row">
-                              <div class="col-md-10"></div>
-                              <div class="col-md-2">
-                                 <a class="btn btn-success ui-button" href="{{ route('reception_valider', $reception) }}">
-                                    <i class="fas fa-lg fa-check-circle"></i>
-                                    valider
-                                 </a>
-                              </div>
+                     <div class="card-header">
+                        <div class="row">
+                           <div class="col-md-10"></div>
+                           <div class="col-md-2">
+                              <a target="_blank" class="btn btn-primary" href="{{ route('reception_print', $reception) }}">
+                                 <i class="fas fa-print"></i> imprimer
+                              </a>
                            </div>
                         </div>
-                     @endif
+                     </div>
                      <div class="row">
                         <div class="col-md-8">
-                           <a target="_blank" class="btn btn-primary" href="{{ route('reception_print', $reception) }}">
-                              <i class="fas fa-print"></i> imprimer
-                           </a>
                         </div>
                         <div class="col-md-4">
                            <h4><b>Date de réception:</b><span> {{ $reception->created_at->format('d-m-Y') }}</span></h4>
@@ -124,189 +118,8 @@
                               @endif
                            </div>
                            <div class="col-md-6">
-                              <h3>RESSENTI DU CLIENT</h3>
-                              <dd>{{ $reception->ressenti }}</dd>
-                           </div>
-                        </div>
-                        <hr>
-                        <h3>CHECKLIST</h3>
-                        <div style="margin-bottom: 2%" class="row">
-                           <div class="col-md-6">
-                              <table class="show-table">
-                                 <thead>
-                                    <tr>
-                                       <th>COMPARTIMENTS</th>
-                                       <th>ETAT</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr class="active-row">
-                                       <td colspan="2"><b>Intérieur</b></td>
-                                    </tr>
-                                    <tr>
-                                       <td>Eclairage intérieur</td>
-                                       <td>{{ $reception->etat->eclairage_int }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Rétroviseur</td>
-                                       <td>{{ $reception->etat->retroviseurs_int }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Klaxon</td>
-                                       <td>{{ $reception->etat->klaxon }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Essuies glaces</td>
-                                       <td>{{ $reception->etat->essuies_glace }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Radio</td>
-                                       <td>{{ $reception->etat->radio }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Climatisation</td>
-                                       <td>{{ $reception->etat->climatisation }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Frein de stationnement</td>
-                                       <td>{{ $reception->etat->frein_stationnement }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Sièges</td>
-                                       <td>{{ $reception->etat->sieges }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Tableau de bord</td>
-                                       <td>{{ $reception->etat->tableau_bord }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>lève vitre</td>
-                                       <td>{{ $reception->etat->leve_vitre }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Vérouillage des portes</td>
-                                       <td>{{ $reception->etat->verrouillage_portes }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Ouverture des portes intérieur</td>
-                                       <td>{{ $reception->etat->ouverture_portes_int }}</td>
-                                    </tr>
-                                    <tr class="active-row">
-                                       <td colspan="2"><b>Extérieur</b></td>
-                                    </tr>
-                                    <tr>
-                                       <td>Roues</td>
-                                       <td>{{ $reception->etat->roues }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Feux arrières</td>
-                                       <td>{{ $reception->etat->feux_arrieres }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Balais éssuies glaces av</td>
-                                       <td>{{ $reception->etat->balais_essuies_glace_av }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Balais éssuies glaces ar</td>
-                                       <td>{{ $reception->etat->balais_essuies_glace_ar }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Trappe de carburant</td>
-                                       <td>{{ $reception->etat->trape_carburant }}</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                           <div class="col-md-6">
-                              <table class="show-table">
-                                 <tbody>
-                                    <tr>
-                                       <td>Ouverture des portes extérieur</td>
-                                       <td>{{ $reception->etat->ouverture_portes_ext }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Sièges</td>
-                                       <td>{{ $reception->etat->sieges }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Clé de contact</td>
-                                       <td>{{ $reception->etat->cle_contact }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Rétroviseus extérieur</td>
-                                       <td>{{ $reception->etat->retroviseurs_ext }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Clignotants</td>
-                                       <td>{{ $reception->etat->clignotants }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Veilleuses</td>
-                                       <td>{{ $reception->etat->veilleuses }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Feux de croisement</td>
-                                       <td>{{ $reception->etat->feux_croisement }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>feux STOP</td>
-                                       <td>{{ $reception->etat->feux_stop }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Feux de recul</td>
-                                       <td>{{ $reception->etat->feux_recul }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Feux antibrouillards</td>
-                                       <td>{{ $reception->etat->feux_antibrouillard }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Cric</td>
-                                       <td>{{ $reception->etat->cric }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Roue de secours</td>
-                                       <td>{{ $reception->etat->roues_secours }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Manivelles</td>
-                                       <td>{{ $reception->etat->manivelle }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Trousses</td>
-                                       <td>{{ $reception->etat->trousse }}</td>
-                                    </tr>
-                                    <tr class="active-row">
-                                       <td colspan="2"><b>Sous le capot</b></td>
-                                    </tr>
-                                    <tr>
-                                       <td>Huile de moteur</td>
-                                       <td>{{ $reception->etat->huile_moteur }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Huile de frein</td>
-                                       <td>{{ $reception->etat->huile_frein }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Huile de direction</td>
-                                       <td>{{ $reception->etat->huile_direction }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Liquide de refroidissement</td>
-                                       <td>{{ $reception->etat->liquide_refroidissement }}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Liquide lave glace</td>
-                                       <td>{{ $reception->etat->liquide_lave_glace }}</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-6">
                               <h3>IDENTIFICATION DU VEHICULE</h3>
-                              <table class="show-table">
+                              <table class="show-table-short">
                                  <tbody>
                                     <tr class="active-row">
                                        <th>Déposant</th>
@@ -357,6 +170,900 @@
                                  </tbody>
                               </table>
                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                           <div class="col-md-4">
+                              <h3>CHECKLIST</h3>
+                           </div>
+                           <div style="text-align: right" class="col-md-8">
+                              <span class="text-muted">{ I: inexistant , B: bon, P: passable, M: mauvais }</span>
+                           </div>
+                        </div>
+                        <div style="margin-bottom: 2%" class="row">
+                           <div class="col-md-6">
+                              <table class="show-table">
+                                 <thead>
+                                    <tr>
+                                       <th>COMPARTIMENTS</th>
+                                       <th>I</th>
+                                       <th>B</th>
+                                       <th>P</th>
+                                       <th>M</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr class="active-row">
+                                       <td colspan="5"><b>Intérieur</b></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Eclairage intérieur</td>
+                                       <td>
+                                          @if ($reception->etat->eclairage_int === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->eclairage_int === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->eclairage_int === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->eclairage_int === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Rétroviseur</td>
+                                       <td>
+                                          @if ($reception->etat->retroviseurs_int === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->retroviseurs_int === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->retroviseurs_int === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->retroviseurs_int === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Klaxon</td>
+                                       <td>
+                                          @if ($reception->etat->klaxon === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->klaxon === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->klaxon === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->klaxon === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Essuies glaces</td>
+                                       <td>
+                                          @if ($reception->etat->essuies_glace === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->essuies_glace === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->essuies_glace === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->essuies_glace === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Radio</td>
+                                       <td>
+                                          @if ($reception->etat->radio === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->radio === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->radio === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->radio === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Climatisation</td>
+                                       <td>
+                                          @if ($reception->etat->climatisation === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->climatisation === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->climatisation === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->climatisation === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Frein de stationnement</td>
+                                       <td>
+                                          @if ($reception->etat->frein_stationnement === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->frein_stationnement === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->frein_stationnement === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->frein_stationnement === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Sièges</td>
+                                       <td>
+                                          @if ($reception->etat->sieges === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->sieges === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->sieges === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->sieges === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Tableau de bord</td>
+                                       <td>
+                                          @if ($reception->etat->tableau_bord === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->tableau_bord === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->tableau_bord === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->tableau_bord === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>lève vitre</td>
+                                       <td>
+                                          @if ($reception->etat->leve_vitre === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->leve_vitre === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->leve_vitre === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->leve_vitre === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Vérouillage des portes</td>
+                                       <td>
+                                          @if ($reception->etat->verrouillage_portes === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->verrouillage_portes === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->verrouillage_portes === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->verrouillage_portes === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Ouverture des portes intérieur</td>
+                                       <td>
+                                          @if ($reception->etat->ouverture_portes_int === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->ouverture_portes_int === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->ouverture_portes_int === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->ouverture_portes_int === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr class="active-row">
+                                       <td colspan="5"><b>Extérieur</b></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Roues</td>
+                                       <td>
+                                          @if ($reception->etat->roues === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->roues === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->roues === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->roues === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Feux arrières</td>
+                                       <td>
+                                          @if ($reception->etat->feux_arrieres === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_arrieres === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_arrieres === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_arrieres === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Balais éssuies glaces av</td>
+                                       <td>
+                                          @if ($reception->etat->balais_essuies_glace_av === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->balais_essuies_glace_av === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->balais_essuies_glace_av === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->balais_essuies_glace_av === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Balais éssuies glaces ar</td>
+                                       <td>
+                                          @if ($reception->etat->balais_essuies_glace_ar === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->balais_essuies_glace_ar === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->balais_essuies_glace_ar === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->balais_essuies_glace_ar === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Trappe de carburant</td>
+                                       <td>
+                                          @if ($reception->etat->trape_carburant === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->trape_carburant === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->trape_carburant === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->trape_carburant === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>*</td>
+                                       <td>*</td>
+                                       <td>*</td>
+                                       <td>*</td>
+                                       <td>*</td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                           <div class="col-md-6">
+                              <table class="show-table">
+                                 <thead>
+                                    <tr>
+                                       <th>COMPARTIMENTS</th>
+                                       <th>I</th>
+                                       <th>B</th>
+                                       <th>P</th>
+                                       <th>M</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <td>Ouverture des portes extérieur</td>
+                                       <td>
+                                          @if ($reception->etat->ouverture_portes_ext === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->ouverture_portes_ext === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->ouverture_portes_ext === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->ouverture_portes_ext === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Sièges</td>
+                                       <td>
+                                          @if ($reception->etat->sieges === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->sieges === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->sieges === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->sieges === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Clé de contact</td>
+                                       <td>
+                                          @if ($reception->etat->cle_contact === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->cle_contact === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->cle_contact === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->cle_contact === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Rétroviseurs extérieur</td>
+                                       <td>
+                                          @if ($reception->etat->retroviseurs_ext === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->retroviseurs_ext === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->retroviseurs_ext === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->retroviseurs_ext === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Clignotants</td>
+                                       <td>
+                                          @if ($reception->etat->clignotants === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->clignotants === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->clignotants === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->clignotants === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Veilleuses</td>
+                                       <td>
+                                          @if ($reception->etat->veilleuses === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->veilleuses === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->veilleuses === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->veilleuses === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Feux de croisement</td>
+                                       <td>
+                                          @if ($reception->etat->feux_croisement === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_croisement === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_croisement === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_croisement === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>feux STOP</td>
+                                       <td>
+                                          @if ($reception->etat->feux_stop === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_stop === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_stop === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_stop === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Feux de recul</td>
+                                       <td>
+                                          @if ($reception->etat->feux_recul === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_recul === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_recul === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_recul === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Feux antibrouillards</td>
+                                       <td>
+                                          @if ($reception->etat->feux_antibrouillard === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_antibrouillard === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_antibrouillard === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->feux_antibrouillard === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Cric</td>
+                                       <td>
+                                          @if ($reception->etat->cric === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->cric === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->cric === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->cric === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Roue de secours</td>
+                                       <td>
+                                          @if ($reception->etat->roues_secours === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->roues_secours === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->roues_secours === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->roues_secours === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Manivelles</td>
+                                       <td>
+                                          @if ($reception->etat->manivelle === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->manivelle === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->manivelle === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->manivelle === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Trousses</td>
+                                       <td>
+                                          @if ($reception->etat->trousse === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->trousse === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->trousse === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->trousse === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr class="active-row">
+                                       <td colspan="5"><b>Sous le capot</b></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Huile de moteur</td>
+                                       <td>
+                                          @if ($reception->etat->huile_moteur === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->huile_moteur === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->huile_moteur === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->huile_moteur === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Huile de frein</td>
+                                       <td>
+                                          @if ($reception->etat->huile_frein === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->huile_frein === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->huile_frein === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->huile_frein === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Huile de direction</td>
+                                       <td>
+                                          @if ($reception->etat->huile_direction === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->huile_direction === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->huile_direction === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->huile_direction === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Liquide de refroidissement</td>
+                                       <td>
+                                          @if ($reception->etat->liquide_refroidissement === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->liquide_refroidissement === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->liquide_refroidissement === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->liquide_refroidissement === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Liquide lave glace</td>
+                                       <td>
+                                          @if ($reception->etat->liquide_lave_glace === 'inexistant')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->liquide_lave_glace === 'bon')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->liquide_lave_glace === 'passable')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                       <td>
+                                          @if ($reception->etat->liquide_lave_glace === 'mauvais')
+                                             <span class="text-primary"><i class="fas fa-check"></i></span>
+                                          @endif
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <div class="row">
+                           {{-- informations du véhicule --}}
+                           <div class="col-md-6">
+                              <h3>RESSENTI DU CLIENT</h3>
+                              <dd>{{ $reception->ressenti }}</dd>
+                           </div>
+
+                           {{-- schema véhicule morceaux --}}
                            <div class="col-md-6">
                               <img style="padding: 12% ; margin-top: 2%; margin-left:4%"
                                  src="{{ asset('images/dessein.png') }}" width="508" height="369" alt="dessein">

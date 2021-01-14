@@ -56,13 +56,11 @@
                 </a>
              </li>
              <li class="nav-item">
-                <a href="#"
+                <a href="{{ route('stock_index') }}"
                    class="nav-link @php if(Route::currentRouteName() === 'stock_index') { echo 'active'; } @endphp">
                    <i class="nav-icon fas fa-th"></i>
                    <p>
                       Stock
-                      {{-- <span class="right badge badge-danger">New</span>
-                      --}}
                    </p>
                 </a>
              </li>

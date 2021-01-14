@@ -89,6 +89,15 @@ Route::prefix('maintenance')->group(function () {
 
 });
 
+Route::prefix('stock')->group(function () {
+    Route::get('index', 'DashboardController@stock')->name('stock_index');
+    Route::prefix('piece')->group(function () {
+        Route::get('liste', 'Stock\PiecesController@liste')->name('pieces');
+        Route::get('add', 'Stock\PiecesController@add')->name('piece_add');
+        Route::post('store', 'Stock\PiecesController@store')->name('piece_store');
+    });
+});
+
 Route::prefix('systeme')->group(function () {
     Route::get('/index', 'DashboardController@systeme')->name('systeme_index');
     Route::prefix('comptes')->group(function () {
@@ -111,6 +120,51 @@ Route::prefix('systeme')->group(function () {
         Route::post('/store', 'Systeme\AteliersController@store')->name('atelier_store');
         Route::get('/edit/{id}', 'Systeme\AteliersController@edit')->name('atelier_edit');
         Route::post('/update', 'Systeme\AteliersController@update')->name('atelier_update');
+    });
+
+    Route::prefix('magasin')->group(function () {
+        Route::get('/index', 'Systeme\Stock\MagasinsController@index')->name('magasins');
+        Route::get('/add', 'Systeme\Stock\MagasinsController@add')->name('magasin_add');
+        Route::post('/store', 'Systeme\Stock\MagasinsController@store')->name('magasin_store');
+        Route::get('/edit/{id}', 'Systeme\Stock\MagasinsController@edit')->name('magasin_edit');
+        Route::post('/update', 'Systeme\Stock\MagasinsController@update')->name('magasin_update');
+    });
+
+    Route::prefix('fabricant')->group(function () {
+        Route::get('/index', 'Systeme\Stock\FabricantsController@index')->name('fabricants');
+        Route::get('/add', 'Systeme\Stock\FabricantsController@add')->name('fabricant_add');
+        Route::post('/store', 'Systeme\Stock\FabricantsController@store')->name('fabricant_store');
+        Route::get('/edit/{id}', 'Systeme\Stock\FabricantsController@edit')->name('fabricant_edit');
+        Route::post('/update', 'Systeme\Stock\FabricantsController@update')->name('fabricant_update');
+    });
+
+    Route::prefix('magasin')->group(function () {
+        Route::get('/index', 'Systeme\Stock\MagasinsController@index')->name('magasins');
+        Route::get('/add', 'Systeme\Stock\MagasinsController@add')->name('magasin_add');
+        Route::post('/store', 'Systeme\Stock\MagasinsController@store')->name('magasin_store');
+        Route::get('/edit/{id}', 'Systeme\Stock\MagasinsController@edit')->name('magasin_edit');
+        Route::post('/update', 'Systeme\Stock\MagasinsController@update')->name('magasin_update');
+    });
+
+    Route::prefix('fournisseur')->group(function () {
+        Route::get('/index', 'Systeme\Stock\FournisseursController@index')->name('fournisseurs');
+        Route::get('/add', 'Systeme\Stock\FournisseursController@add')->name('fournisseur_add');
+        Route::post('/store', 'Systeme\Stock\FournisseursController@store')->name('fournisseur_store');
+        Route::get('/edit/{id}', 'Systeme\Stock\FournisseursController@edit')->name('fournisseur_edit');
+        Route::post('/update', 'Systeme\Stock\FournisseursController@update')->name('fournisseur_update');
+    });
+
+    Route::prefix('categorie')->group(function () {
+        Route::get('/index', 'Systeme\Stock\CategoriesController@index')->name('categories');
+        Route::get('/add', 'Systeme\Stock\CategoriesController@add')->name('categorie_add');
+        Route::post('/store', 'Systeme\Stock\CategoriesController@store')->name('categorie_store');
+        Route::get('/edit/{id}', 'Systeme\Stock\CategoriesController@edit')->name('categorie_edit');
+        Route::get('/show/{id}', 'Systeme\Stock\CategoriesController@show')->name('categorie_show');
+        Route::get('/enfant/add/{categorie}', 'Systeme\Stock\SousCategoriesController@add')->name('sous_categorie_add');
+        Route::post('/enfant/store', 'Systeme\Stock\SousCategoriesController@store')->name('sous_categorie_store');
+        Route::get('/enfant/edit/{id}', 'Systeme\Stock\SousCategoriesController@edit')->name('sous_categorie_edit');
+        Route::post('/enfant/update', 'Systeme\Stock\SousCategoriesController@update')->name('sous_categorie_update');
+        Route::post('/update', 'Systeme\Stock\CategoriesController@update')->name('categorie_update');
     });
 
     Route::prefix('async')->group(function () {

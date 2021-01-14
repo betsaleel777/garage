@@ -42,19 +42,6 @@ class PreessaisController extends Controller
         return;
     }
 
-    public function valider(int $id)
-    {
-        $preessai = Preessai::find($id);
-        $preessai->valider();
-        $preessai->save();
-        $reception = Reception::find($preessai->reception);
-        $reception->statut = 'attente diagnostique';
-        $reception->save();
-        self::decompte();
-        $message = "l'essais avant réparation de la reception: $reception->code a été validé avec succès";
-        return redirect()->route('preessai_liste')->with('success', $message);
-    }
-
     public function update(Request $request)
     {
         $request->validate(Preessai::RULES);

@@ -49,7 +49,6 @@
                                  <th>Déposant</th>
                                  <th>Utilisateur</th>
                                  <th>Statut</th>
-                                 <th>Validation Essai</th>
                                  <th>Options</th>
                               </tr>
                            </thead>
@@ -63,31 +62,17 @@
                                     <td>{{ $reception->utilisateur->name }}</td>
                                     <td><b class="text-primary">{{ $reception->statut }}</b></td>
                                     <td>
-                                       @empty($reception->preessai)
-                                          <b class="text-danger">{{ 'non validé' }}</b>
-                                       @else
-                                          @if ($reception->preessai->est_valide())
-                                             <b class="text-success">{{ $reception->preessai->etat_validation }}</b>
-                                          @else
-                                             <b class="text-danger">{{ $reception->preessai->etat_validation }}</b>
-                                          @endif
-                                       @endempty
-                                    </td>
-                                    <td>
                                        <div class="row">
                                           @if (!empty($reception->preessai))
-                                             @if (!$reception->preessai->est_valide())
-                                                <div class="col-md-3">
-                                                   <modal-preessai-edit :bigreception="{{ json_encode($reception) }}">
-                                                   </modal-preessai-edit>
-                                                </div>
-                                                <div class="col-md-3">
-                                                   <a class="text-success"
-                                                      href="{{ route('preessai_valider', $reception->preessai->id) }}">
-                                                      <i class="fas fa-lg fa-check-circle"></i>
-                                                   </a>
-                                                </div>
-                                             @endif
+                                             <div class="col-md-4"></div>
+                                             <div class="col-md-4">
+                                                {{-- <modal-preessai-edit
+                                                   :bigreception="{{ json_encode($reception) }}">
+                                                </modal-preessai-edit> --}}
+                                                <span class="text-success"> <i
+                                                      class="fas fa-lg fa-check-circle"></i></span>
+                                             </div>
+                                             <div class="col-md-4"></div>
                                           @else
                                              <div class="col-md-6">
                                                 <modal-preessai-add :bigreception="{{ json_encode($reception) }}">

@@ -35,25 +35,14 @@ class Reception extends Model
         $this->attributes['code'] = 'REC' . substr(str_shuffle($lettres), 0, 3) . \substr(\str_shuffle($chiffres), 0, 4);
     }
 
-    public function est_valide()
+    public function receptionner()
     {
-        return $this->attributes['etat_validation'] === 'validé';
-    }
-
-    public function valider()
-    {
-        $this->attributes['etat_validation'] = 'validé';
         $this->attributes['statut'] = self::STATUS_RECEPTION_DOWN;
     }
 
     public function reparer()
     {
         $this->attributes['statut'] = self::STATUS_DIAGNOSTIQUE_DOWN;
-    }
-
-    public function invalider()
-    {
-        $this->attributes['etat_validation'] = null;
     }
 
     public function scopeValide($query)

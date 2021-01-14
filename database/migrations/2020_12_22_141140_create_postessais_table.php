@@ -16,7 +16,6 @@ class CreatePostessaisTable extends Migration
         Schema::create('postessais', function (Blueprint $table) {
             $table->id();
             $table->longText('commentaire');
-            $table->string('etat_validation')->default('non validé');
             $table->boolean('accepter')->default(false);
             $table->unsignedBigInteger('user');
             $table->unsignedBigInteger('reception');

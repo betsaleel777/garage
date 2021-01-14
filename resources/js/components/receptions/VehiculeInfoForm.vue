@@ -1,39 +1,59 @@
 <template>
-    <div>
-        <div class="form-group">
-            <label for="immatriculation">Immatriculation</label>
-            <div class="form-group input-group">
-                <input
-                    type="text"
-                    name="immatriculation"
-                    v-model="immatriculation"
-                    class="form-control"
-                    id="immatriculation"
-                    placeholder="plaque d'immatriculation"
-                />
-                <span class="input-group-append">
-                    <button
-                        @click="check"
-                        type="button"
-                        class="btn btn-primary btn-flat"
-                    >
-                        ok
-                    </button>
-                </span>
-                <datalist id="matricule">
-                    <option
-                        v-for="matricule in immatriculations"
-                        :key="matricule"
-                        >{{ matricule }}</option
-                    >
-                </datalist>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="immatriculation">Immatriculation</label>
+                    <div class="form-group input-group">
+                        <input
+                            type="text"
+                            name="immatriculation"
+                            v-model="immatriculation"
+                            class="form-control"
+                            id="immatriculation"
+                            placeholder="plaque d'immatriculation"
+                        />
+                        <span class="input-group-append">
+                            <button
+                                @click="check"
+                                type="button"
+                                class="btn btn-primary btn-flat"
+                            >
+                                ok
+                            </button>
+                        </span>
+                        <datalist id="matricule">
+                            <option
+                                v-for="matricule in immatriculations"
+                                :key="matricule"
+                                >{{ matricule }}</option
+                            >
+                        </datalist>
+                        <span
+                            v-if="messages.immatriculation.exist"
+                            class="text-danger"
+                            >{{ messages.immatriculation.value }}</span
+                        >
+                    </div>
+                </div>
             </div>
-            <span v-if="messages.immatriculation.exist" class="text-danger">{{
-                messages.immatriculation.value
-            }}</span>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="chassis">Chassis</label>
+                    <input
+                        name="chassis"
+                        v-model="chassis"
+                        class="form-control"
+                        id="chassis"
+                    />
+                    <span v-if="messages.chassis.exist" class="text-danger">{{
+                        messages.chassis.value
+                    }}</span>
+                </div>
+            </div>
         </div>
         <div class=" form-group row">
-            <div class="col-4">
+            <div class="col-3">
                 <label for="marque">Marque</label>
                 <input
                     name="marque"
@@ -49,7 +69,7 @@
                     }}</span>
                 </small>
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <label for="modele">Modèle</label>
                 <input
                     name="modele"
@@ -65,7 +85,7 @@
                     }}</span>
                 </small>
             </div>
-            <div class="col-5">
+            <div class="col-3">
                 <label for="type_vehicule">Type</label>
                 <input
                     type="text"
@@ -89,7 +109,7 @@
                     >
                 </small>
             </div>
-            <div class="col-6">
+            <div class="col-2">
                 <label for="annee">Année</label>
                 <input
                     name="annee"
@@ -105,7 +125,7 @@
                     }}</span>
                 </small>
             </div>
-            <div class="col-6">
+            <div class="col-2">
                 <label for="couleur">Couleur</label>
                 <input
                     name="couleur"
@@ -121,18 +141,6 @@
                     }}</span>
                 </small>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="chassis">Chassis</label>
-            <input
-                name="chassis"
-                v-model="chassis"
-                class="form-control"
-                id="chassis"
-            />
-            <span v-if="messages.chassis.exist" class="text-danger">{{
-                messages.chassis.value
-            }}</span>
         </div>
     </div>
 </template>
@@ -287,7 +295,6 @@ export default {
             }
         },
         vider() {
-            this.immatriculation = null;
             this.modele = null;
             this.marque = null;
             this.annee = null;

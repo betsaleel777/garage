@@ -426,9 +426,464 @@ use Carbon\Carbon;
                         <div class="card-body">
                            <form action="{{ route('prediagnostique_update') }}" method="POST">
                               @csrf
-                              <input hidden name="prediadnostique" value="{{ $reception->prediagnostique->id }}"
-                                 type="text">
                               <input name="reception" value="{{ $reception->id }}" type="text" hidden>
+                              <input hidden name="prediagnostique" value="{{ $reception->prediagnostique->id }}"
+                                 type="text">
+                              <table class="table table-bordered">
+                                 <thead class="text-danger">
+                                    <th>Inspection</th>
+                                    <th>Cocher</th>
+                                    <th>Commentaire</th>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <td>
+                                          Protection interne
+                                       </td>
+                                       <td>
+                                          @if ($reception->prediagnostique->protection_interne_cocher)
+                                             <input name="protection_interne_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="protection_interne_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+                                          <textarea name="protection_interne" class="form-control" id="protection_interne"
+                                             cols="15" rows="2">{{ $reception->prediagnostique->protection_interne }}
+                                          </textarea>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Housse de protection</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->protection_interne_cocher)
+                                             <input name="protection_interne_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="protection_interne_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+                                          <textarea name="protection_interne" class="form-control" id="protection_interne"
+                                             cols="15" rows="2">{{ $reception->prediagnostique->protection_interne }}
+                                          </textarea>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td colspan="3"><b class="text-danger">Contrôle d'intérieur</b></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Eclairage intérieur</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->eclairage_int_cocher)
+                                             <input name="eclairage_int_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="eclairage_int_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+                                          <textarea name="eclairage_int" class="form-control" id="eclairage_int" cols="30"
+                                             rows="6">{{ $reception->prediagnostique->eclairage_int }}
+                                          </textarea>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Klaxon</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->klaxon_cocher)
+                                             <input name="klaxon_cocher" type="checkbox" class="form-control" checked>
+                                          @else
+                                             <input name="klaxon_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+                                          <textarea name="klaxon" class="form-control" id="klaxon" cols="30"
+                                             rows="6">{{ $reception->prediagnostique->klaxon }}
+                                          </textarea>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Jeu de pédale de frein</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->pedale_frein_cocher)
+                                             <input name="pedale_frein_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="pedale_frein_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+                                          <textarea name="pedale_frein" class="form-control" id="pedale_frein" cols="30"
+                                             rows="6">{{ $reception->prediagnostique->pedale_frein }}</textarea>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Jeu de pédale embreillage</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->pedale_embreillage_cocher)
+                                             <input name="pedale_embreillage_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="pedale_embreillage_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+                                          <textarea name="pedale_embreillage" class="form-control" id="pedale_embreillage"
+                                             cols="30"
+                                             rows="6">{{ $reception->prediagnostique->pedale_embreillage }}</textarea>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Frein à main</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->frein_main_cocher)
+                                             <input name="frein_main_cocher" type="checkbox" class="form-control" checked>
+                                          @else
+                                             <input name="frein_main_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+                                          <textarea name="frein_main" class="form-control" id="frein_main" cols="30"
+                                             rows="6">{{ $reception->prediagnostique->frein_main }}
+                                          </textarea>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Etat de fonctionnement des ceintures de
+                                          sécurité</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->ceintures_securite_cocher)
+                                             <input name="ceintures_securite_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="ceintures_securite_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+                                          <textarea name="ceintures_securite" class="form-control" id="ceintures_securite"
+                                             cols="30"
+                                             rows="6">{{ $reception->prediagnostique->ceintures_securite }}</textarea>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Feux et phares</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->feux_phares_cocher)
+                                             <input name="feux_phares_cocher" type="checkbox" class="form-control" checked>
+                                          @else
+                                             <input name="feux_phares_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+                                          <textarea
+                                             placeholder="Etat de fonctionnement des feux et phares (frein,parking, ...)"
+                                             name="feux_phares" class="form-control" id="feux_phares" cols="30"
+                                             rows="6">{{ $reception->prediagnostique->feux_phares }}</textarea>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>balais essuies glace</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->essuies_glace_cocher)
+                                             <input name="essuies_glace_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="essuies_glace_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Fonctionnement des leves vitre</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->leve_vitre_cocher)
+                                             <input name="leve_vitre_cocher" type="checkbox" class="form-control" checked>
+                                          @else
+                                             <input name="leve_vitre_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td colspan="3"><b>Contrôle extérieur</b></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Eraflures</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->eraflures_cocher)
+                                             <input name="eraflures_cocher" type="checkbox" class="form-control" checked>
+                                          @else
+                                             <input name="eraflures_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Corrosion, rouille</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->corrosion_rouille_cocher)
+                                             <input name="corrosion_rouille_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="corrosion_rouille_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Elements endommagés</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->elements_endommages_cocher)
+                                             <input name="elements_endommages_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="elements_endommages_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Clarte des feux et phares</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->clarte_feux_phares_cocher)
+                                             <input name="clarte_feux_phares_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="clarte_feux_phares_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Etat des balais essuies glace</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->etat_balais_eg_cocher)
+                                             <input name="etat_balais_eg_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="etat_balais_eg_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Trappe à carburant</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->trape_carburant_cocher)
+                                             <input name="trape_carburant_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="trape_carburant_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td>
+
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Les poignees de portes</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->poignees_portes_cocher)
+                                             <input name="poignees_portes_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="poignees_portes_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Etat des pneux, pression et profondeur
+                                          d'usure
+                                       </td>
+                                       <td>
+                                          @if ($reception->prediagnostique->pneux_pression_usure_cocher)
+                                             <input name="pneux_pression_usure_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="pneux_pression_usure_cocher" type="checkbox"
+                                                class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td colspan="3"><b class="text-danger">Sous le capot</b></td>
+                                    </tr>
+                                    <tr>
+                                       <td>niveau des liquides</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->niveaux_liquides_cocher)
+                                             <input name="niveaux_liquides_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="niveaux_liquides_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Raccords et durite de carburant</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->raccords_durite_cocher)
+                                             <input name="raccords_durite_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="raccords_durite_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Etat de la batterie et des cosses</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->batterie_cosses_cocher)
+                                             <input name="batterie_cosses_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="batterie_cosses_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Etat du radiateur</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->etat_radiateur_cocher)
+                                             <input name="etat_radiateur_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="etat_radiateur_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td colspan="3"><b class="text-danger">Sous la carosserie</b></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Plaquettes, disque et tambours de frein</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->disques_tambours_frein_cocher)
+                                             <input name="disques_tambours_frein_cocher" type="checkbox"
+                                                class="form-control" checked>
+                                          @else
+                                             <input name="disques_tambours_frein_cocher" type="checkbox"
+                                                class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Intérieur des pneux</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->pneux_int_cocher)
+                                             <input name="pneux_int_cocher" type="checkbox" class="form-control" checked>
+                                          @else
+                                             <input name="pneux_int_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Suspensions</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->suspensions_cocher)
+                                             <input name="suspensions_cocher" type="checkbox" class="form-control" checked>
+                                          @else
+                                             <input name="suspensions_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Volant, direction</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->volant_direction_cocher)
+                                             <input name="volant_direction_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="volant_direction_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Pot d'échappement</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->pot_echappement_cocher)
+                                             <input name="pot_echappement_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="pot_echappement_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Etat des silents blocs</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->silent_bloc_cocher)
+                                             <input name="silent_bloc_cocher" type="checkbox" class="form-control" checked>
+                                          @else
+                                             <input name="silent_bloc_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Tuyauterie frein</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->tuyauterie_frein_cocher)
+                                             <input name="tuyauterie_frein_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="tuyauterie_frein_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Fuite d'huile</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->fuite_huile_cocher)
+                                             <input name="fuite_huile_cocher" type="checkbox" class="form-control" checked>
+                                          @else
+                                             <input name="fuite_huile_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Test routier</td>
+                                       <td>
+                                          @if ($reception->prediagnostique->test_routier_cocher)
+                                             <input name="test_routier_cocher" type="checkbox" class="form-control"
+                                                checked>
+                                          @else
+                                             <input name="test_routier_cocher" type="checkbox" class="form-control">
+                                          @endif
+                                       </td>
+                                       <td></td>
+                                    </tr>
+                                 </tbody>
+                              </table>
                               <h5 class="text-primary"><b>Inspection</b></h5>
                               <hr>
                               <div class="row">
@@ -436,8 +891,8 @@ use Carbon\Carbon;
                                     <div class="form-group">
                                        <label for="protection_interne">protection interne</label>
                                        <textarea name="protection_interne" class="form-control" id="protection_interne"
-                                          cols="30"
-                                          rows="6">{{ $reception->prediagnostique->protection_interne }}</textarea>
+                                          cols="15" rows="2">{{ $reception->prediagnostique->protection_interne }}
+                                       </textarea>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
@@ -453,11 +908,6 @@ use Carbon\Carbon;
                               <hr>
                               <div class="row">
                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                       <label for="eclairage_int">Eclairage intérieur</label>
-                                       <textarea name="eclairage_int" class="form-control" id="eclairage_int" cols="30"
-                                          rows="6">{{ $reception->prediagnostique->eclairage_int }}</textarea>
-                                    </div>
                                     <div class="form-group">
                                        <label for="eclairage_int">Eclairage intérieur</label>
                                        <textarea name="eclairage_int" class="form-control" id="eclairage_int" cols="30"
@@ -484,7 +934,8 @@ use Carbon\Carbon;
                                     <div class="form-group">
                                        <label for="frein_main">Frein à main</label>
                                        <textarea name="frein_main" class="form-control" id="frein_main" cols="30"
-                                          rows="6">{{ $reception->prediagnostique->frein_main }}</textarea>
+                                          rows="6">{{ $reception->prediagnostique->frein_main }}
+                                       </textarea>
                                     </div>
                                     <div class="form-group">
                                        <label for="ceintures_securite">Etat de fonctionnement des ceintures de
@@ -596,7 +1047,7 @@ use Carbon\Carbon;
                                     </div>
                                  </div>
                               </div>
-                              <h5 class="text-primary"><b>Sous le carosserie</b></h5>
+                              <h5 class="text-primary"><b>Sous la carosserie</b></h5>
                               <hr>
                               <div class="row">
                                  <div class="col-md-6">

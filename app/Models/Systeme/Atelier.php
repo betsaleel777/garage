@@ -12,4 +12,11 @@ class Atelier extends Model
     const RULES = [
         'nom' => 'required|unique:ateliers',
     ];
+
+    public static function regles(int $id)
+    {
+        return [
+            'nom' => 'required|unique:ateliers,nom,' . $id,
+        ];
+    }
 }

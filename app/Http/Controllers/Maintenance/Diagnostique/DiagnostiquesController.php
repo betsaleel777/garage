@@ -40,7 +40,7 @@ class DiagnostiquesController extends Controller
     public function complete(int $reception)
     {
         $titre = 'Completer un diagnostique';
-        $reception = Reception::with('diagnostique', 'prediagnostique', 'preessai.utilisateur', 'utilisateur', 'vehicule', 'etat', 'personneLinked')->find($reception);
+        $reception = Reception::with('diagnostique', 'prediagnostique.cocher', 'preessai.utilisateur', 'utilisateur', 'vehicule', 'etat', 'personneLinked')->find($reception);
         $ateliers = Atelier::select('id', 'nom')->get();
         $interventions = json_encode([]);
         if (!empty($reception->diagnostique)) {
@@ -66,7 +66,6 @@ class DiagnostiquesController extends Controller
         $diagnostique = Diagnostique::where('reception', $request->reception)->get()->first();
         $diagnostique->panne = $request->panne;
         $diagnostique->temps_estime = $request->temps_estime;
-        $diagnostique->valider();
         $diagnostique->save();
         $reception->reparer();
         $reception->save();

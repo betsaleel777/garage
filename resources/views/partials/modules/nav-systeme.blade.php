@@ -11,14 +11,12 @@
          class="nav-link @php if($controller == 'ComptesController') { echo 'text-pink' ;} @endphp">Comptes</a>
    </li>
    <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{ route('types_reparations') }}"
-         class="nav-link @php if($controller == 'TypesReparationsController') { echo 'text-pink' ;} @endphp">Type
-         réparation</a>
+      <a class="nav-link" href="">|</a>
    </li>
    <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{ route('ateliers') }}"
-         class="nav-link @php if($controller == 'AteliersController') { echo 'text-pink' ;} @endphp">
-         Ateliers
-      </a>
+      <menu-item-reparation :controller="'{{ $controller }}'"></menu-item-reparation>
+   </li>
+   <li class="nav-item d-none d-sm-inline-block">
+      <menu-item-stock :controller="'{{ $controller }}'"></menu-item-stock>
    </li>
 </ul>

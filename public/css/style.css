@@ -36,6 +36,42 @@
 .text-footer-print {
     font-size: x-small;
 }
+
+.show-table-short {
+    border-collapse: collapse;
+    margin: 1px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.show-table-short thead tr {
+    background-color: #002e98;
+    color: #ffffff;
+    text-align: left;
+}
+.show-table-short th,
+.show-table-short td {
+    padding: 1px 2px;
+}
+.show-table-short tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.show-table-short tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.show-table-short tbody tr:last-of-type {
+    border-bottom: 2px solid #002e98;
+}
+.show-table-short tbody tr.active-row {
+    font-weight: bold;
+    color: #002e98;
+}
+.text-footer-print {
+    font-size: x-small;
+}
 .count-notif {
     position: absolute;
     top: 2px;

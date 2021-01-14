@@ -1,16 +1,9 @@
 {
-    "include": [
-        "./resources/js/**/*"
-    ],
+    "include": ["./resources/js/**/*"],
     "compilerOptions": {
-        "module": "es2016",
+        "module": "es6",
         "moduleResolution": "node",
         "target": "es6",
-        "sourceMap": true,
-        "paths": {
-            "components/*": [
-                "resources/js/components/*"
-            ]
-        }
+        "sourceMap": true
     }
 }

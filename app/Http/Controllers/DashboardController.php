@@ -29,6 +29,7 @@ class DashboardController extends Controller
     public function stock()
     {
         $titre = 'Stock Acceuil';
+        return view('stock.index', compact('titre'));
     }
 
     public function finance()

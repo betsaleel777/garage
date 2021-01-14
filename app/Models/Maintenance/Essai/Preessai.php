@@ -15,21 +15,6 @@ class Preessai extends Model
         'commentaire' => 'required',
     ];
 
-    public function est_valide()
-    {
-        return $this->attributes['etat_validation'] === 'validé';
-    }
-
-    public function valider()
-    {
-        $this->attributes['etat_validation'] = 'validé';
-    }
-
-    public function invalider()
-    {
-        $this->attributes['etat_validation'] = null;
-    }
-
     public function receptionLinked()
     {
         return $this->hasOne(Reception::class, 'reception');

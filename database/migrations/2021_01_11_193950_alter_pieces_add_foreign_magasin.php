@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterDiagnostiquesTable extends Migration
+class AlterPiecesAddForeignMagasin extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AlterDiagnostiquesTable extends Migration
      */
     public function up()
     {
-        Schema::table('diagnostiques', function (Blueprint $table) {
-            $table->string('etat_validation')->default('non validé');
+        Schema::table('pieces', function (Blueprint $table) {
+            $table->unsignedBigInteger('magasin');
+            $table->foreign('magasin')->references('id')->on('magasins')->onDelete('cascade');
         });
     }
 
@@ -25,7 +26,7 @@ class AlterDiagnostiquesTable extends Migration
      */
     public function down()
     {
-        Schema::table('diagnostiques', function (Blueprint $table) {
+        Schema::table('pieces', function (Blueprint $table) {
             //
         });
     }

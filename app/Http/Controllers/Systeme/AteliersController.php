@@ -12,7 +12,7 @@ class AteliersController extends Controller
     public function index()
     {
         $titre = 'Ateliers';
-        $ateliers = Atelier::orderBy('surcusale')->get();
+        $ateliers = Atelier::orderBy('id', 'DESC')->get();
         return view('systeme.atelier.index', compact('titre', 'ateliers'));
     }
 
@@ -42,7 +42,7 @@ class AteliersController extends Controller
     public function update(Request $request)
     {
         $atelier = Atelier::find($request->atelier);
-        $request->validate(Atelier::RULES);
+        $request->validate(Atelier::regles($request->atelier));
         $atelier->nom = $request->nom;
         $atelier->description = $request->description;
         $atelier->save();

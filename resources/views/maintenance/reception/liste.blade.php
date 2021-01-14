@@ -52,11 +52,11 @@
                               <tr>
                                  <th>#</th>
                                  <th>Code</th>
+                                 <th>Véhicule</th>
                                  <th>Date</th>
                                  <th>Déposant</th>
                                  <th>Utilisateur</th>
                                  <th>Statut</th>
-                                 <th>Validation</th>
                                  <th>Options</th>
                               </tr>
                            </thead>
@@ -65,25 +65,15 @@
                                  <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $reception->code }}</td>
+                                    <td>{{ $reception->vehicule->immatriculation }}</td>
                                     <td>{{ $reception->created_at->format('d-m-Y') }}</td>
                                     <td>{{ mb_strtoupper($reception->nom_deposant) }}</td>
                                     <td>{{ $reception->utilisateur->name }}</td>
                                     <td><b class="text-primary">{{ $reception->statut }}</b></td>
                                     <td>
-                                       @if ($reception->est_valide())
-                                          <b class="text-success">{{ $reception->etat_validation }}</b>
-                                       @else
-                                          <b class="text-danger">{{ $reception->etat_validation }}</b>
-                                       @endif
-                                    </td>
-                                    <td>
-                                       @if (!$reception->est_valide())
-                                          <a href="{{ route('reception_edit', $reception) }}"><i
-                                                class="fas fa-lg fa-edit"></i></a>
-                                          <delete-button :identifiant="{{ $reception->id }}"></delete-button>
-                                       @endif
                                        <a href="{{ route('reception_show', $reception) }}"><i
                                              class="fas fa-lg fa-eye"></i></a>
+                                       <delete-button :identifiant="{{ $reception->id }}"></delete-button>
                                     </td>
                                  </tr>
                               @endforeach

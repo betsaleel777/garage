@@ -16,7 +16,6 @@ class CreatePreessaisTable extends Migration
         Schema::create('preessais', function (Blueprint $table) {
             $table->id();
             $table->longText('commentaire');
-            $table->string('etat_validation')->default('non validé');
             $table->unsignedBigInteger('user');
             $table->unsignedBigInteger('surcusale')->nullable();
             $table->unsignedBigInteger('reception');

@@ -36,18 +36,6 @@ class ReceptionsController extends Controller
         'camion',
     ];
 
-    // public static function cars()
-    // {
-    //     $ch = curl_init();
-
-    //     curl_setopt($ch, CURLOPT_URL, "https://private-anon-24cefce97e-carsapi1.apiary-mock.com/cars");
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //     curl_setopt($ch, CURLOPT_HEADER, false);
-
-    //     $response = curl_exec($ch);
-    //     curl_close($ch);
-    //     return $response;
-    // }
     public static function decompte()
     {
         session()->put('receptions', Reception::recent()->get()->count());
@@ -74,7 +62,7 @@ class ReceptionsController extends Controller
 
     public function liste()
     {
-        $receptions = Reception::with('utilisateur')->get();
+        $receptions = Reception::with('utilisateur', 'vehicule')->get();
         $titre = 'Liste Réception';
         return view('maintenance.reception.liste', compact('titre', 'receptions'));
     }
@@ -197,19 +185,13 @@ class ReceptionsController extends Controller
     {
         //suppression possible si l'etat de validation est non validé
         $reception = Reception::find($id);
-        if (!$reception->est_valide()) {
-            $etat_vehicule = EtatVehicule::find($reception->etat_vehicule);
-            $vehicule_info = VehiculeInfo::find($reception->vehicule_info);
-            $reception->delete();
-            $etat_vehicule->delete();
-            $vehicule_info->delete();
-            $message = "la réception $reception->code a été supprimée avec succès";
-            return;
-        } else {
-            //si utilisateur n'est pas chef receptionniste ou chef technique ou admin élohim, il ne peut forcer la suppression d'une telle réception
-            $message = "la reception $reception->code ne peut être supprimée car elle a déjà été validée, cette réception pourrais être liée à d'autre module de l'application";
-            return response()->json(['message' => $message]);
-        }
+        $etat_vehicule = EtatVehicule::find($reception->etat_vehicule);
+        $vehicule_info = VehiculeInfo::find($reception->vehicule_info);
+        $reception->delete();
+        $etat_vehicule->delete();
+        $vehicule_info->delete();
+        $message = "la réception $reception->code a été supprimée avec succès";
+        return response()->json(['message' => $message]);
     }
 
     public function forceDelete(int $id)
@@ -226,16 +208,16 @@ class ReceptionsController extends Controller
         return;
     }
 
-    public function valider(int $id)
-    {
-        // cette action est impossible si pas admin
-        $reception = Reception::find($id);
-        $reception->valider();
-        $reception->save();
-        self::decompte();
-        $message = "la reception $reception->code a été validée avec succès";
-        return redirect()->route('reception_liste')->with('success', $message);
-    }
+    // public function valider(int $id)
+    // {
+    //     // cette action est impossible si pas admin
+    //     $reception = Reception::find($id);
+    //     $reception->receptionner();
+    //     $reception->save();
+    //     self::decompte();
+    //     $message = "la reception $reception->code a été validée avec succès";
+    //     return redirect()->route('reception_liste')->with('success', $message);
+    // }
 
     function print(int $id) {
         $reception = Reception::with('vehicule.enjoliveurs', 'etat', 'personneLinked')->find($id);

@@ -1,71 +1,107 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-6">
-                <label for="contact">Recherche client</label>
-                <div class="form-group input-group">
-                    <input
-                        type="text"
-                        v-model="contact"
-                        class="form-control"
-                        id="contact"
-                        placeholder="renseignez le contact du client"
-                    />
-                    <span class="input-group-append">
-                        <button
-                            @click="rechercher"
-                            type="button"
-                            class="btn btn-primary btn-flat"
-                        >
-                            rechercher
-                        </button>
-                    </span>
+            <div v-if="!nouveau_client" class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="contact">Recherche client</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group input-group">
+                            <input
+                                type="text"
+                                v-model="contact"
+                                class="form-control"
+                                id="contact"
+                                placeholder="renseignez le contact du client"
+                            />
+                            <span class="input-group-append">
+                                <button
+                                    @click="rechercher"
+                                    type="button"
+                                    class="btn btn-primary btn-flat"
+                                >
+                                    rechercher
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <label for="">Type de client</label>
-                <div>
-                    <div class="form-check form-check-inline">
-                        <input
-                            class="form-check-input"
-                            type="radio"
-                            @change="cocher"
-                            name="kind"
-                            id="inlineradio1"
-                            value="particulier"
-                            v-model="kind"
-                        />
-                        <label class="form-check-label" for="inlineradio1"
-                            >Particulier</label
-                        >
+            <div v-if="!nouveau_client" class="col-md-6">
+                <button
+                    type="button"
+                    @click="nouveau_client = true"
+                    class="btn btn-primary"
+                >
+                    Nouveau client
+                </button>
+            </div>
+            <div v-if="nouveau_client" class="col-md-7">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="">Type de client</label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input
-                            class="form-check-input"
-                            type="radio"
-                            @change="cocher"
-                            name="kind"
-                            id="inlineradio2"
-                            value="entreprise"
-                            v-model="kind"
-                        />
-                        <label class="form-check-label" for="inlineradio2"
-                            >Entreprise</label
-                        >
+                    <div class="col-md-7">
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    @change="cocher"
+                                    name="kind"
+                                    id="inlineradio1"
+                                    value="particulier"
+                                    v-model="kind"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="inlineradio1"
+                                    >Particulier</label
+                                >
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    @change="cocher"
+                                    name="kind"
+                                    id="inlineradio2"
+                                    value="entreprise"
+                                    v-model="kind"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="inlineradio2"
+                                    >Entreprise</label
+                                >
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    @change="cocher"
+                                    name="kind"
+                                    id="inlineradio3"
+                                    value="assurance"
+                                    v-model="kind"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="inlineradio3"
+                                    >Assurance</label
+                                >
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input
-                            class="form-check-input"
-                            type="radio"
-                            @change="cocher"
-                            name="kind"
-                            id="inlineradio3"
-                            value="assurance"
-                            v-model="kind"
-                        />
-                        <label class="form-check-label" for="inlineradio3"
-                            >Assurance</label
+                    <div class="col-md-2">
+                        <button
+                            @click="etat_initial"
+                            type="button"
+                            class="btn btn-danger btn-sm ui-button"
                         >
+                            retour
+                        </button>
                     </div>
                 </div>
             </div>
@@ -240,6 +276,7 @@ export default {
             particulier: false,
             assurance: false,
             entreprise: false,
+            nouveau_client: false,
             kind: null,
             contact: "",
             nom_complet: "",
@@ -303,7 +340,6 @@ export default {
     },
     methods: {
         cocher() {
-            console.log("cocher is running");
             if (this.kind === "assurance") {
                 this.assurance = true;
                 this.particulier = !this.assurance;
@@ -332,7 +368,7 @@ export default {
                                 variant: "info"
                             }
                         );
-
+                        this.nouveau_client = true;
                         if (result.data.nature === "assurance") {
                             this.kind = "assurance";
                             this.assurance = true;
@@ -375,6 +411,25 @@ export default {
                     }
                 })
                 .catch(err => {});
+        },
+        etat_initial() {
+            this.nouveau_client = false;
+            this.particulier = false;
+            this.assurance = false;
+            this.entreprise = false;
+            this.kind = null;
+            this.contact = "";
+            this.nom_complet = "";
+            this.telephone = "";
+            this.email = "";
+            this.nom_assurance = "";
+            this.representant_assurance = "";
+            this.contact_assurance = "";
+            this.email_assurance = "";
+            this.nom_entreprise = "";
+            this.representant_entreprise = "";
+            this.contact_entreprise = "";
+            this.email_entreprise = "";
         }
     }
 };

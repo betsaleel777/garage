@@ -18,7 +18,6 @@ class CreateReceptions extends Migration
             $table->string('code', 10);
             $table->string('nom_deposant');
             $table->longText('ressenti');
-            $table->string('etat_validation')->default('non validé');
             $table->string('statut')->default('arrivé recente');
             $table->unsignedBigInteger('etat_vehicule');
             $table->unsignedBigInteger('personne');
