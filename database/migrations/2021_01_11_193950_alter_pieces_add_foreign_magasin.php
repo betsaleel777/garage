@@ -14,7 +14,7 @@ class AlterPiecesAddForeignMagasin extends Migration
     public function up()
     {
         Schema::table('pieces', function (Blueprint $table) {
-            $table->unsignedBigInteger('magasin');
+            $table->unsignedBigInteger('magasin')->nullable();
             $table->foreign('magasin')->references('id')->on('magasins')->onDelete('cascade');
         });
     }

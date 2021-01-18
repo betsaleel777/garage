@@ -7,7 +7,6 @@ use App\Models\Maintenance\Essai\Postessai;
 use App\Models\Maintenance\Reception\Reception;
 use App\Models\Maintenance\Reparation\Reparation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PostessaisController extends Controller
 {
@@ -51,7 +50,7 @@ class PostessaisController extends Controller
     {
         $request->validate(Postessai::RULES);
         $post = new Postessai($request->all());
-        $post->user = Auth::id();
+        $post->user = session('user_id');
         $post->save();
         $reception = Reception::with('reparation')->find($request->reception);
         self::updateDependances($reception, $request->accepter);

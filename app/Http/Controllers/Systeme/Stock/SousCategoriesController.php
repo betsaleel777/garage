@@ -53,4 +53,16 @@ class SousCategoriesController extends Controller
         $message = "la modification de la sous-catégorie a été effectuée avec succès";
         return redirect()->route('categorie_show', $sous_categorie->categorie)->with('success', $message);
     }
+
+    public function getFrom(int $categorie)
+    {
+        $scategorie = SousCategorie::where('categorie', $categorie)->get();
+        return response()->json(['scategorie' => $scategorie]);
+    }
+
+    public function getAll()
+    {
+        $scategories = SousCategorie::get();
+        return response()->json(['scategories' => $scategories]);
+    }
 }

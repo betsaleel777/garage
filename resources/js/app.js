@@ -20,14 +20,17 @@ import FormReparation from "./components/reparations/FormReparation.vue";
 import MenuItemStock from "./components/systeme/MenuItemStock.vue";
 import MenuItemReparation from "./components/systeme/MenuItemReparation.vue";
 import PreviewImage from './components/PreviewImage.vue'
+import StepperPiece from './components/pieces/StepperPieceAdd.vue'
 import axios from "axios";
 import VueAxios from "vue-axios";
 //plugins
 import { ToastPlugin } from "bootstrap-vue";
 import { ModalPlugin } from "bootstrap-vue";
 //style
+import "vue-step-wizard/dist/vue-step-wizard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.min.css";
+import 'vue-select/dist/vue-select.css';
 
 //initialisation des plugins
 Vue.use(ModalPlugin);
@@ -50,6 +53,7 @@ new Vue({
         FormReparation,
         MenuItemStock,
         MenuItemReparation,
-        PreviewImage
+        PreviewImage,
+        StepperPiece
     }
 });

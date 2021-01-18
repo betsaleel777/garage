@@ -7,7 +7,6 @@ use App\Models\Maintenance\Diagnostique\Diagnostique;
 use App\Models\Maintenance\Intervention;
 use App\Models\Maintenance\Reception\Reception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class InterventionsController extends Controller
 {
@@ -16,8 +15,8 @@ class InterventionsController extends Controller
         $request->validate(Intervention::RULES);
         $intervention = new Intervention($request->all());
         $reception = Reception::with('diagnostique')->find($request->reception);
-        $user_id = Auth::id();
-        $user_name = Auth::user()->name;
+        $user_id = session('user_id');
+        $user_name = session('user_name');
         if (empty($reception->diagnostique)) {
             $diagnostique = new Diagnostique($request->all());
             $diagnostique->user = $user_id;
@@ -44,9 +43,9 @@ class InterventionsController extends Controller
     {
         $request->validate(Intervention::RULES);
         $intervention = new Intervention($request->all());
-        $intervention->user = Auth::id();
+        $intervention->user = session('user_id');
         $intervention->save();
-        $username = Auth::user()->name;
+        $username = session('user_name');
         $new_intervention = Intervention::with('atelierLinked')->find($intervention->id);
         $intervention = [
             'id' => $new_intervention->id,

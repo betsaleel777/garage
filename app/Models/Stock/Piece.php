@@ -2,34 +2,33 @@
 
 namespace App\Models\Stock;
 
+use App\Models\Systeme\Vehicule;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Piece extends Model
 {
     use HasFactory;
-    protected $fillable = ['code', 'nom', 'prix_achat', 'prix_vente', 'sous_categorie', 'categorie', 'type', 'image', 'fiche'];
+    protected $fillable = ['code', 'nom', 'prix_achat', 'prix_vente', 'sous_categorie', 'categorie', 'emplacement', 'type_piece', 'fiche', 'vehicule', 'magasin'];
     const RULES = [
-        'nom' => 'required|unique:pieces,nom',
         'prix_achat' => 'required',
         'prix_vente' => 'required|gte:prix_achat',
         'categorie' => 'required',
-        'type' => 'required',
-        'image' => 'nullable|file|mimes:jpg,jpeg,png|dimensions:ratio=1',
+        'sous_categorie' => 'required',
+        'type_piece' => 'required',
         'fiche' => 'nullbale|file|mimes:pdf',
     ];
 
-    public static function regles(int $id): array
+    public function makeCode()
     {
-        return [
-            'nom' => 'required|unique:pieces,nom,' . $id,
-            'prix_achat' => 'required',
-            'prix_vente' => 'required|gte:prix_achat',
-            'categorie' => 'required',
-            'type' => 'required',
-            'image' => 'nullable|file|mimes:jpg,jpeg,png|dimensions:ratio=1',
-            'fiche' => 'nullbale|file|mimes:pdf',
-        ];
+        $lettres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $chiffres = '0123456789';
+        $this->attributes['code'] = 'PIE' . substr(str_shuffle($lettres), 0, 3) . \substr(\str_shuffle($chiffres), 0, 4);
+    }
+
+    public function makeName(string $scategorie, string $type_piece, string $vehicule)
+    {
+        $this->attributes['nom'] = $scategorie . '_' . substr($type_piece, 0, 5) . '_' . $vehicule;
     }
 
     public function categorieLinked()
@@ -40,5 +39,10 @@ class Piece extends Model
     public function categorie_enfant()
     {
         return $this->belongsTo(SousCategorie::class, 'sous_categorie');
+    }
+
+    public function vehiculeLinked()
+    {
+        return $this->belongsTo(Vehicule::class, 'vehicule');
     }
 }

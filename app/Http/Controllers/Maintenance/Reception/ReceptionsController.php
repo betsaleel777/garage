@@ -9,7 +9,6 @@ use App\Models\Maintenance\Reception\Reception;
 use App\Models\Maintenance\Reception\VehiculeInfo;
 use App\Models\Personne;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ReceptionsController extends Controller
 {
@@ -118,7 +117,7 @@ class ReceptionsController extends Controller
         $reception->personne = $personne->id;
         $reception->etat_vehicule = $etat_vehicule->id;
         $reception->vehicule_info = $vehicule_info->id;
-        $reception->user = Auth::id();
+        $reception->user = session('user_id');
         $reception->save();
         self::decompte();
         $message = "la réception $reception->code a été enregistrée avec succès.";

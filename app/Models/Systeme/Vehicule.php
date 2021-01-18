@@ -9,28 +9,22 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicule extends Model
 {
     use HasFactory;
-    protected $fillable = ['marque', 'type', 'annee', 'modele'];
+    protected $fillable = ['marque', 'type_vehicule', 'annee', 'modele'];
     const RULES = [
-        'designation' => 'required|unique:vehicules,designation',
+        'designation' => 'nullable|unique:vehicules,designation',
         'marque' => 'required',
-        'type' => 'required',
+        'type_vehicule' => 'required',
         'annee' => 'required',
         'modele' => 'required',
     ];
 
-    public static function regles(int $id): array
+    public function makeName()
     {
-        return [
-            'designation' => 'required|unique:vehicules,designation,' . $id,
-            'marque' => 'required',
-            'type' => 'required',
-            'annee' => 'required',
-            'modele' => 'required',
-        ];
+        $this->attributes['designation'] = $this->attributes['modele'] . '_' . str_replace(' ', '-', $this->attributes['type_vehicule']) . '_' . $this->attributes['annee'];
     }
 
     public function pieces()
     {
-        return $this->belongsTo(Piece::class, 'vehicule');
+        return $this->hasMany(Piece::class, 'vehicule');
     }
 }

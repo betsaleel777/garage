@@ -11,6 +11,10 @@ export default {
         identifiant: {
             type: Number,
             required: true
+        },
+        url: {
+            type: String,
+            required: true
         }
     },
     methods: {
@@ -30,10 +34,7 @@ export default {
                 .then(value => {
                     if (value) {
                         axios
-                            .get(
-                                "/maintenance/reception/delete/" +
-                                    this.identifiant
-                            )
+                            .get(this.url + this.identifiant)
                             .then(result => {
                                 if (result.data.message) {
                                     this.force();
@@ -67,10 +68,7 @@ export default {
                 .then(value => {
                     if (value) {
                         axios
-                            .get(
-                                "/maintenance/reception/force/delete/" +
-                                    this.identifiant
-                            )
+                            .get(this.url + "/force/" + this.identifiant)
                             .then(result => {
                                 location.reload();
                             })

@@ -73,7 +73,8 @@
                                     <td>
                                        <a href="{{ route('reception_show', $reception) }}"><i
                                              class="fas fa-lg fa-eye"></i></a>
-                                       <delete-button :identifiant="{{ $reception->id }}"></delete-button>
+                                       <delete-button :url="'/maintenance/reception/delete/'"
+                                          :identifiant="{{ $reception->id }}"></delete-button>
                                     </td>
                                  </tr>
                               @endforeach

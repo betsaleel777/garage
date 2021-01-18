@@ -19,7 +19,7 @@ class CreateVehiculesTable extends Migration
             $table->string('marque');
             $table->string('modele');
             $table->string('annee');
-            $table->string('type');
+            $table->string('type_vehicule');
             $table->unsignedBigInteger('user');
             $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

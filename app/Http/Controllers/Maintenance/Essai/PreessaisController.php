@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Maintenance\Essai\Preessai;
 use App\Models\Maintenance\Reception\Reception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PreessaisController extends Controller
 {
@@ -34,7 +33,7 @@ class PreessaisController extends Controller
         $request->validate(Preessai::RULES);
         $reception = Reception::find($request->reception);
         $preessai = new Preessai($request->all());
-        $preessai->user = Auth::id();
+        $preessai->user = session('user_id');
         $preessai->save();
         self::decompte();
         $message = "Un essais avant réparation vient d'être enregistré avec succès pour la reception: $reception->code";

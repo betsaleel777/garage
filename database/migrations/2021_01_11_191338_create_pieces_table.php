@@ -17,9 +17,8 @@ class CreatePiecesTable extends Migration
             $table->id();
             $table->string('nom')->unique();
             $table->string('code')->unique();
-            $table->string('image', 255);
-            $table->string('fiche', 255);
-            $table->string('type');
+            $table->string('fiche', 255)->nullable();
+            $table->string('type_piece');
             $table->unsignedFloat('prix_achat');
             $table->unsignedFloat('prix_vente');
             $table->unsignedBigInteger('user');

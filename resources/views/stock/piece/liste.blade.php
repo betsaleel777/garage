@@ -51,7 +51,6 @@
                            <thead>
                               <tr>
                                  <th>#</th>
-                                 {{-- <th>Image</th> --}}
                                  <th>Code</th>
                                  <th>Nom</th>
                                  <th>Categorie</th>
@@ -63,18 +62,15 @@
                               @foreach ($pieces as $key => $piece)
                                  <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    {{-- <td>
-                                       <img src="{{ storage_path() . '/pieces/' . $piece->image }}"
-                                          alt="{{ $piece->code }}" height="90" width="90">
-                                    </td> --}}
                                     <td>{{ $piece->code }}</td>
                                     <td>{{ $piece->nom }}</td>
-                                    <td>{{ $piece->categorie->nom }}</td>
-                                    <td>{{ $piece->type }}</td>
+                                    <td>{{ $piece->categorieLinked->nom }}</td>
+                                    <td>{{ $piece->type_piece }}</td>
                                     <td>
                                        <a href="{{ route('piece_edit', $piece) }}"><i class="fas fa-lg fa-edit"></i></a>
                                        <a href="{{ route('piece_show', $piece) }}"><i class="fas fa-lg fa-eye"></i></a>
-                                       <delete-button :identifiant="{{ $piece->id }}"></delete-button>
+                                       <delete-button :url="'/stock/piece/delete/'" :identifiant="{{ $piece->id }}">
+                                       </delete-button>
                                     </td>
                                  </tr>
                               @endforeach

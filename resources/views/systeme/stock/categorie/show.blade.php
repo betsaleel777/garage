@@ -46,7 +46,7 @@
                                  <th style="width: 1%">#</th>
                                  <th>Nom</th>
                                  <th style="width: 2%">Image</th>
-                                 <th style="width: 5%">Option</th>
+                                 <th>Option</th>
                               </tr>
                            </thead>
                            <tbody>
@@ -98,7 +98,6 @@
             "lengthChange": true,
             "searching": true,
             "ordering": true,
-            "info": true,
             "responsive": true,
          });
       });

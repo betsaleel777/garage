@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Systeme\Stock;
 use App\Http\Controllers\Controller;
 use App\Models\Stock\Magasin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class MagasinsController extends Controller
 {
@@ -31,7 +30,7 @@ class MagasinsController extends Controller
     {
         $request->validate(Magasin::RULES);
         $magasin = new Magasin($request->all());
-        $magasin->user = Auth::id();
+        $magasin->user = session('user_id');
         $magasin->save();
         $message = "le magasin $request->nom a été enregistré avec succès";
         return redirect()->route('magasins')->with('success', $message);

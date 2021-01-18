@@ -68,4 +68,10 @@ class CategoriesController extends Controller
         $titre = 'Détails ' . $categorie->nom;
         return view('systeme.stock.categorie.show', compact('titre', 'categorie'));
     }
+
+    public function getAll()
+    {
+        $categories = Categorie::get();
+        return response()->json(['categories' => $categories]);
+    }
 }

@@ -31,7 +31,7 @@ Route::prefix('maintenance')->group(function () {
         Route::get('/imprimer/{id}', 'Maintenance\Reception\ReceptionsController@print')->name('reception_print');
         //with js
         Route::get('/delete/{id}', 'Maintenance\Reception\ReceptionsController@delete');
-        Route::get('/force/delete/{id}', 'Maintenance\Reception\ReceptionsController@forceDelete');
+        Route::get('/delete/force/{id}', 'Maintenance\Reception\ReceptionsController@forceDelete');
     });
 
     Route::prefix('prediagnostique')->group(function () {
@@ -66,7 +66,6 @@ Route::prefix('maintenance')->group(function () {
             Route::post('/update', 'Maintenance\Essai\PostessaisController@update')->name('postessai_update');
             Route::get('/valider/{id}', 'Maintenance\Essai\PostessaisController@valider')->name('postessai_valider');
         });
-
     });
 
     Route::prefix('reparation')->group(function () {
@@ -86,13 +85,17 @@ Route::prefix('maintenance')->group(function () {
         Route::post('/store', 'Maintenance\Reception\HangarsController@store')->name('hangar_store');
         Route::post('/update', 'Maintenance\Reception\HangarsController@update')->name('hangar_update');
     });
-
 });
 
 Route::prefix('stock')->group(function () {
     Route::get('index', 'DashboardController@stock')->name('stock_index');
     Route::prefix('piece')->group(function () {
         Route::get('liste', 'Stock\PiecesController@liste')->name('pieces');
+        Route::get('/edit/{id}', 'Stock\PiecesController@edit')->name('piece_edit');
+        Route::post('/update', 'Stock\PiecesController@update')->name('piece_update');
+        Route::get('/show/{id}', 'Stock\PiecesController@show')->name('piece_show');
+        Route::get('/delete/{id}', 'Stock\PiecesController@delete');
+        Route::get('/delete/force/{id}', 'Stock\PiecesController@forceDelete');
         Route::get('add', 'Stock\PiecesController@add')->name('piece_add');
         Route::post('store', 'Stock\PiecesController@store')->name('piece_store');
     });
@@ -168,6 +171,9 @@ Route::prefix('systeme')->group(function () {
     });
 
     Route::prefix('async')->group(function () {
+        Route::get('/categories', 'Systeme\Stock\CategoriesController@getAll');
+        Route::get('/scategories/from/{categorie}', 'Systeme\Stock\SousCategoriesController@getFrom');
+        Route::get('/scategories', 'Systeme\Stock\SousCategoriesController@getAll');
         Route::get('/personne/find/{contact}', 'PersonnesController@findjs');
         Route::post('/personne/store', 'PersonnesController@storejs');
         Route::get('/reception/find/{id}', 'Maintenance\Reception\ReceptionsController@findjs');
