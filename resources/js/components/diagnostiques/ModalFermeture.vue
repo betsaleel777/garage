@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-2">
+    <div class="col-md-3">
         <button @click="run" type="button" class="btn btn-danger ui-button">
             Fermer
         </button>

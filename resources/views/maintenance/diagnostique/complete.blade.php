@@ -1243,7 +1243,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="volant_direction" class="form-control" id="volant_direction"
                                              cols="30" rows="1">
-                                                                                                                                                                                             </textarea>
+                                                                                                                                                                                                                  </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -1553,8 +1553,17 @@ use Carbon\Carbon;
                   </div>
                </div>
                {{-- formulaire intervention diagnostique --}}
-               <div class="col-md-12">
-                  <form-diagnostique :ateliers="{{ $ateliers }}" :reception="{{ $reception->id }}"></form-diagnostique>
+               <div class="col-md-6">
+                  <div class="card">
+                     <div class="card-header">
+
+                     </div>
+                     <div class="col-md-12">
+                        <form-diagnostique :pieces="{{ $pieces }}" :ateliers="{{ $ateliers }}"
+                           :reception="{{ $reception->id }}">
+                        </form-diagnostique>
+                     </div>
+                  </div>
                </div>
             </div>
             <!-- /.row -->

@@ -45,11 +45,10 @@
                               <tr>
                                  <th>#</th>
                                  <th>Code</th>
+                                 <th>Immatriculation</th>
+                                 <th>Marque+modèle</th>
                                  <th>Date</th>
-                                 <th>Déposant</th>
                                  <th>Utilisateur</th>
-                                 <th>Statut</th>
-                                 <th>Validation</th>
                                  <th>Options</th>
                               </tr>
                            </thead>
@@ -58,17 +57,10 @@
                                  <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $reception->code }}</td>
+                                    <td>{{ $reception->vehicule->immatriculation }}</td>
+                                    <td>{{ $reception->vehicule->marque . ' ' . $reception->vehicule->modele }}</td>
                                     <td>{{ $reception->created_at->format('d-m-Y') }}</td>
-                                    <td>{{ mb_strtoupper($reception->nom_deposant) }}</td>
                                     <td>{{ $reception->utilisateur->name }}</td>
-                                    <td><b class="text-primary">{{ $reception->statut }}</b></td>
-                                    <td>
-                                       @if ($reception->reparation->est_valide())
-                                          <b class="text-success">{{ 'validé' }}</b>
-                                       @else
-                                          <b class="text-danger">{{ 'non validé' }}</b>
-                                       @endif
-                                    </td>
                                     <td>
                                        @if ($reception->reparation->est_valide() or $reception->reparation->en_transition())
                                           <div class="row">

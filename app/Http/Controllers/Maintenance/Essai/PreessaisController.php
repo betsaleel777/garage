@@ -22,7 +22,12 @@ class PreessaisController extends Controller
 
     public function liste()
     {
-        $receptions = Reception::with('utilisateur', 'preessai')->orderBy('id', 'desc')->preEssayableAdmin()->get();
+        $data = Reception::with('utilisateur', 'preessai', 'vehicule')->orderBy('id', 'desc')->preEssayableAdmin()->get();
+        $receptions = array_filter(array_map(function ($reception) {
+            if (empty($reception->preessai)) {
+                return $reception;
+            }
+        }, $data->all()));
         //retirer les reception déjà liée à un preessai
         $titre = 'Essais avant réparations';
         return view('maintenance.essais.pre.liste', compact('titre', 'receptions'));
@@ -33,6 +38,8 @@ class PreessaisController extends Controller
         $request->validate(Preessai::RULES);
         $reception = Reception::find($request->reception);
         $preessai = new Preessai($request->all());
+        $reception->statut = Reception::STATUS_PREESSAI_DOWN;
+        $reception->save();
         $preessai->user = session('user_id');
         $preessai->save();
         self::decompte();
@@ -52,7 +59,5 @@ class PreessaisController extends Controller
         session()->flash('success', $message);
         return;
     }
-
     //post essais functions
-
 }

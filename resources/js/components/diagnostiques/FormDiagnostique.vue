@@ -1,29 +1,49 @@
 <template>
     <div v-if="ouvert" class="intervention">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="atelier">Atelier</label>
-                    <b-form-select
-                        v-model="selected"
-                        :options="options"
-                    ></b-form-select>
-                    <span class="text-danger" v-if="messages.atelier.exist"
-                        >{{ messages.atelier.value }}
-                    </span>
-                </div>
-                <div class="col-md-4">
-                    <label for="atelier">Pieces</label>
-                    <b-form-select disabled></b-form-select>
-                </div>
-                <div class="col-md-4">
-                    <label for="atelier">Quantité</label>
-                    <b-form-select disabled></b-form-select>
+        <div>
+            <label for="atelier">Pieces</label>
+            <vue-select v-model="piece" :options="optionsPiece"></vue-select>
+
+            <label for="quantite">Quantité</label>
+            <input
+                class="form-control"
+                id="quantite"
+                type="number"
+                v-model="quantite"
+            />
+            <div class="bouton row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary ui-button">
+                        <i class="fas fa-lg fa-plus-circle"></i>
+                    </button>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-8">
+                <label for="atelier">Atelier</label>
+                <vue-select
+                    v-model="atelier"
+                    :options="optionsAtelier"
+                ></vue-select>
+                <span class="text-danger" v-if="messages.atelier.exist"
+                    >{{ messages.atelier.value }}
+                </span>
+            </div>
+            <div class="col-md-4">
+                <label for="delais">Délais</label>
+                <input
+                    id="delais"
+                    class="form-control"
+                    placeholder="temps en heure"
+                    type="number"
+                    v-model="delais"
+                />
+            </div>
+        </div>
         <div class="form-group">
-            <label for="intervention">Commentaires d'intervention</label>
+            <label for="intervention">Commentaires</label>
             <textarea
                 v-model="intervention"
                 class="form-control"
@@ -36,9 +56,9 @@
             </span>
         </div>
         <div class="row">
-            <div class="col-md-8"></div>
+            <div class="col-md-6"></div>
             <modal-fermeture :reception="reception"></modal-fermeture>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <button
                     @click="enregistrer"
                     type="button"
@@ -54,10 +74,12 @@
 <script>
 import { BFormSelect } from "bootstrap-vue";
 import ModalFermeture from "./ModalFermeture";
+import VueSelect from "vue-select";
 export default {
     components: {
         BFormSelect,
-        ModalFermeture
+        ModalFermeture,
+        VueSelect
     },
     props: {
         reception: {
@@ -67,12 +89,20 @@ export default {
         ateliers: {
             type: Array,
             required: true
+        },
+        pieces: {
+            type: Array,
+            required: true
         }
     },
     data() {
         return {
-            options: [],
-            selected: null,
+            optionsAtelier: [],
+            optionsPiece: [],
+            delais: null,
+            atelier: null,
+            piece: null,
+            quantite: null,
             intervention: null,
             ouvert: true,
             messages: {
@@ -88,8 +118,11 @@ export default {
         };
     },
     mounted() {
-        this.options = this.ateliers.map(atelier => {
-            return { value: atelier.id, text: atelier.nom };
+        this.optionsAtelier = this.ateliers.map(atelier => {
+            return { code: atelier.id, label: atelier.nom };
+        });
+        this.optionsPiece = this.pieces.map(piece => {
+            return { code: piece.id, label: piece.nom };
         });
         this.$root.$on("fermeture", () => {
             this.ouvert = false;
@@ -100,7 +133,7 @@ export default {
             axios
                 .post("/systeme/async/intervention/store", {
                     commentaire: this.intervention,
-                    atelier: this.selected,
+                    atelier: this.atelier,
                     reception: this.reception
                 })
                 .then(result => {
@@ -126,7 +159,8 @@ export default {
                 });
         },
         vider() {
-            this.selected = null;
+            this.atelier = null;
+            this.piece = null;
             this.intervention = null;
             this.messages = {
                 commentaire: {
@@ -146,5 +180,8 @@ export default {
 <style scoped>
 .intervention {
     margin-bottom: 3%;
+}
+.bouton {
+    margin-top: 5px;
 }
 </style>

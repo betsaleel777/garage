@@ -32,7 +32,7 @@ class ReparationsController extends Controller
 
     public function liste()
     {
-        $receptions = Reception::with('utilisateur', 'preessai')->reparableAdmin()->get();
+        $receptions = Reception::with('utilisateur', 'preessai', 'vehicule')->reparableAdmin()->get();
         $titre = 'Réparations';
         return view('maintenance.reparation.liste', compact('receptions', 'titre'));
     }

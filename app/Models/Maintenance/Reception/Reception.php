@@ -57,7 +57,7 @@ class Reception extends Model
 
     public function scopePreEssayable($query)
     {
-        return $query->orWhere('statut', self::STATUS_RECEPTION_DOWN);
+        return $query->orWhere('statut', self::STATUS_RECEPTION_DOWN)->orWhere('statut', self::STATUS_RECENT);
     }
 
     public function scopePreEssayableAdmin($query)

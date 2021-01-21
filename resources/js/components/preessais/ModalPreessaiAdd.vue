@@ -28,15 +28,27 @@
                     messages.ressenti.value
                 }}</span>
             </div>
+            <template #modal-footer="{ok,cancel}">
+                <button @click="showReception" class="btn btn-warning">
+                    détails véhicule
+                </button>
+                <button @click="cancel()" class="btn btn-secondary">
+                    cancel
+                </button>
+                <button @click="ok()" class="btn btn-primary">ok</button>
+            </template>
         </b-modal>
+        <modal-detail-reception :reception="bigreception" />
     </div>
 </template>
 
 <script>
 import BVModal from "bootstrap-vue";
+import ModalDetailReception from "../ModalDetailReception";
 export default {
     components: {
-        BVModal
+        BVModal,
+        ModalDetailReception
     },
     props: {
         bigreception: Object
@@ -79,6 +91,9 @@ export default {
                     this.messages.ressenti.value =
                         err.response.data.errors.commentaire[0];
                 });
+        },
+        showReception() {
+            this.$bvModal.show("detail-reception-" + this.reception);
         }
     }
 };

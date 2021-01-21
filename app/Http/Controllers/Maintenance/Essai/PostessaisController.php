@@ -40,7 +40,7 @@ class PostessaisController extends Controller
 
     public function liste()
     {
-        $receptions = Reception::with('utilisateur', 'postessai', 'reparation.finished')->orderBy('id', 'desc')->postEssayableAdmin()->get();
+        $receptions = Reception::with(['utilisateur', 'postessai', 'vehicule', 'reparation.finished'])->orderBy('id', 'desc')->postEssayableAdmin()->get();
         //retirer les reception déjà liée à un postessai
         $titre = 'Essais après réparations';
         return view('maintenance.essais.post.liste', compact('titre', 'receptions'));

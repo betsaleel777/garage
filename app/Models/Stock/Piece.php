@@ -36,7 +36,7 @@ class Piece extends Model
         return $this->belongsTo(Categorie::class, 'categorie');
     }
 
-    public function categorie_enfant()
+    public function categorieEnfant()
     {
         return $this->belongsTo(SousCategorie::class, 'sous_categorie');
     }

@@ -45,10 +45,10 @@
                               <tr>
                                  <th>#</th>
                                  <th>Code</th>
+                                 <th>Immatriculation</th>
+                                 <th>Marque+modèle</th>
                                  <th>Date</th>
-                                 <th>Déposant</th>
                                  <th>Utilisateur</th>
-                                 <th>Statut</th>
                                  <th>Options</th>
                               </tr>
                            </thead>
@@ -57,10 +57,10 @@
                                  <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $reception->code }}</td>
+                                    <td>{{ $reception->vehicule->immatriculation }}</td>
+                                    <td>{{ $reception->vehicule->marque . ' ' . $reception->vehicule->modele }}</td>
                                     <td>{{ $reception->created_at->format('d-m-Y') }}</td>
-                                    <td>{{ mb_strtoupper($reception->nom_deposant) }}</td>
                                     <td>{{ $reception->utilisateur->name }}</td>
-                                    <td><b class="text-primary">{{ $reception->statut }}</b></td>
                                     <td>
                                        <div class="row">
                                           @if (!empty($reception->preessai))
@@ -69,8 +69,9 @@
                                                 {{-- <modal-preessai-edit
                                                    :bigreception="{{ json_encode($reception) }}">
                                                 </modal-preessai-edit> --}}
-                                                <span class="text-success"> <i
-                                                      class="fas fa-lg fa-check-circle"></i></span>
+                                                <span class="text-success">
+                                                   <i class="fas fa-lg fa-check-circle"></i>
+                                                </span>
                                              </div>
                                              <div class="col-md-4"></div>
                                           @else

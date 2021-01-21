@@ -7,6 +7,7 @@ use App\Models\Maintenance\Diagnostique\Diagnostique;
 use App\Models\Maintenance\Intervention;
 use App\Models\Maintenance\Reception\Reception;
 use App\Models\Maintenance\Reparation\Reparation;
+use App\Models\Stock\Piece;
 use App\Models\Systeme\Atelier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,7 @@ class DiagnostiquesController extends Controller
 
     public function liste()
     {
-        $receptions = Reception::with('utilisateur', 'preessai')->diagnosticableAdmin()->get();
+        $receptions = Reception::with(['utilisateur', 'preessai', 'vehicule'])->diagnosticableAdmin()->get();
         $titre = 'Diagnostiques';
         return view('maintenance.diagnostique.liste', compact('receptions', 'titre'));
     }
@@ -40,8 +41,9 @@ class DiagnostiquesController extends Controller
     public function complete(int $reception)
     {
         $titre = 'Completer un diagnostique';
-        $reception = Reception::with('diagnostique', 'prediagnostique.cocher', 'preessai.utilisateur', 'utilisateur', 'vehicule', 'etat', 'personneLinked')->find($reception);
+        $reception = Reception::with(['diagnostique', 'prediagnostique.cocher', 'preessai.utilisateur', 'utilisateur', 'vehicule', 'etat', 'personneLinked'])->find($reception);
         $ateliers = Atelier::select('id', 'nom')->get();
+        $pieces = Piece::with('categorieEnfant')->get();
         $interventions = json_encode([]);
         if (!empty($reception->diagnostique)) {
             $data = Intervention::where('diagnostique', $reception->diagnostique->id)->with('atelierLinked', 'utilisateur')->get()->all();
@@ -56,7 +58,7 @@ class DiagnostiquesController extends Controller
             }, $data);
             $interventions = json_encode($interventions);
         }
-        return view('maintenance.diagnostique.complete', compact('ateliers', 'reception', 'titre', 'interventions'));
+        return view('maintenance.diagnostique.complete', compact('ateliers', 'pieces', 'reception', 'titre', 'interventions'));
     }
 
     public function fermer(Request $request)
@@ -92,7 +94,7 @@ class DiagnostiquesController extends Controller
     public function show(int $reception)
     {
         $titre = 'Détails du diagnostique';
-        $reception = Reception::with('diagnostique', 'prediagnostique', 'preessai.utilisateur', 'utilisateur', 'vehicule', 'etat', 'personneLinked')->find($reception);
+        $reception = Reception::with(['diagnostique', 'prediagnostique', 'preessai.utilisateur', 'utilisateur', 'vehicule', 'etat', 'personneLinked'])->find($reception);
         $interventions = json_encode([]);
         $data = Intervention::where('diagnostique', $reception->diagnostique->id)->with('atelierLinked', 'utilisateur')->get()->all();
         if (!empty($reception->diagnostique)) {
