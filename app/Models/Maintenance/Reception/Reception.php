@@ -140,4 +140,9 @@ class Reception extends Model
     {
         return $this->hasOne(Reparation::class, 'reception');
     }
+
+    public function commentaire()
+    {
+        return $this->hasOne(CommentaireReception::class, 'reception');
+    }
 }

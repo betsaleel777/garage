@@ -29,7 +29,8 @@
          <div class="container-fluid">
             <div class="row">
                <!-- /.col-md-6 -->
-               <div class="col-md-12">
+               <div class="col-md-3"></div>
+               <div class="col-md-6">
                   <div class="card">
                      <div class="card-header">
                         {{-- <h5 class="m-0">Featured</h5> --}}
@@ -60,6 +61,7 @@
                      <!-- /.card-body -->
                   </div>
                </div>
+               <div class="col-md-3"></div>
                <!-- /.col-md-6 -->
             </div>
             <!-- /.row -->

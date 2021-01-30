@@ -109,6 +109,15 @@ Route::prefix('systeme')->group(function () {
         Route::get('/edit/{id}', 'Systeme\ComptesController@edit')->name('compte_edit');
     });
 
+    Route::prefix('devises')->group(function () {
+        Route::get('/index', 'Systeme\DevisesController@index')->name('devises');
+        Route::get('/add', 'Systeme\DevisesController@add')->name('devise_add');
+        Route::get('/edit/{id}', 'Systeme\DevisesController@edit')->name('devise_edit');
+        Route::get('/set/{id}', 'Systeme\DevisesController@setCurrent')->name('devise_current');
+        Route::post('/store', 'Systeme\DevisesController@store')->name('devise_store');
+        Route::post('/update', 'Systeme\DevisesController@update')->name('devise_update');
+    });
+
     Route::prefix('types_reparation')->group(function () {
         Route::get('/index', 'Systeme\TypesReparationsController@index')->name('types_reparations');
         Route::get('/add', 'Systeme\TypesReparationsController@add')->name('types_reparation_add');
@@ -181,6 +190,8 @@ Route::prefix('systeme')->group(function () {
         Route::get('/diagnostique/find/{reception}', 'Maintenance\Diagnostique\DiagnostiquesController@findjs');
         Route::post('/intervention/store', 'Maintenance\InterventionsController@storejs');
         Route::post('/intervention/reparation/store', 'Maintenance\InterventionsController@reparationStorejs');
+        Route::post('/commentaire/reception/image/add', 'Maintenance\Reception\ReceptionsController@uploadAddjs');
+        Route::post('/commentaire/reception/image/delete', 'Maintenance\Reception\ReceptionsController@uploadRemovejs');
     });
 
 });

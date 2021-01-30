@@ -7,8 +7,7 @@
 import "./bootstrap";
 import Vue from "vue";
 import NotificationsUser from "./components/Notifications.vue";
-import ClientForm from "./components/receptions/ClientForm.vue";
-import VehiculeInfoForm from "./components/receptions/VehiculeInfoForm.vue";
+import ReceptionForm from './components/receptions/ReceptionForm.vue'
 import DeleteButton from "./components/DeleteButton.vue";
 import ModalPreessaiAdd from "./components/preessais/ModalPreessaiAdd.vue";
 import ModalPreessaiEdit from "./components/preessais/ModalPreessaiEdit.vue";
@@ -21,8 +20,11 @@ import MenuItemStock from "./components/systeme/MenuItemStock.vue";
 import MenuItemReparation from "./components/systeme/MenuItemReparation.vue";
 import PreviewImage from './components/PreviewImage.vue'
 import StepperPiece from './components/pieces/StepperPieceAdd.vue'
+import MagasinStepper from './components/magasins/MagasinStepper.vue'
+
 import axios from "axios";
 import VueAxios from "vue-axios";
+import Vuelidate from 'vuelidate';
 //plugins
 import { ToastPlugin } from "bootstrap-vue";
 import { ModalPlugin } from "bootstrap-vue";
@@ -41,8 +43,7 @@ new Vue({
     el: "#app",
     components: {
         NotificationsUser,
-        ClientForm,
-        VehiculeInfoForm,
+        ReceptionForm,
         DeleteButton,
         ModalPreessaiAdd,
         ModalPreessaiEdit,
@@ -54,6 +55,7 @@ new Vue({
         MenuItemStock,
         MenuItemReparation,
         PreviewImage,
-        StepperPiece
+        StepperPiece,
+        MagasinStepper
     }
 });

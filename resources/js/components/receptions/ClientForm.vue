@@ -47,6 +47,7 @@
                             <div class="form-check form-check-inline">
                                 <input
                                     class="form-check-input"
+                                    :disabled="disabled_particulier"
                                     type="radio"
                                     @change="cocher"
                                     name="kind"
@@ -63,6 +64,7 @@
                             <div class="form-check form-check-inline">
                                 <input
                                     class="form-check-input"
+                                    :disabled="disabled_entreprise"
                                     type="radio"
                                     @change="cocher"
                                     name="kind"
@@ -79,6 +81,7 @@
                             <div class="form-check form-check-inline">
                                 <input
                                     class="form-check-input"
+                                    :disabled="disabled_assurance"
                                     type="radio"
                                     @change="cocher"
                                     name="kind"
@@ -111,38 +114,29 @@
                 <label for="nom">Nom complet</label>
                 <input
                     name="nom_complet"
-                    v-model="nom_complet"
+                    v-model="client.nom_complet"
                     class="form-control"
                     id="nom"
                 />
-                <span v-if="messages.nom_complet.exist" class="text-danger">{{
-                    messages.nom_complet.value
-                }}</span>
             </div>
             <div class="form-group col-md-4">
                 <label for="telephone">Téléphone</label>
                 <input
                     name="telephone"
-                    v-model="telephone"
+                    v-model="client.telephone"
                     class="form-control"
                     id="telephone"
                 />
-                <span v-if="messages.telephone.exist" class="text-danger">{{
-                    messages.telephone.value
-                }}</span>
             </div>
             <div class="form-group col-md-4">
                 <label for="email">Email</label>
                 <input
                     name="email"
                     type="email"
-                    v-model="email"
+                    v-model="client.email"
                     class="form-control"
                     id="email"
                 />
-                <span v-if="messages.email.exist" class="text-danger">{{
-                    messages.email.value
-                }}</span>
             </div>
         </div>
         <div v-if="assurance" class="row">
@@ -150,13 +144,10 @@
                 <label for="nom_assurance">Nom de l'assurance</label>
                 <input
                     name="nom_assurance"
-                    v-model="nom_assurance"
+                    v-model="client.nom_assurance"
                     class="form-control"
                     id="nom_assurance"
                 />
-                <span v-if="messages.nom_assurance.exist" class="text-danger">{{
-                    messages.nom_assurance.value
-                }}</span>
             </div>
             <div class="form-group col-md-6">
                 <label for="representant_assurance"
@@ -164,43 +155,28 @@
                 >
                 <input
                     name="representant_assurance"
-                    v-model="representant_assurance"
+                    v-model="client.representant_assurance"
                     class="form-control"
                     id="representant_assurance"
                 />
-                <span
-                    v-if="messages.representant_assurance.exist"
-                    class="text-danger"
-                    >{{ messages.representant_assurance.value }}</span
-                >
             </div>
             <div class="form-group col-md-6">
                 <label for="contact_assurance">Contact Assurance</label>
                 <input
                     name="contact_assurance"
-                    v-model="contact_assurance"
+                    v-model="client.contact_assurance"
                     class="form-control"
                     id="contact_assurance"
                 />
-                <span
-                    v-if="messages.contact_assurance.exist"
-                    class="text-danger"
-                    >{{ messages.contact_assurance.value }}</span
-                >
             </div>
             <div class="form-group col-md-6">
                 <label for="email_assurance">Email Assurance</label>
                 <input
                     name="email_assurance"
-                    v-model="email_assurance"
+                    v-model="client.email_assurance"
                     class="form-control"
                     id="email_assurance"
                 />
-                <span
-                    v-if="messages.email_assurance.exist"
-                    class="text-danger"
-                    >{{ messages.email_assurance.value }}</span
-                >
             </div>
         </div>
         <div v-if="entreprise" class="row">
@@ -208,15 +184,10 @@
                 <label for="nom_entreprise">Nom de l'entreprise</label>
                 <input
                     name="nom_entreprise"
-                    v-model="nom_entreprise"
+                    v-model="client.nom_entreprise"
                     class="form-control"
                     id="nom_entreprise"
                 />
-                <span
-                    v-if="messages.nom_entreprise.exist"
-                    class="text-danger"
-                    >{{ messages.nom_entreprise.value }}</span
-                >
             </div>
             <div class="form-group col-md-6">
                 <label for="representant_entreprise"
@@ -224,43 +195,28 @@
                 >
                 <input
                     name="representant_entreprise"
-                    v-model="representant_entreprise"
+                    v-model="client.representant_entreprise"
                     class="form-control"
                     id="representant_entreprise"
                 />
-                <span
-                    v-if="messages.representant_entreprise.exist"
-                    class="text-danger"
-                    >{{ messages.representant_entreprise.value }}</span
-                >
             </div>
             <div class="form-group col-md-6">
                 <label for="contact_entreprise">Contact entreprise</label>
                 <input
                     name="contact_entreprise"
-                    v-model="contact_entreprise"
+                    v-model="client.contact_entreprise"
                     class="form-control"
                     id="contact_entreprise"
                 />
-                <span
-                    v-if="messages.contact_entreprise.exist"
-                    class="text-danger"
-                    >{{ messages.contact_entreprise.value }}</span
-                >
             </div>
             <div class="form-group col-md-6">
                 <label for="email_entreprise">Email entreprise</label>
                 <input
                     name="email_entreprise"
-                    v-model="email_entreprise"
+                    v-model="client.email_entreprise"
                     class="form-control"
                     id="email_entreprise"
                 />
-                <span
-                    v-if="messages.email_entreprise.exist"
-                    class="text-danger"
-                    >{{ messages.email_entreprise.value }}</span
-                >
             </div>
         </div>
     </div>
@@ -269,7 +225,9 @@
 <script>
 export default {
     props: {
-        erreurs: Array
+        errors: {
+            type: [Object, Array]
+        }
     },
     data() {
         return {
@@ -279,79 +237,45 @@ export default {
             nouveau_client: false,
             kind: null,
             contact: "",
-            nom_complet: "",
-            telephone: "",
-            email: "",
-            nom_assurance: "",
-            representant_assurance: "",
-            contact_assurance: "",
-            email_assurance: "",
-            nom_entreprise: "",
-            representant_entreprise: "",
-            contact_entreprise: "",
-            email_entreprise: "",
-            messages: {
-                nom_complet: {
-                    exist: false,
-                    value: null
-                },
-                telephone: {
-                    exist: false,
-                    value: null
-                },
-                email: {
-                    exist: false,
-                    value: null
-                },
-                nom_assurance: {
-                    exist: false,
-                    value: null
-                },
-                representant_assurance: {
-                    exist: false,
-                    value: null
-                },
-                contact_assurance: {
-                    exist: false,
-                    value: null
-                },
-                email_assurance: {
-                    exist: false,
-                    value: null
-                },
-                nom_entreprise: {
-                    exist: false,
-                    value: null
-                },
-                representant_entreprise: {
-                    exist: false,
-                    value: null
-                },
-                contact_entreprise: {
-                    exist: false,
-                    value: null
-                },
-                email_entreprise: {
-                    exist: false,
-                    value: null
-                }
-            }
+            client: {
+                nom_complet: "",
+                telephone: "",
+                email: "",
+                nom_assurance: "",
+                representant_assurance: "",
+                contact_assurance: "",
+                email_assurance: "",
+                nom_entreprise: "",
+                representant_entreprise: "",
+                contact_entreprise: "",
+                email_entreprise: ""
+            },
+            disabled_particulier: false,
+            disabled_assurance: false,
+            disabled_entreprise: false
         };
     },
+    mounted() {},
     methods: {
         cocher() {
             if (this.kind === "assurance") {
                 this.assurance = true;
                 this.particulier = !this.assurance;
                 this.entreprise = !this.assurance;
+                this.vider_particulier();
+                this.vider_entreprise();
             } else if (this.kind === "entreprise") {
                 this.entreprise = true;
                 this.particulier = !this.entreprise;
                 this.assurance = !this.entreprise;
+                this.vider_assurance();
+                this.vider_particulier();
             } else {
                 this.particulier = true;
                 this.entreprise = !this.particulier;
                 this.assurance = !this.particulier;
+                this.vider_assurance();
+                this.vider_entreprise();
             }
         },
         rechercher() {
@@ -369,35 +293,46 @@ export default {
                             }
                         );
                         this.nouveau_client = true;
+                        this.$root.$emit("ancien_gear");
                         if (result.data.nature === "assurance") {
                             this.kind = "assurance";
                             this.assurance = true;
                             this.particulier = false;
                             this.entreprise = false;
-                            this.contact_assurance = personne.contact_assurance;
-                            this.email_assurance = personne.email_assurance;
-                            this.nom_assurance = personne.nom_assurance;
-                            this.representant_assurance =
+                            this.disabled_particulier = true;
+                            this.disabled_entreprise = true;
+                            this.client.contact_assurance =
+                                personne.contact_assurance;
+                            this.client.email_assurance =
+                                personne.email_assurance;
+                            this.client.nom_assurance = personne.nom_assurance;
+                            this.client.representant_assurance =
                                 personne.representant_assurance;
                         } else if (result.data.nature === "entreprise") {
                             this.kind = "entreprise";
                             this.entreprise = true;
                             this.particulier = false;
                             this.assurance = false;
-                            this.contact_entreprise =
+                            this.disabled_assurance = true;
+                            this.disabled_particulier = true;
+                            this.client.contact_entreprise =
                                 personne.contact_entreprise;
-                            this.email_entreprise = personne.email_entreprise;
-                            this.nom_entreprise = personne.nom_entreprise;
-                            this.representant_entreprise =
+                            this.client.email_entreprise =
+                                personne.email_entreprise;
+                            this.client.nom_entreprise =
+                                personne.nom_entreprise;
+                            this.client.representant_entreprise =
                                 personne.representant_entreprise;
                         } else {
                             this.kind = "particulier";
                             this.particulier = true;
                             this.entreprise = false;
                             this.assurance = false;
-                            this.nom_complet = personne.nom_complet;
-                            this.telephone = personne.telephone;
-                            this.email = personne.email;
+                            this.disabled_assurance = true;
+                            this.disabled_entreprise = true;
+                            this.client.nom_complet = personne.nom_complet;
+                            this.client.telephone = personne.telephone;
+                            this.client.email = personne.email;
                         }
                     } else {
                         this.$bvToast.toast(
@@ -412,6 +347,23 @@ export default {
                 })
                 .catch(err => {});
         },
+        vider_assurance() {
+            this.client.representant_assurance = null;
+            this.client.contact_assurance = null;
+            this.client.nom_assurance = null;
+            this.client.email_assurance = null;
+        },
+        vider_particulier() {
+            this.client.nom_complet = null;
+            this.client.email = null;
+            this.client.telephone = null;
+        },
+        vider_entreprise() {
+            this.client.nom_entreprise = null;
+            this.client.contact_entreprise = null;
+            this.client.email_entreprise = null;
+            this.client.representant_entreprise = null;
+        },
         etat_initial() {
             this.nouveau_client = false;
             this.particulier = false;
@@ -419,17 +371,21 @@ export default {
             this.entreprise = false;
             this.kind = null;
             this.contact = "";
-            this.nom_complet = "";
-            this.telephone = "";
-            this.email = "";
-            this.nom_assurance = "";
-            this.representant_assurance = "";
-            this.contact_assurance = "";
-            this.email_assurance = "";
-            this.nom_entreprise = "";
-            this.representant_entreprise = "";
-            this.contact_entreprise = "";
-            this.email_entreprise = "";
+            this.client.nom_complet = "";
+            this.client.telephone = "";
+            this.client.email = "";
+            this.client.nom_assurance = "";
+            this.client.representant_assurance = "";
+            this.client.contact_assurance = "";
+            this.client.email_assurance = "";
+            this.client.nom_entreprise = "";
+            this.client.representant_entreprise = "";
+            this.client.contact_entreprise = "";
+            this.client.email_entreprise = "";
+            this.disabled_particulier = false;
+            this.disabled_assurance = false;
+            this.disabled_entreprise = false;
+            this.$root.$emit("reset");
         }
     }
 };

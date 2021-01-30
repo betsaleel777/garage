@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Maintenance\Reception;
 
 use App\Http\Controllers\Controller;
+use App\Models\Maintenance\Reception\CommentaireReception;
 use App\Models\Maintenance\Reception\Enjoliveur;
 use App\Models\Maintenance\Reception\EtatVehicule;
 use App\Models\Maintenance\Reception\Reception;
 use App\Models\Maintenance\Reception\VehiculeInfo;
+use App\Models\Maintenance\Reception\VehiculeReception;
 use App\Models\Personne;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ReceptionsController extends Controller
 {
@@ -34,7 +37,9 @@ class ReceptionsController extends Controller
         'utilitaire léger',
         'camion',
     ];
-
+    /**
+     * cette fonction permet de mettre à jours le nombre de receptions et les essais avant réparations non traités
+     */
     public static function decompte()
     {
         session()->put('receptions', Reception::recent()->get()->count());
@@ -52,11 +57,7 @@ class ReceptionsController extends Controller
         $titre = 'Ajouter une réception';
         $categories = self::CATEGORIES_VEHICULES;
         $enjoliveurs = Enjoliveur::get();
-        $vehicule_info = VehiculeInfo::select('immatriculation')->get()->all();
-        $immatriculations = array_map(function ($info) {
-            return $info->immatriculation;
-        }, $vehicule_info);
-        return view('maintenance.reception.add', compact('immatriculations', 'titre', 'categories', 'enjoliveurs'));
+        return view('maintenance.reception.add', compact('titre', 'categories', 'enjoliveurs'));
     }
 
     public function liste()
@@ -69,9 +70,9 @@ class ReceptionsController extends Controller
     public function store(Request $request)
     {
         //validation des données
-        $rules = array_merge(VehiculeInfo::RULES, EtatVehicule::RULES);
+        $rules = array_merge(VehiculeInfo::RULES, EtatVehicule::RULES, VehiculeReception::RULES);
         $request->validate($rules);
-
+        dd($request->all());
         //recupération du client si déjà existant et creation de nouveau client sinon
         if (!empty($request->telephone)) {
             $data = Personne::where('telephone', $request->telephone)->get()->first();
@@ -84,25 +85,20 @@ class ReceptionsController extends Controller
             return redirect()->back()->with('danger', $message)->withInput();
         }
         if (empty($data)) {
-            $personne = new Personne($request->except('enjoliveur'));
+            $personne = new Personne($request->all());
             $personne->immatriculer();
             $personne->save();
         } else {
             $personne = $data;
         }
 
-        //recupération du véhicule si déjà existant et creation de nouveau véhicule sinon
-        $vehicule_info = VehiculeInfo::where('chassis', $request->chassis)->get()->first();
-        if (empty($vehicule_info)) {
-            $vehicule_info = VehiculeInfo::create($request->except('enjoliveur'));
-        } else {
-            $vehicule_info->date_sitca = $request->date_sitca;
-            $vehicule_info->date_assurance = $request->date_assurance;
-            $vehicule_info->kilometrage_actuel = $request->kilometrage_actuel;
-            $vehicule_info->prochaine_vidange = $request->prochaine_vidange;
-            $vehicule_info->niveau_carburant = $request->niveau_carburant;
-            $vehicule_info->save();
-        }
+        //si un ancien véhicule n'as pas été sélectioné
+        $vehicule = new VehiculeReception($request->all());
+        $vehicule->user = session('user_id');
+        $vehicule->save();
+        $vehicule_info = new VehiculeInfo($request->all());
+        $vehicule_info->vehicule = $vehicule->id;
+        $vehicule_info->save();
 
         //enregistrement des enjoliveurs
         foreach (array_values($request->only('enjoliveur')) as $value) {
@@ -110,6 +106,14 @@ class ReceptionsController extends Controller
         }
         //nouveau etat de vehicule
         $etat_vehicule = EtatVehicule::create($request->all());
+
+        //commentaire de receptionniste
+        if (!empty($request->commentaire)) {
+            $commentaire = new CommentaireReception($request->all());
+            $commentaire->user = session('user_id');
+            //enregistrement de média
+            $commentaire->save();
+        }
 
         //creation de la reception
         $reception = new Reception($request->all());
@@ -207,17 +211,6 @@ class ReceptionsController extends Controller
         return;
     }
 
-    // public function valider(int $id)
-    // {
-    //     // cette action est impossible si pas admin
-    //     $reception = Reception::find($id);
-    //     $reception->receptionner();
-    //     $reception->save();
-    //     self::decompte();
-    //     $message = "la reception $reception->code a été validée avec succès";
-    //     return redirect()->route('reception_liste')->with('success', $message);
-    // }
-
     function print(int $id) {
         $reception = Reception::with('vehicule.enjoliveurs', 'etat', 'personneLinked')->find($id);
         $enjoliveurs = join(',', array_map(function ($enjoliveur) {
@@ -235,9 +228,16 @@ class ReceptionsController extends Controller
         return response()->json(['reception' => $reception]);
     }
 
-    public function findVehiculejs(string $matricule)
+    public function uploadAddjs(Request $request)
     {
-        $vehicule = VehiculeInfo::firstWhere('immatriculation', $matricule);
-        return response()->json(['vehicule' => $vehicule]);
+        if ($request->hasFile('file')) {
+            $path = Storage::putFile('public/temporaire', $request->file('file'));
+        }
+        return response()->json(['chemin' => $path]);
+    }
+
+    public function uploadRemovejs(Request $request)
+    {
+        return response()->json([$request->all()]);
     }
 }

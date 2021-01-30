@@ -17,9 +17,6 @@ class CreateVehiculesInfos extends Migration
             $table->id();
             $table->string('nom_deposant');
             $table->string('niveau_carburant');
-            $table->string('vehicule');
-            $table->string('immatriculation');
-            $table->string('chassis');
             $table->string('dmc');
             $table->date('date_sitca');
             $table->date('date_assurance');

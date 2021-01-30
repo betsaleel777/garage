@@ -9,20 +9,12 @@ class VehiculeInfo extends Model
 {
     use HasFactory;
     protected $table = 'vehicules_infos';
-    protected $fillable = ['nom_deposant', 'marque', 'modele', 'type_vehicule', 'couleur', 'annee', 'enjoliveur', 'niveau_carburant', 'immatriculation',
-        'chassis', 'dmc', 'date_sitca', 'date_assurance', 'kilometrage_actuel', 'prochaine_vidange'];
+    protected $fillable = ['nom_deposant', 'niveau_carburant', 'vehicule', 'dmc', 'date_sitca', 'date_assurance', 'kilometrage_actuel', 'prochaine_vidange'];
 
     protected $dates = ['date_sitca', 'date_assurance', 'created_at'];
 
     const RULES = [
-        'marque' => 'required',
-        'modele' => 'required',
-        'type_vehicule' => 'required',
-        'couleur' => 'required',
-        'annee' => 'required',
         'niveau_carburant' => 'required',
-        'immatriculation' => 'required',
-        'chassis' => 'required',
         'dmc' => 'required',
         'date_sitca' => 'required',
         'date_assurance' => 'required',
@@ -33,5 +25,10 @@ class VehiculeInfo extends Model
     public function enjoliveurs()
     {
         return $this->belongsToMany(Enjoliveur::class, 'enjoliveurs_vehicules', 'vehicule_info', 'enjoliveur')->withTimestamps();
+    }
+
+    public function vehiculeLinked()
+    {
+        return $this->hasOne(VehiculeReception::class, 'vehicule');
     }
 }
