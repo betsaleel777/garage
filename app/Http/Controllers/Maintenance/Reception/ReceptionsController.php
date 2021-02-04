@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Maintenance\Reception\CommentaireReception;
 use App\Models\Maintenance\Reception\Enjoliveur;
 use App\Models\Maintenance\Reception\EtatVehicule;
+use App\Models\Maintenance\Reception\MediaReception;
 use App\Models\Maintenance\Reception\Reception;
 use App\Models\Maintenance\Reception\VehiculeInfo;
 use App\Models\Maintenance\Reception\VehiculeReception;
@@ -62,7 +63,7 @@ class ReceptionsController extends Controller
 
     public function liste()
     {
-        $receptions = Reception::with('utilisateur', 'vehicule')->get();
+        $receptions = Reception::with('utilisateur', 'vehicule.auto')->get();
         $titre = 'Liste Réception';
         return view('maintenance.reception.liste', compact('titre', 'receptions'));
     }
@@ -70,9 +71,12 @@ class ReceptionsController extends Controller
     public function store(Request $request)
     {
         //validation des données
-        $rules = array_merge(VehiculeInfo::RULES, EtatVehicule::RULES, VehiculeReception::RULES);
+        if (!isset($request->vehicule)) {
+            $rules = array_merge(VehiculeInfo::RULES, EtatVehicule::RULES, VehiculeReception::RULES, MediaReception::RULES);
+        } else {
+            $rules = array_merge(VehiculeInfo::RULES, EtatVehicule::RULES, MediaReception::RULES);
+        }
         $request->validate($rules);
-        dd($request->all());
         //recupération du client si déjà existant et creation de nouveau client sinon
         if (!empty($request->telephone)) {
             $data = Personne::where('telephone', $request->telephone)->get()->first();
@@ -93,12 +97,20 @@ class ReceptionsController extends Controller
         }
 
         //si un ancien véhicule n'as pas été sélectioné
-        $vehicule = new VehiculeReception($request->all());
-        $vehicule->user = session('user_id');
-        $vehicule->save();
-        $vehicule_info = new VehiculeInfo($request->all());
-        $vehicule_info->vehicule = $vehicule->id;
-        $vehicule_info->save();
+        if (!isset($request->vehicule)) {
+            $vehicule = new VehiculeReception($request->all());
+            $vehicule->personne = $personne->id;
+            $vehicule->user = session('user_id');
+            $vehicule->save();
+            $vehicule_info = new VehiculeInfo($request->all());
+            $vehicule_info->vehicule = $vehicule->id;
+            $vehicule_info->save();
+
+        } else {
+            $vehicule_info = new VehiculeInfo($request->all());
+            $vehicule_info->vehicule = $request->vehicule;
+            $vehicule_info->save();
+        }
 
         //enregistrement des enjoliveurs
         foreach (array_values($request->only('enjoliveur')) as $value) {
@@ -106,14 +118,6 @@ class ReceptionsController extends Controller
         }
         //nouveau etat de vehicule
         $etat_vehicule = EtatVehicule::create($request->all());
-
-        //commentaire de receptionniste
-        if (!empty($request->commentaire)) {
-            $commentaire = new CommentaireReception($request->all());
-            $commentaire->user = session('user_id');
-            //enregistrement de média
-            $commentaire->save();
-        }
 
         //creation de la reception
         $reception = new Reception($request->all());
@@ -123,9 +127,29 @@ class ReceptionsController extends Controller
         $reception->vehicule_info = $vehicule_info->id;
         $reception->user = session('user_id');
         $reception->save();
+
+        //commentaire de receptionniste
+        if (!empty($request->contenu)) {
+            $commentaire = new CommentaireReception($request->all());
+            $commentaire->reception = $reception->id;
+            $commentaire->user = session('user_id');
+            $commentaire->save();
+            if (!empty($request->images)) {
+                foreach ($request->images as $image) {
+                    $nom = explode('/', $image)[2];
+                    Storage::move('public/temporaire/' . $nom, 'public/media_reception/' . $nom);
+                    $media = new MediaReception();
+                    $media->commentaire = $commentaire->id;
+                    $media->media = $nom;
+                    $media->save();
+                    //optimisation: vider si il y a d'autre qui sont resté
+                }
+            }
+        }
         self::decompte();
         $message = "la réception $reception->code a été enregistrée avec succès.";
-        return redirect()->route('reception_liste')->with('success', $message)->withInput();
+        session()->flash('success', $message);
+        return;
     }
 
     public function edit(int $id)
@@ -176,7 +200,7 @@ class ReceptionsController extends Controller
 
     public function show(int $id)
     {
-        $reception = Reception::with('vehicule.enjoliveurs', 'etat', 'personneLinked')->find($id);
+        $reception = Reception::with('vehicule.enjoliveurs', 'vehicule.auto', 'etat', 'personneLinked')->find($id);
         $enjoliveurs = join(',', array_map(function ($enjoliveur) {
             return $enjoliveur->nom;
         }, $reception->vehicule->enjoliveurs->all()));
@@ -226,6 +250,12 @@ class ReceptionsController extends Controller
     {
         $reception = Reception::find($id);
         return response()->json(['reception' => $reception]);
+    }
+
+    public function vehiculesFrom(int $id)
+    {
+        $vehicules = Personne::with('vehicules')->find($id)->vehicules;
+        return response()->json(['vehicules' => $vehicules]);
     }
 
     public function uploadAddjs(Request $request)

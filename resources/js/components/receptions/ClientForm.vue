@@ -3,9 +3,6 @@
         <div class="row">
             <div v-if="!nouveau_client" class="col-md-6">
                 <div class="row">
-                    <div class="col-md-4">
-                        <label for="contact">Recherche client</label>
-                    </div>
                     <div class="col-md-8">
                         <div class="form-group input-group">
                             <input
@@ -26,16 +23,16 @@
                             </span>
                         </div>
                     </div>
+                    <div v-if="!nouveau_client" class="col-md-4">
+                        <button
+                            type="button"
+                            @click="nouveau_client = true"
+                            class="btn btn-primary btn-flat"
+                        >
+                            Nouveau client
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div v-if="!nouveau_client" class="col-md-6">
-                <button
-                    type="button"
-                    @click="nouveau_client = true"
-                    class="btn btn-primary"
-                >
-                    Nouveau client
-                </button>
             </div>
             <div v-if="nouveau_client" class="col-md-7">
                 <div class="row">
@@ -115,7 +112,7 @@
                 <input
                     name="nom_complet"
                     v-model="client.nom_complet"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="nom"
                 />
             </div>
@@ -124,7 +121,7 @@
                 <input
                     name="telephone"
                     v-model="client.telephone"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="telephone"
                 />
             </div>
@@ -134,7 +131,7 @@
                     name="email"
                     type="email"
                     v-model="client.email"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="email"
                 />
             </div>
@@ -145,7 +142,7 @@
                 <input
                     name="nom_assurance"
                     v-model="client.nom_assurance"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="nom_assurance"
                 />
             </div>
@@ -156,7 +153,7 @@
                 <input
                     name="representant_assurance"
                     v-model="client.representant_assurance"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="representant_assurance"
                 />
             </div>
@@ -165,7 +162,7 @@
                 <input
                     name="contact_assurance"
                     v-model="client.contact_assurance"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="contact_assurance"
                 />
             </div>
@@ -174,7 +171,7 @@
                 <input
                     name="email_assurance"
                     v-model="client.email_assurance"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="email_assurance"
                 />
             </div>
@@ -185,7 +182,7 @@
                 <input
                     name="nom_entreprise"
                     v-model="client.nom_entreprise"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="nom_entreprise"
                 />
             </div>
@@ -196,7 +193,7 @@
                 <input
                     name="representant_entreprise"
                     v-model="client.representant_entreprise"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="representant_entreprise"
                 />
             </div>
@@ -205,7 +202,7 @@
                 <input
                     name="contact_entreprise"
                     v-model="client.contact_entreprise"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="contact_entreprise"
                 />
             </div>
@@ -214,7 +211,7 @@
                 <input
                     name="email_entreprise"
                     v-model="client.email_entreprise"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="email_entreprise"
                 />
             </div>
@@ -223,11 +220,15 @@
 </template>
 
 <script>
+import store from "./Store";
 export default {
     props: {
         errors: {
             type: [Object, Array]
         }
+    },
+    updated() {
+        store.state.client = this.client;
     },
     data() {
         return {
@@ -255,7 +256,6 @@ export default {
             disabled_entreprise: false
         };
     },
-    mounted() {},
     methods: {
         cocher() {
             if (this.kind === "assurance") {
@@ -293,7 +293,7 @@ export default {
                             }
                         );
                         this.nouveau_client = true;
-                        this.$root.$emit("ancien_gear");
+                        this.$root.$emit("ancien-gear", personne);
                         if (result.data.nature === "assurance") {
                             this.kind = "assurance";
                             this.assurance = true;

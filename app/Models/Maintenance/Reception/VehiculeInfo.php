@@ -19,7 +19,7 @@ class VehiculeInfo extends Model
         'date_sitca' => 'required',
         'date_assurance' => 'required',
         'kilometrage_actuel' => 'required',
-        'prochaine_vidange' => 'required',
+        'prochaine_vidange' => 'required|gte:kilometrage_actuel',
     ];
 
     public function enjoliveurs()
@@ -27,8 +27,8 @@ class VehiculeInfo extends Model
         return $this->belongsToMany(Enjoliveur::class, 'enjoliveurs_vehicules', 'vehicule_info', 'enjoliveur')->withTimestamps();
     }
 
-    public function vehiculeLinked()
+    public function auto()
     {
-        return $this->hasOne(VehiculeReception::class, 'vehicule');
+        return $this->belongsTo(VehiculeReception::class, 'vehicule');
     }
 }

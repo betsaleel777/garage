@@ -4,7 +4,8 @@ class Store {
             client: {},
             checklist: {},
             infos: {},
-            commentaire: {}
+            commentaire: {},
+            ancien: {}
         };
     }
 }

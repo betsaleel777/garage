@@ -24,10 +24,9 @@ import MagasinStepper from './components/magasins/MagasinStepper.vue'
 
 import axios from "axios";
 import VueAxios from "vue-axios";
-import Vuelidate from 'vuelidate';
 //plugins
-import { ToastPlugin } from "bootstrap-vue";
-import { ModalPlugin } from "bootstrap-vue";
+import { ToastPlugin, ModalPlugin } from "bootstrap-vue";
+
 //style
 import "vue-step-wizard/dist/vue-step-wizard.css";
 import "bootstrap/dist/css/bootstrap.min.css";

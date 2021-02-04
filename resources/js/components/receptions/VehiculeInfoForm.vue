@@ -1,10 +1,10 @@
 <template>
-    <div v-if="ancien_gear" class="row">
+    <div class="row">
         <div class="form-group col-md-4">
             <label for="nom_deposant">Nom du déposant</label>
             <input
                 v-model="infos.nom_deposant"
-                class="form-control"
+                class="form-control form-control-sm"
                 id="nom_deposant"
             />
             <small>
@@ -15,7 +15,11 @@
         </div>
         <div class="form-group col-md-4">
             <label for="dmc">DMC</label>
-            <input v-model="infos.dmc" class="form-control" id="dmc" />
+            <input
+                v-model="infos.dmc"
+                class="form-control form-control-sm"
+                id="dmc"
+            />
             <small>
                 <span v-if="messages.dmc.exist" class="text-danger"
                     >{{ messages.dmc.value }}
@@ -33,9 +37,8 @@
                     class="form-check-input"
                     type="checkbox"
                     :id="`en${element.id}`"
-                    :value="element.nom"
+                    :value="element.id"
                     v-model="infos.enjoliveur"
-                    :checked="enjoliveurCheck(element.nom)"
                 />
                 <label class="form-check-label" :for="`en${element.id}`"
                     >{{ element.nom }}
@@ -49,7 +52,7 @@
                     <input
                         type="text"
                         v-model="infos.immatriculation"
-                        class="form-control"
+                        class="form-control form-control-sm"
                         id="immatriculation"
                         placeholder="plaque d'immatriculation"
                     />
@@ -68,7 +71,7 @@
                 <label for="chassis">Chassis</label>
                 <input
                     v-model="infos.chassis"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="chassis"
                 />
                 <small>
@@ -84,7 +87,7 @@
                 v-model="infos.marque"
                 id="marque"
                 type="text"
-                class="form-control"
+                class="form-control form-control-sm"
                 placeholder="audi"
             />
             <small>
@@ -99,7 +102,7 @@
                 v-model="infos.modele"
                 id="modele"
                 type="text"
-                class="form-control"
+                class="form-control form-control-sm"
                 placeholder="A6"
             />
             <small>
@@ -110,19 +113,14 @@
         </div>
         <div class="col-md-3">
             <label for="type_vehicule">Type</label>
-            <input
-                type="text"
-                list="vehicule_type"
+            <vue-select
+                :options="types_vehicules"
                 v-model="infos.type_vehicule"
-                class="form-control"
                 id="type_vehicule"
-                placeholder="type"
-            />
-            <datalist id="vehicule_type">
-                <option v-for="type in types_vehicules" :key="type">{{
+                ><option v-for="type in types_vehicules" :key="type">{{
                     type
                 }}</option>
-            </datalist>
+            </vue-select>
             <small>
                 <span v-if="messages.type_vehicule.exist" class="text-danger">{{
                     messages.type_vehicule.value
@@ -135,7 +133,7 @@
                 v-model="infos.annee"
                 id="annee"
                 type="text"
-                class="form-control"
+                class="form-control form-control-sm"
                 placeholder="2012"
             />
             <small>
@@ -150,7 +148,7 @@
                 v-model="infos.couleur"
                 id="couleur"
                 type="text"
-                class="form-control"
+                class="form-control form-control-sm"
                 placeholder="orange"
             />
             <small>
@@ -163,7 +161,7 @@
             <label for="kilometrage_actuel">Kilometrage Actuel</label>
             <input
                 v-model="infos.kilometrage_actuel"
-                class="form-control"
+                class="form-control form-control-sm"
                 id="kilometrage_actuel"
             />
             <small>
@@ -178,7 +176,7 @@
             <label for="prochaine_vidange">Prochaine Vidange</label>
             <input
                 v-model="infos.prochaine_vidange"
-                class="form-control"
+                class="form-control form-control-sm"
                 id="prochaine_vidange"
             />
             <small>
@@ -198,7 +196,6 @@
                     v-model="infos.niveau_carburant"
                     id="ca1"
                     value="0"
-                    :checked="check('0')"
                 />
                 <label class="form-check-label" for="ca1">0</label>
             </div>
@@ -209,7 +206,6 @@
                     v-model="infos.niveau_carburant"
                     id="ca2"
                     value="1/4"
-                    :checked="check('1/4')"
                 />
                 <label class="form-check-label" for="ca2">1/4</label>
             </div>
@@ -220,7 +216,6 @@
                     v-model="infos.niveau_carburant"
                     id="ca3"
                     value="1/2"
-                    :checked="check('1/2')"
                 />
                 <label class="form-check-label" for="ca3">1/2</label>
             </div>
@@ -231,7 +226,6 @@
                     v-model="infos.niveau_carburant"
                     id="ca4"
                     value="3/4"
-                    :checked="check('3/4')"
                 />
                 <label class="form-check-label" for="ca4">3/4</label>
             </div>
@@ -242,7 +236,6 @@
                     v-model="infos.niveau_carburant"
                     id="ca5"
                     value="1"
-                    :checked="check('1')"
                 />
                 <label class="form-check-label" for="ca5">1</label>
             </div>
@@ -253,28 +246,16 @@
             </small>
         </div>
         <div class="form-group col-md-6">
-            <label for="date_sitca">Date de dernière visite technique</label>
-            <div
-                class="input-group date"
+            <label for="date_sitca">Date de dernière visite technique</label
+            ><br />
+            <date-picker
+                style="width:100%"
+                input-class="form-control form-control-sm"
                 id="date_sitca"
-                data-target-input="nearest"
-            >
-                <input
-                    v-model="infos.date_sitca"
-                    type="text"
-                    class="form-control datetimepicker-input"
-                    data-target="#date_sitca"
-                />
-                <div
-                    class="input-group-append"
-                    data-target="#date_sitca"
-                    data-toggle="datetimepicker"
-                >
-                    <div class="input-group-text">
-                        <i class="fa fa-calendar"></i>
-                    </div>
-                </div>
-            </div>
+                v-model="infos.date_sitca"
+                format="DD-MM-YYYY"
+                value-type="date"
+            ></date-picker>
             <small>
                 <span v-if="messages.date_sitca.exist" class="text-danger"
                     >{{ messages.date_sitca.value }}
@@ -282,28 +263,15 @@
             </small>
         </div>
         <div class="form-group col-md-6">
-            <label for="date_assurance">Date de fin de l'assurance</label>
-            <div
-                class="input-group date"
+            <label for="date_assurance">Date de fin de l'assurance</label><br />
+            <date-picker
+                style="width:100%"
+                input-class="form-control form-control-sm"
                 id="date_assurance"
-                data-target-input="nearest"
-            >
-                <input
-                    v-model="infos.date_assurance"
-                    type="text"
-                    class="form-control datetimepicker-input"
-                    data-target="#date_assurance"
-                />
-                <div
-                    class="input-group-append"
-                    data-target="#date_assurance"
-                    data-toggle="datetimepicker"
-                >
-                    <div class="input-group-text">
-                        <i class="fa fa-calendar"></i>
-                    </div>
-                </div>
-            </div>
+                v-model="infos.date_assurance"
+                format="DD-MM-YYYY"
+                value-type="date"
+            ></date-picker>
             <small>
                 <span v-if="messages.date_assurance.exist" class="text-danger"
                     >{{ messages.date_assurance.value }}
@@ -314,18 +282,22 @@
 </template>
 
 <script>
+import store from "./Store";
+import DatePicker from "vue2-datepicker";
+import VueSelect from "vue-select";
+import "vue2-datepicker/index.css";
+import "vue-select/dist/vue-select.css";
 export default {
+    components: { DatePicker, VueSelect },
     props: {
         types_vehicules: Array,
-        errors: {
-            type: [Array, Object]
-        },
         enjoliveurs: {
             type: [Array, Object]
         }
     },
     data() {
         return {
+            errors: {},
             infos: {
                 dmc: null,
                 nom_deposant: null,
@@ -338,12 +310,11 @@ export default {
                 chassis: null,
                 kilometrage_actuel: null,
                 prochaine_vidange: null,
-                date_sitca: null,
-                date_assurance: null,
+                date_sitca: "",
+                date_assurance: "",
                 niveau_carburant: null,
                 enjoliveur: []
             },
-            ancien_gear: true,
             messages: {
                 nom_deposant: {
                     exist: false,
@@ -411,86 +382,79 @@ export default {
     mounted() {
         this.$root.$on("reset", () => {
             this.vider();
-            if (!this.ancien_gear) {
-                this.ancien_gear = true;
-            }
+            this.$root.$emit("nouveau-vehicule");
         });
-        this.$root.$on("ancien_gear", () => {
-            this.ancien_gear = false;
+        this.$root.$on("probleme", err => {
+            this.errors = err;
+            this.erreurs();
         });
-        this.erreurs();
+        this.$root.$on("delete-errors", () => {
+            this.vider_errors();
+        });
+    },
+    updated() {
+        store.state.infos = this.infos;
+    },
+    destroyed() {
+        store.state.infos = {};
     },
     methods: {
-        check(value) {
-            const niveau = this.old.niveau_carburant;
-            let result = false;
-            if (niveau) {
-                if (niveau == value) result = true;
-            }
-            return result;
-        },
-        enjoliveurCheck(value) {
-            const enjoliveur = this.old.enjoliveur;
-            let result = false;
-            if (enjoliveur) if (enjoliveur.includes(value)) result = true;
-            return result;
-        },
         erreurs() {
             if (this.errors.dmc) {
                 this.messages.dmc.exist = true;
-                this.messages.dmc.value = this.errors.dmc;
+                this.messages.dmc.value = this.errors.dmc[0];
             }
             if (this.errors.nom_deposant) {
                 this.messages.nom_deposant.exist = true;
-                this.messages.nom_deposant.value = this.errors.nom_deposant;
+                this.messages.nom_deposant.value = this.errors.nom_deposant[0];
             }
             if (this.errors.immatriculation) {
                 this.messages.immatriculation.exist = true;
-                this.messages.immatriculation.value = this.errors.immatriculation;
+                this.messages.immatriculation.value = this.errors.immatriculation[0];
             }
             if (this.errors.modele) {
                 this.messages.modele.exist = true;
-                this.messages.modele.value = this.errors.modele;
+                this.messages.modele.value = this.errors.modele[0];
             }
             if (this.errors.chassis) {
                 this.messages.chassis.exist = true;
-                this.messages.chassis.value = this.errors.chassis;
+                this.messages.chassis.value = this.errors.chassis[0];
             }
             if (this.errors.couleur) {
                 this.messages.couleur.exist = true;
-                this.messages.couleur.value = this.errors.couleur;
+                this.messages.couleur.value = this.errors.couleur[0];
             }
             if (this.errors.type_vehicule) {
                 this.messages.type_vehicule.exist = true;
-                this.messages.type_vehicule.value = this.errors.type_vehicule;
+                this.messages.type_vehicule.value = this.errors.type_vehicule[0];
             }
             if (this.errors.marque) {
                 this.messages.marque.exist = true;
-                this.messages.marque.value = this.errors.marque;
+                this.messages.marque.value = this.errors.marque[0];
             }
             if (this.errors.annee) {
                 this.messages.annee.exist = true;
-                this.messages.annee.value = this.errors.annee;
+                this.messages.annee.value = this.errors.annee[0];
             }
             if (this.errors.kilometrage_actuel) {
                 this.messages.kilometrage_actuel.exist = true;
-                this.messages.kilometrage_actuel.value = this.errors.kilometrage_actuel;
+                this.messages.kilometrage_actuel.value = this.errors.kilometrage_actuel[0];
             }
             if (this.errors.prochaine_vidange) {
                 this.messages.prochaine_vidange.exist = true;
-                this.messages.prochaine_vidange.value = this.errors.prochaine_vidange;
+                this.messages.prochaine_vidange.value = this.errors.prochaine_vidange[0];
             }
             if (this.errors.date_sitca) {
                 this.messages.date_sitca.exist = true;
-                this.messages.date_sitca.value = this.errors.date_sitca;
+                this.messages.date_sitca.value = this.errors.date_sitca[0];
             }
             if (this.errors.date_assurance) {
                 this.messages.date_assurance.exist = true;
-                this.messages.date_assurance.value = this.errors.date_assurance;
+                this.messages.date_assurance.value = this.errors.date_assurance[0];
             }
             if (this.errors.niveau_carburant) {
                 this.messages.niveau_carburant.exist = true;
-                this.messages.niveau_carburant.value = this.errors.niveau_carburant;
+                this.messages.niveau_carburant.value = this.errors.niveau_carburant[0];
             }
         },
         vider() {
@@ -508,9 +472,73 @@ export default {
             this.infos.enjoliveur = [];
             this.infos.nom_deposant = null;
             this.infos.dmc = null;
+        },
+        vider_errors() {
+            this.messages = {
+                nom_deposant: {
+                    exist: false,
+                    value: null
+                },
+                dmc: {
+                    exist: false,
+                    value: null
+                },
+                immatriculation: {
+                    exist: false,
+                    value: null
+                },
+                modele: {
+                    exist: false,
+                    value: null
+                },
+                type_vehicule: {
+                    exist: false,
+                    value: null
+                },
+                marque: {
+                    exist: false,
+                    value: null
+                },
+                annee: {
+                    exist: false,
+                    value: null
+                },
+                couleur: {
+                    exist: false,
+                    value: null
+                },
+                chassis: {
+                    exist: false,
+                    value: null
+                },
+                kilometrage_actuel: {
+                    exist: false,
+                    value: null
+                },
+                prochaine_vidange: {
+                    exist: false,
+                    value: null
+                },
+                date_sitca: {
+                    exist: false,
+                    value: null
+                },
+                date_assurance: {
+                    exist: false,
+                    value: null
+                },
+                niveau_carburant: {
+                    exist: false,
+                    value: null
+                },
+                prochaine_vidange: {
+                    exist: false,
+                    value: null
+                }
+            };
         }
     }
 };
 </script>
 
-<style></style>
+<style scoped></style>

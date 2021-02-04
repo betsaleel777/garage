@@ -9,9 +9,13 @@ class CommentaireReception extends Model
 {
     use HasFactory;
     protected $fillable = ['user', 'contenu', 'reception'];
-
     public function receptionLinked()
     {
         return $this->belongsTo(Reception::class, 'reception');
+    }
+
+    public function medias()
+    {
+        return $this->hasMany(MediaReception::class, 'commentaire');
     }
 }

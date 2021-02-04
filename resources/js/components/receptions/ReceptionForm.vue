@@ -5,20 +5,26 @@
                 <div style="margin-bottom: 3%">
                     <h5 class="text-primary">Informations du client</h5>
                     <hr />
-                    <client-form></client-form>
+                    <client-form />
                 </div>
             </div>
-            <div class="col-md-12">
-                <ancien-vehicule-form :errors="erreurs" />
-            </div>
+            <ancien-vehicule-form
+                v-if="ancien_gear"
+                :personne="personne"
+                :enjoliveurs="enjoliveurs"
+            />
             <div class="col-md-12">
                 <h5 class="text-primary">Informations du véhicule</h5>
                 <hr />
-                <vehicule-form :errors="erreurs" />
+                <vehicule-form
+                    v-if="!ancien_gear"
+                    :types_vehicules="types_vehicules"
+                    :enjoliveurs="enjoliveurs"
+                />
             </div>
             <!-- checklist -->
-            <checklist-form :errors="erreurs" />
-            <commentaire-reception :errors="erreurs" />
+            <checklist-form />
+            <commentaire-reception />
         </div>
         <div style="text-align: right" class="form-group">
             <button @click="envoyer" type="button" class="btn btn-primary">
@@ -34,8 +40,14 @@ import AncienVehiculeForm from "./AncienVehiculeForm";
 import VehiculeForm from "./VehiculeInfoForm";
 import ChecklistForm from "./ChecklistForm";
 import CommentaireReception from "./CommentaireReceptionForm";
-import Store from "./Store";
+import store from "./Store";
 export default {
+    props: {
+        types_vehicules: Array,
+        enjoliveurs: {
+            type: [Array, Object]
+        }
+    },
     components: {
         ClientForm,
         AncienVehiculeForm,
@@ -43,20 +55,67 @@ export default {
         ChecklistForm,
         CommentaireReception
     },
+    mounted() {
+        this.$root.$on("nouveau-vehicule", () => {
+            this.ancien_gear = false;
+        });
+        this.$root.$on("ancien-gear", personne => {
+            this.ancien_gear = true;
+            this.personne = personne.id;
+        });
+    },
     data() {
         return {
-            erreurs: {}
+            ancien_gear: false,
+            personne: null
         };
     },
     methods: {
-        envoyer() {
+        envoyer(event) {
+            event.preventDefault();
+            const {
+                commentaire,
+                infos,
+                client,
+                checklist,
+                ancien
+            } = store.state;
+            let postObject = {};
+            console.log(ancien, infos);
+            if (Object.keys(ancien).length === 0) {
+                console.log("ancien vide");
+                postObject = {
+                    ...commentaire,
+                    ...infos,
+                    ...checklist,
+                    ...client
+                };
+            } else {
+                console.log("ancien rempli");
+                postObject = {
+                    ...commentaire,
+                    ...ancien,
+                    ...checklist,
+                    ...client
+                };
+            }
             axios
-                .post("/maintenance/reception/store")
-                .then(result => {})
+                .post("/maintenance/reception/store", postObject)
+                .then(result => {
+                    location.href = "/maintenance/reception/liste";
+                })
                 .catch(err => {
-                    const { errors } = err.data.response;
-                    this.erreurs = errors;
+                    this.$root.$emit("delete-errors");
+                    const { errors } = err.response.data;
+                    this.$root.$emit("probleme", errors);
                 });
+        },
+        notifier(message, titre, variant) {
+            this.$bvToast.toast(message, {
+                title: titre,
+                solid: true,
+                variant: variant
+            });
         }
     }
 };

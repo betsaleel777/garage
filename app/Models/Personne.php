@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Maintenance\Reception\VehiculeReception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -61,5 +62,10 @@ class Personne extends Model
         $lettres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $chiffres = '0123456789';
         $this->attributes['matricule'] = 'PER' . substr(str_shuffle($lettres), 0, 4) . \substr(\str_shuffle($chiffres), 0, 4);
+    }
+
+    public function vehicules()
+    {
+        return $this->hasMany(VehiculeReception::class, 'personne');
     }
 }

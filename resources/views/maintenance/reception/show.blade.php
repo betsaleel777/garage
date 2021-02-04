@@ -35,7 +35,8 @@
                         <div class="row">
                            <div class="col-md-10"></div>
                            <div class="col-md-2">
-                              <a target="_blank" class="btn btn-primary" href="{{ route('reception_print', $reception) }}">
+                              <a target="_blank" class="btn btn-primary"
+                                 href="{{ route('reception_print', $reception) }}">
                                  <i class="fas fa-print"></i> imprimer
                               </a>
                            </div>
@@ -128,16 +129,16 @@
                                     <tr class="active-row">
                                        <th>Véhicule</th>
                                        <td>
-                                          {{ $reception->vehicule->marque . ' ' . $reception->vehicule->modele . ' ' . $reception->vehicule->type_vehicule . ' ' . $reception->vehicule->annee . ' ' . $reception->vehicule->couleur }}
+                                          {{ $reception->vehicule->auto->marque . ' ' . $reception->vehicule->auto->modele . ' ' . $reception->vehicule->auto->type_vehicule . ' ' . $reception->vehicule->auto->annee . ' ' . $reception->vehicule->auto->couleur }}
                                        </td>
                                     </tr>
                                     <tr class="active-row">
                                        <th>Immatriculation</th>
-                                       <td>{{ $reception->vehicule->immatriculation }}</td>
+                                       <td>{{ $reception->vehicule->auto->immatriculation }}</td>
                                     </tr>
                                     <tr class="active-row">
                                        <th>Chassis</th>
-                                       <td>{{ $reception->vehicule->chassis }}</td>
+                                       <td>{{ $reception->vehicule->auto->chassis }}</td>
                                     </tr>
                                     <tr class="active-row">
                                        <th>DMC</th>

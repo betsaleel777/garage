@@ -4,7 +4,7 @@
             <h5 class="text-primary">Ressenti du client</h5>
             <hr />
             <textarea
-                v-model="ressenti"
+                v-model="commentaire.ressenti"
                 class="form-control"
                 cols="30"
                 rows="6"
@@ -28,21 +28,41 @@
                 id="dropzone"
                 :options="dropzoneOptions"
             ></vue-dropzone>
+            <small>
+                <span v-if="messages.media.exist" class="text-danger"
+                    >{{ messages.media.value }}
+                </span>
+            </small>
         </div>
     </div>
 </template>
 
 <script>
+import store from "./Store";
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
+
 const token = document.head.querySelector('meta[name="csrf-token"]').content;
 export default {
     components: {
         vueDropzone: vue2Dropzone
     },
+    mounted() {
+        this.$root.$on("reset", () => {
+            this.vider();
+        });
+        this.$root.$on("probleme", err => {
+            this.errors = err;
+        });
+        this.$root.$on("delete-errors", () => {
+            this.vider_errors();
+        });
+    },
+    updated() {
+        store.state.commentaire = this.commentaire;
+    },
     data() {
         return {
-            ressenti: null,
             dropzoneOptions: {
                 url: "/systeme/async/commentaire/reception/image/add",
                 addRemoveLinks: true,
@@ -53,14 +73,43 @@ export default {
                 headers: { "X-CSRF-TOKEN": token }
             },
             commentaire: {
+                ressenti: "",
                 images: [],
                 contenu: ""
+            },
+            messages: {
+                media: {
+                    exist: false,
+                    value: null
+                }
             }
         };
     },
     methods: {
         saving(file, response) {
             this.commentaire.images.push(response.chemin);
+        },
+        erreurs() {
+            if (this.errors.media) {
+                this.messages.media.exist = true;
+                this.messages.media.value = this.errors.media[0];
+            }
+        },
+        vider_errors() {
+            console.log("vidange");
+            this.messages = {
+                media: {
+                    exist: false,
+                    value: null
+                }
+            };
+        },
+        vider() {
+            this.commentaire = {
+                ressenti: "",
+                images: [],
+                contenu: ""
+            };
         }
     }
 };

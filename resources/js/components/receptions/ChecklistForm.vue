@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <td>Eclairage</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -36,13 +36,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio1"
                                 v-model="checklist.eclairage_int"
                                 id="inlineRadio4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -50,13 +51,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio1"
                                 v-model="checklist.eclairage_int"
                                 value="bon"
                                 id="inlineRadio1"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -64,13 +66,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio1"
                                 v-model="checklist.eclairage_int"
                                 id="inlineRadio2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -78,6 +81,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio1"
                                 v-model="checklist.eclairage_int"
                                 id="inlineRadio3"
                                 value="mauvais"
@@ -96,7 +100,7 @@
                 </tr>
                 <tr>
                     <td>Rétroviseur</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -104,13 +108,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio2"
                                 v-model="checklist.retroviseurs_int"
                                 id="b4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -118,13 +123,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio2"
                                 v-model="checklist.retroviseurs_int"
                                 id="b1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -132,13 +138,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio2"
                                 v-model="checklist.retroviseurs_int"
                                 id="b2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -146,6 +153,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio2"
                                 v-model="checklist.retroviseurs_int"
                                 id="b3"
                                 value="mauvais"
@@ -164,7 +172,7 @@
                 </tr>
                 <tr>
                     <td>Klaxon</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -172,13 +180,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio3"
                                 v-model="checklist.klaxon"
                                 id="c4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -186,13 +195,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio3"
                                 v-model="checklist.klaxon"
                                 id="c1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -200,13 +210,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio3"
                                 v-model="checklist.klaxon"
                                 id="c2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -214,6 +225,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio3"
                                 v-model="checklist.klaxon"
                                 id="c3"
                                 value="mauvais"
@@ -232,7 +244,7 @@
                 </tr>
                 <tr>
                     <td>Essuies glace</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -240,13 +252,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio4"
                                 v-model="checklist.essuies_glace"
                                 id="d4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -254,13 +267,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio4"
                                 v-model="checklist.essuies_glace"
                                 id="d1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -268,13 +282,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio4"
                                 v-model="checklist.essuies_glace"
                                 id="d2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -282,6 +297,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio4"
                                 v-model="checklist.essuies_glace"
                                 id="d3"
                                 value="mauvais"
@@ -300,7 +316,7 @@
                 </tr>
                 <tr>
                     <td>Radio</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -308,13 +324,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio5"
                                 v-model="checklist.radio"
                                 id="e4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -322,13 +339,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio5"
                                 v-model="checklist.radio"
                                 id="e1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -336,13 +354,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio5"
                                 v-model="checklist.radio"
                                 id="e2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -350,6 +369,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio5"
                                 v-model="checklist.radio"
                                 id="e3"
                                 value="mauvais"
@@ -368,7 +388,7 @@
                 </tr>
                 <tr>
                     <td>Climatisation</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -376,13 +396,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio6"
                                 v-model="checklist.climatisation"
                                 id="f4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -390,13 +411,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio6"
                                 v-model="checklist.climatisation"
                                 id="f1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -404,13 +426,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio6"
                                 v-model="checklist.climatisation"
                                 id="f3"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -418,6 +441,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio6"
                                 v-model="checklist.climatisation"
                                 id="f2"
                                 value="passable"
@@ -436,7 +460,7 @@
                 </tr>
                 <tr>
                     <td>Frein de stationnement</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -444,13 +468,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio7"
                                 v-model="checklist.frein_stationnement"
                                 id="c4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -458,13 +483,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio7"
                                 v-model="checklist.frein_stationnement"
                                 id="c1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -472,13 +498,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio7"
                                 v-model="checklist.frein_stationnement"
                                 id="c2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -486,6 +513,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio7"
                                 v-model="checklist.frein_stationnement"
                                 id="c3"
                                 value="mauvais"
@@ -504,7 +532,7 @@
                 </tr>
                 <tr>
                     <td>Sièges</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -512,13 +540,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio8"
                                 v-model="checklist.sieges"
                                 id="g4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -526,13 +555,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio8"
                                 v-model="checklist.sieges"
                                 id="g1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -540,13 +570,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio8"
                                 v-model="checklist.sieges"
                                 id="g3"
                                 value="mauvais"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -554,6 +585,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio8"
                                 v-model="checklist.sieges"
                                 id="g2"
                                 value="passable"
@@ -572,7 +604,7 @@
                 </tr>
                 <tr>
                     <td>Tableau de bord</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -580,13 +612,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio9"
                                 v-model="checklist.tableau_bord"
                                 id="h4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -594,13 +627,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio9"
                                 v-model="checklist.tableau_bord"
                                 id="h1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -608,13 +642,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio9"
                                 v-model="checklist.tableau_bord"
                                 id="h2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -622,6 +657,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio9"
                                 v-model="checklist.tableau_bord"
                                 id="h3"
                                 value="mauvais"
@@ -640,7 +676,7 @@
                 </tr>
                 <tr>
                     <td>Lève vitre</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -648,13 +684,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio10"
                                 v-model="checklist.leve_vitre"
                                 id="i4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -662,13 +699,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio10"
                                 v-model="checklist.leve_vitre"
                                 id="i1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -676,13 +714,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio10"
                                 v-model="checklist.leve_vitre"
                                 id="i2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -690,6 +729,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio10"
                                 v-model="checklist.leve_vitre"
                                 id="i3"
                                 value="mauvais"
@@ -708,7 +748,7 @@
                 </tr>
                 <tr>
                     <td>Vérrouillage des portes</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -716,13 +756,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio34"
                                 v-model="checklist.verrouillage_portes"
                                 id="j4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -730,13 +771,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio34"
                                 v-model="checklist.verrouillage_portes"
                                 id="j1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -744,13 +786,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio34"
                                 v-model="checklist.verrouillage_portes"
                                 id="j2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -758,6 +801,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio34"
                                 v-model="checklist.verrouillage_portes"
                                 id="j3"
                                 value="mauvais"
@@ -776,7 +820,7 @@
                 </tr>
                 <tr>
                     <td>Ouverture des portes Intérieur</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -784,13 +828,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio11"
                                 v-model="checklist.ouverture_portes_int"
                                 id="k4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -798,13 +843,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio11"
                                 v-model="checklist.ouverture_portes_int"
                                 id="k1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -812,13 +858,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio11"
                                 v-model="checklist.ouverture_portes_int"
                                 id="k2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -826,6 +873,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio11"
                                 v-model="checklist.ouverture_portes_int"
                                 id="k3"
                                 value="mauvais"
@@ -847,7 +895,7 @@
                 </tr>
                 <tr>
                     <td>Roues</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -855,13 +903,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio12"
                                 v-model="checklist.roues"
                                 id="q4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -869,13 +918,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio12"
                                 v-model="checklist.roues"
                                 id="q1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -883,13 +933,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio12"
                                 v-model="checklist.roues"
                                 id="q2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -897,6 +948,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio12"
                                 v-model="checklist.roues"
                                 id="q3"
                                 value="mauvais"
@@ -915,7 +967,7 @@
                 </tr>
                 <tr>
                     <td>Feux arrières</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -923,13 +975,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio13"
                                 v-model="checklist.feux_arrieres"
                                 id="r4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -937,13 +990,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio13"
                                 v-model="checklist.feux_arrieres"
                                 id="r1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -951,13 +1005,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio13"
                                 v-model="checklist.feux_arrieres"
                                 id="r2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -965,6 +1020,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio13"
                                 v-model="checklist.feux_arrieres"
                                 id="r3"
                                 value="mauvais"
@@ -983,7 +1039,7 @@
                 </tr>
                 <tr>
                     <td>Balais e/g avant</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -991,14 +1047,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
-                                v-model="checklist.balais_essuies_glace_av"
+                                name="radio35"
                                 v-model="checklist.balais_essuies_glace_av"
                                 id="s4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1006,14 +1062,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
-                                v-model="checklist.balais_essuies_glace_av"
+                                name="radio35"
                                 v-model="checklist.balais_essuies_glace_av"
                                 id="s1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1021,14 +1077,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
-                                v-model="checklist.balais_essuies_glace_av"
+                                name="radio35"
                                 v-model="checklist.balais_essuies_glace_av"
                                 id="s2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1036,7 +1092,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
-                                v-model="checklist.balais_essuies_glace_av"
+                                name="radio35"
                                 v-model="checklist.balais_essuies_glace_av"
                                 id="s3"
                                 value="mauvais"
@@ -1055,7 +1111,7 @@
                 </tr>
                 <tr>
                     <td>Balais e/g arrière</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1063,13 +1119,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio14"
                                 v-model="checklist.balais_essuies_glace_ar"
                                 id="t4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1077,13 +1134,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio14"
                                 v-model="checklist.balais_essuies_glace_ar"
                                 id="t1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1091,13 +1149,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio14"
                                 v-model="checklist.balais_essuies_glace_ar"
                                 id="t2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1105,6 +1164,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio14"
                                 v-model="checklist.balais_essuies_glace_ar"
                                 id="t3"
                                 value="mauvais"
@@ -1123,7 +1183,7 @@
                 </tr>
                 <tr>
                     <td>Trappe à carburant</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1131,13 +1191,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio15"
                                 v-model="checklist.trape_carburant"
                                 id="u4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1145,13 +1206,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio15"
                                 v-model="checklist.trape_carburant"
                                 id="u1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1159,13 +1221,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio15"
                                 v-model="checklist.trape_carburant"
                                 id="u2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1173,6 +1236,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio15"
                                 v-model="checklist.trape_carburant"
                                 id="u3"
                                 value="mauvais"
@@ -1191,7 +1255,7 @@
                 </tr>
                 <tr>
                     <td>Ouverture porte extérieur</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1199,13 +1263,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio16"
                                 v-model="checklist.ouverture_portes_ext"
                                 id="v4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1213,13 +1278,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio16"
                                 v-model="checklist.ouverture_portes_ext"
                                 id="v1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1227,13 +1293,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio16"
                                 v-model="checklist.ouverture_portes_ext"
                                 id="v2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1241,6 +1308,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio16"
                                 v-model="checklist.ouverture_portes_ext"
                                 id="v3"
                                 value="mauvais"
@@ -1259,7 +1327,7 @@
                 </tr>
                 <tr>
                     <td>Rétroviseur extérieur</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1267,13 +1335,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio17"
                                 v-model="checklist.retroviseurs_ext"
                                 id="w4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1281,13 +1350,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio17"
                                 v-model="checklist.retroviseurs_ext"
                                 id="w1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1295,13 +1365,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio17"
                                 v-model="checklist.retroviseurs_ext"
                                 id="w2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1309,6 +1380,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio17"
                                 v-model="checklist.retroviseurs_ext"
                                 id="w3"
                                 value="mauvais"
@@ -1327,7 +1399,7 @@
                 </tr>
                 <tr>
                     <td>Clé de contact</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1335,13 +1407,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio18"
                                 v-model="checklist.cle_contact"
                                 id="x4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1349,13 +1422,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio18"
                                 v-model="checklist.cle_contact"
                                 id="x1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1363,13 +1437,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio18"
                                 v-model="checklist.cle_contact"
                                 id="x2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1377,6 +1452,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio18"
                                 v-model="checklist.cle_contact"
                                 id="x3"
                                 value="mauvais"
@@ -1395,7 +1471,7 @@
                 </tr>
                 <tr>
                     <td>Clignotants</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1403,13 +1479,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio19"
                                 v-model="checklist.clignotants"
                                 id="y4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1417,13 +1494,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio19"
                                 v-model="checklist.clignotants"
                                 id="y1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1431,13 +1509,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio19"
                                 v-model="checklist.clignotants"
                                 id="y2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1445,6 +1524,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio19"
                                 v-model="checklist.clignotants"
                                 id="y3"
                                 value="mauvais"
@@ -1463,7 +1543,7 @@
                 </tr>
                 <tr>
                     <td>Veilleuses</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1471,13 +1551,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio20"
                                 v-model="checklist.veilleuses"
                                 id="z4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1485,13 +1566,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio20"
                                 v-model="checklist.veilleuses"
                                 id="z1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1499,13 +1581,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio20"
                                 v-model="checklist.veilleuses"
                                 id="z2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1513,6 +1596,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio20"
                                 v-model="checklist.veilleuses"
                                 id="z3"
                                 value="mauvais"
@@ -1531,7 +1615,7 @@
                 </tr>
                 <tr>
                     <td>Feux de croisement</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1539,13 +1623,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio21"
                                 v-model="checklist.feux_croisement"
                                 id="a4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1553,13 +1638,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio21"
                                 v-model="checklist.feux_croisement"
                                 id="a1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1567,13 +1653,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio21"
                                 v-model="checklist.feux_croisement"
                                 id="a2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1581,6 +1668,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio21"
                                 v-model="checklist.feux_croisement"
                                 id="a3"
                                 value="mauvais"
@@ -1599,7 +1687,7 @@
                 </tr>
                 <tr>
                     <td>Feux de récul</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1607,13 +1695,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio22"
                                 v-model="checklist.feux_recul"
                                 id="ab4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1621,13 +1710,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio22"
                                 v-model="checklist.feux_recul"
                                 id="ab1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1635,13 +1725,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio22"
                                 v-model="checklist.feux_recul"
                                 id="ab2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1649,6 +1740,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio22"
                                 v-model="checklist.feux_recul"
                                 id="ab3"
                                 value="mauvais"
@@ -1667,7 +1759,7 @@
                 </tr>
                 <tr>
                     <td>Feux de stop</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1675,13 +1767,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio23"
                                 v-model="checklist.feux_stop"
                                 id="ac4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1689,13 +1782,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio23"
                                 v-model="checklist.feux_stop"
                                 id="ac1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1703,13 +1797,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio23"
                                 v-model="checklist.feux_stop"
                                 id="ac2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1717,6 +1812,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio23"
                                 v-model="checklist.feux_stop"
                                 id="ac3"
                                 value="mauvais"
@@ -1735,7 +1831,7 @@
                 </tr>
                 <tr>
                     <td>Feux antibrouillard</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1743,13 +1839,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio24"
                                 v-model="checklist.feux_antibrouillard"
                                 id="ad4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1757,13 +1854,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio24"
                                 v-model="checklist.feux_antibrouillard"
                                 id="ad1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1771,13 +1869,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio24"
                                 v-model="checklist.feux_antibrouillard"
                                 id="ad2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1785,6 +1884,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio24"
                                 v-model="checklist.feux_antibrouillard"
                                 id="ad3"
                                 value="mauvais"
@@ -1804,7 +1904,7 @@
 
                 <tr>
                     <td>Cric</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1812,13 +1912,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio25"
                                 v-model="checklist.cric"
                                 id="ae4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1826,13 +1927,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio25"
                                 v-model="checklist.cric"
                                 id="ae1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1840,13 +1942,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio25"
                                 v-model="checklist.cric"
                                 id="ae2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1854,6 +1957,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio25"
                                 v-model="checklist.cric"
                                 id="ae3"
                                 value="mauvais"
@@ -1870,7 +1974,7 @@
                 </tr>
                 <tr>
                     <td>Roues de secours</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1878,13 +1982,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio26"
                                 v-model="checklist.roues_secours"
                                 id="af4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1892,13 +1997,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio26"
                                 v-model="checklist.roues_secours"
                                 id="af1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1906,13 +2012,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio26"
                                 v-model="checklist.roues_secours"
                                 id="af2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1920,6 +2027,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio26"
                                 v-model="checklist.roues_secours"
                                 id="af3"
                                 value="mauvais"
@@ -1938,7 +2046,7 @@
                 </tr>
                 <tr>
                     <td>Manivelles</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1946,13 +2054,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio27"
                                 v-model="checklist.manivelle"
                                 id="ag4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1960,13 +2069,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio27"
                                 v-model="checklist.manivelle"
                                 id="ag1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1974,13 +2084,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio27"
                                 v-model="checklist.manivelle"
                                 id="ag2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -1988,6 +2099,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio27"
                                 v-model="checklist.manivelle"
                                 id="ag3"
                                 value="mauvais"
@@ -2006,7 +2118,7 @@
                 </tr>
                 <tr>
                     <td>Trousses</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2014,13 +2126,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio28"
                                 v-model="checklist.trousse"
                                 id="ah4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2028,13 +2141,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio28"
                                 v-model="checklist.trousse"
                                 id="ah1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2042,13 +2156,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio28"
                                 v-model="checklist.trousse"
                                 id="ah2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2056,6 +2171,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio28"
                                 v-model="checklist.trousse"
                                 id="ah3"
                                 value="mauvais"
@@ -2077,7 +2193,7 @@
                 </tr>
                 <tr>
                     <td>Huile de moteur</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2085,13 +2201,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio29"
                                 v-model="checklist.huile_moteur"
                                 id="l4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2099,13 +2216,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio29"
                                 v-model="checklist.huile_moteur"
                                 id="l1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2113,13 +2231,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio29"
                                 v-model="checklist.huile_moteur"
                                 id="l2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2127,6 +2246,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio29"
                                 v-model="checklist.huile_moteur"
                                 id="l3"
                                 value="mauvais"
@@ -2145,7 +2265,7 @@
                 </tr>
                 <tr>
                     <td>Huile de frein</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2153,13 +2273,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio30"
                                 v-model="checklist.huile_frein"
                                 id="m4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2167,13 +2288,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio30"
                                 v-model="checklist.huile_frein"
                                 id="m1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2181,13 +2303,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio30"
                                 v-model="checklist.huile_frein"
                                 id="m2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2195,6 +2318,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio30"
                                 v-model="checklist.huile_frein"
                                 id="m3"
                                 value="mauvais"
@@ -2213,7 +2337,7 @@
                 </tr>
                 <tr>
                     <td>Huile de direction</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2221,13 +2345,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio31"
                                 v-model="checklist.huile_direction"
                                 id="n4"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2235,13 +2360,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio31"
                                 v-model="checklist.huile_direction"
                                 id="n1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2249,13 +2375,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio31"
                                 v-model="checklist.huile_direction"
                                 id="n2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2263,6 +2390,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio31"
                                 v-model="checklist.huile_direction"
                                 id="n3"
                                 value="mauvais"
@@ -2281,7 +2409,7 @@
                 </tr>
                 <tr>
                     <td>Liquide de refroidissement</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2289,14 +2417,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio32"
                                 v-model="checklist.liquide_refroidissement"
                                 id="o4"
                                 value="inexistant"
-                                )
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2304,13 +2432,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio32"
                                 v-model="checklist.liquide_refroidissement"
                                 id="o1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2318,13 +2447,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio32"
                                 v-model="checklist.liquide_refroidissement"
                                 id="o2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2332,6 +2462,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio32"
                                 v-model="checklist.liquide_refroidissement"
                                 id="o3"
                                 value="mauvais"
@@ -2350,20 +2481,21 @@
                 </tr>
                 <tr>
                     <td>Liquide lave glace</td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
                         >
                             <input
                                 class="form-check-input"
+                                name="radio33"
                                 v-model="checklist.liquide_lave_glace"
                                 type="radio"
                                 value="inexistant"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2371,13 +2503,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio33"
                                 v-model="checklist.liquide_lave_glace"
                                 id="p1"
                                 value="bon"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2385,13 +2518,14 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio33"
                                 v-model="checklist.liquide_lave_glace"
                                 id="p2"
                                 value="passable"
                             />
                         </div>
                     </td>
-                    <td onclick="selection(this)">
+                    <td>
                         <div
                             style="margin-left: 30%"
                             class="form-check form-check-inline"
@@ -2399,6 +2533,7 @@
                             <input
                                 class="form-check-input"
                                 type="radio"
+                                name="radio33"
                                 v-model="checklist.liquide_lave_glace"
                                 id="p3"
                                 value="mauvais"
@@ -2421,19 +2556,24 @@
 </template>
 
 <script>
+import store from "./Store";
 import ValidationChecklist from "./mixins/ValidationChecklist";
 export default {
-    props: {
-        errors: {
-            type: [Array, Object]
-        }
-    },
     mixins: [ValidationChecklist],
     mounted() {
         this.$root.$on("reset", () => {
             this.vider();
         });
-        this.erreurs();
+        this.$root.$on("probleme", err => {
+            this.errors = err;
+            this.erreurs();
+        });
+        this.$root.$on("delete-errors", () => {
+            this.vider_errors();
+        });
+    },
+    updated() {
+        store.state.checklist = this.checklist;
     },
     data() {
         return {

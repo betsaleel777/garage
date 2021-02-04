@@ -21,17 +21,17 @@
                         <th>Véhicule</th>
                         <th>
                             {{
-                                `${reception.vehicule.marque} ${reception.vehicule.modele} ${reception.vehicule.type_vehicule} ${reception.vehicule.annee} ${reception.vehicule.couleur}`
+                                `${reception.vehicule.auto.marque} ${reception.vehicule.auto.modele} ${reception.vehicule.auto.type_vehicule} ${reception.vehicule.auto.annee} ${reception.vehicule.auto.couleur}`
                             }}
                         </th>
                     </tr>
                     <tr>
                         <th>Immatriculation</th>
-                        <th>{{ reception.vehicule.immatriculation }}</th>
+                        <th>{{ reception.vehicule.auto.immatriculation }}</th>
                     </tr>
                     <tr>
                         <th>Chassis</th>
-                        <th>{{ reception.vehicule.chassis }}</th>
+                        <th>{{ reception.vehicule.auto.chassis }}</th>
                     </tr>
                     <tr>
                         <th>Kilométrage actuelle</th>

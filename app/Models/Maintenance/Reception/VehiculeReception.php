@@ -18,18 +18,23 @@ class VehiculeReception extends Model
         'annee' => 'required',
         'modele' => 'required',
         'type_vehicule' => 'required',
-        'chassis' => 'required',
-        'immatriculation' => 'required',
+        'chassis' => 'required|unique:vehicule_receptions,chassis',
+        'immatriculation' => 'required|unique:vehicule_receptions,immatriculation',
         'marque' => 'required',
     ];
 
     public function personneLinked()
     {
-        return $this->hasOne(Personne::class, 'personne');
+        return $this->belongsTo(Personne::class, 'personne');
     }
 
     public function utilisateur()
     {
         return $this->hasOne(User::class, 'user');
+    }
+
+    public function infos_reception()
+    {
+        return $this->hasMany(VehiculeInfo::class, 'vehicule');
     }
 }
