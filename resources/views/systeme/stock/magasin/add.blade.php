@@ -27,14 +27,7 @@
       <!-- Main content -->
       <div class="content">
          <div class="container-fluid">
-            <div class="row">
-               <!-- /.col-md-6 -->
-               <div class="col-md-1"></div>
-               <magasin-stepper></magasin-stepper>
-               <div class="col-md-1"></div>
-               <!-- /.col-md-6 -->
-            </div>
-            <!-- /.row -->
+            <create-magasin-form></create-magasin-form>
          </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->

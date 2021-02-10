@@ -1,20 +1,20 @@
 class Store {
     constructor() {
         this.state = {
+            magasin: {},
             zones: [],
-            nom: null,
-            lieu: null,
             etageres: [],
-            stepId: 1,
+            tiroirs: [],
+            step: 0
         };
     }
 
     increment() {
-        this.state.stepId++
+        this.state.step++
     }
 
     decrement() {
-        this.state.stepId--
+        this.state.step--
     }
 }
 

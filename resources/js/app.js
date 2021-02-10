@@ -20,7 +20,7 @@ import MenuItemStock from "./components/systeme/MenuItemStock.vue";
 import MenuItemReparation from "./components/systeme/MenuItemReparation.vue";
 import PreviewImage from './components/PreviewImage.vue'
 import StepperPiece from './components/pieces/StepperPieceAdd.vue'
-import MagasinStepper from './components/magasins/MagasinStepper.vue'
+import CreateMagasinForm from './components/magasins/CreateMagasinForm.vue'
 
 import axios from "axios";
 import VueAxios from "vue-axios";
@@ -37,6 +37,7 @@ import 'vue-select/dist/vue-select.css';
 Vue.use(ModalPlugin);
 Vue.use(ToastPlugin);
 Vue.use(VueAxios, axios);
+Vue.config.performance = true;
 
 new Vue({
     el: "#app",
@@ -55,6 +56,6 @@ new Vue({
         MenuItemReparation,
         PreviewImage,
         StepperPiece,
-        MagasinStepper
+        CreateMagasinForm
     }
 });

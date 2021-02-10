@@ -33,7 +33,7 @@ class DiagnostiquesController extends Controller
 
     public function liste()
     {
-        $receptions = Reception::with(['utilisateur', 'preessai', 'vehicule'])->diagnosticableAdmin()->get();
+        $receptions = Reception::with(['utilisateur', 'preessai', 'vehicule.auto'])->diagnosticableAdmin()->get();
         $titre = 'Diagnostiques';
         return view('maintenance.diagnostique.liste', compact('receptions', 'titre'));
     }

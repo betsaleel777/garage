@@ -57,8 +57,8 @@
                                  <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $reception->code }}</td>
-                                    <td>{{ $reception->vehicule->immatriculation }}</td>
-                                    <td>{{ $reception->vehicule->marque . ' ' . $reception->vehicule->modele }}</td>
+                                    <td>{{ $reception->vehicule->auto->immatriculation }}</td>
+                                    <td>{{ $reception->vehicule->auto->marque . ' ' . $reception->vehicule->auto->modele }}</td>
                                     <td>{{ $reception->created_at->format('d-m-Y') }}</td>
                                     <td>{{ $reception->utilisateur->name }}</td>
                                     <td>
