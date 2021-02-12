@@ -138,6 +138,7 @@ Route::prefix('systeme')->group(function () {
         Route::get('/index', 'Systeme\Stock\MagasinsController@index')->name('magasins');
         Route::get('/add', 'Systeme\Stock\MagasinsController@add')->name('magasin_add');
         Route::post('/store', 'Systeme\Stock\MagasinsController@store')->name('magasin_store');
+        Route::post('/storejs', 'Systeme\Stock\MagasinsController@storejs')->name('magasin_storejs');
         Route::get('/edit/{id}', 'Systeme\Stock\MagasinsController@edit')->name('magasin_edit');
         Route::post('/update', 'Systeme\Stock\MagasinsController@update')->name('magasin_update');
     });

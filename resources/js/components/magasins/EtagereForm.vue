@@ -198,10 +198,12 @@ export default {
 		return {
 			zonesDisabled: [],
 			zoneEncour: {},
+			compteur: 1,
 			zonesEnabled: [],
 			etagere: {
 				nom: null,
 				identifiant: null,
+				id: null,
 			},
 			etageres: {},
 		}
@@ -218,14 +220,18 @@ export default {
 			this.etagere = {
 				nom: null,
 				identifiant: null,
+				id: null,
 			}
 		},
 		add() {
 			const { nom, identifiant } = this.etagere
 			if (nom.length > 0 && identifiant.length > 0) {
 				const { found, message } = duplicateWithoutZone(this.etagere, this.etageres)
-				!found ? this.etageres.push({ nom, identifiant }) : this.notifier(message, "ATTENTION", "warning")
+				!found
+					? this.etageres.push({ nom, identifiant, id: this.compteur })
+					: this.notifier(message, "ATTENTION", "warning")
 				this.vider()
+				this.compteur++
 				this.$refs.nom.focus()
 			}
 		},
@@ -234,9 +240,10 @@ export default {
 			if (nom.length > 0 && identifiant.length > 0) {
 				const { found, message } = duplicate(this.etagere, this.etageres, this.zoneEncour.identifiant)
 				!found
-					? this.etageres[this.zoneEncour.identifiant].push({ nom, identifiant })
+					? this.etageres[this.zoneEncour.identifiant].push({ nom, identifiant, id: this.compteur })
 					: this.notifier(message, "ATTENTION", "warning")
 				this.vider()
+				this.compteur++
 				this.$refs.nom.focus()
 			}
 		},

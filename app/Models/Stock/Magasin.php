@@ -22,4 +22,9 @@ class Magasin extends Model
             'lieu' => 'required',
         ];
     }
+
+    public function zones()
+    {
+        return $this->hasMany(Zone::class, 'magasin');
+    }
 }

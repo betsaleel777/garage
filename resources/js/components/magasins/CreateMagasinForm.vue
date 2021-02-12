@@ -12,7 +12,7 @@
 		<div class="col-md-12">
 			<tiroir-form v-if="active.tiroir" />
 		</div>
-		<div class="col-md-2" style="float:right">
+		<div style="margin-bottom:1%" class="col-md-2">
 			<button type="button" @click="envoyer" class="btn btn-primary btn-sm ui-btn">
 				enregistrer
 			</button>
@@ -43,6 +43,10 @@ export default {
 		this.$root.$on("third-to-last", () => {
 			this.active.tiroir = true
 		})
+		this.$root.$on("finish", () => {
+			console.log("compris finish")
+			this.envoyer()
+		})
 	},
 	data() {
 		return {
@@ -55,10 +59,23 @@ export default {
 	},
 	methods: {
 		envoyer() {
-			axios
-				.post()
-				.then(result => {})
-				.catch(err => {})
+			const postObject = store.state
+			const { magasin, etageres, tiroirs } = postObject
+			console.log(postObject)
+			if (magasin.nom && magasin.lieu && etageres.length > 0 && Object.keys(tiroirs).length > 0) {
+				console.log("on peut envoyer")
+				axios
+					.post("/systeme/magasin/storejs", { ...postObject })
+					.then(result => {
+						//rediriger vers le show du magasin
+						location.href = ""
+					})
+					.catch(err => {
+						console.log(err)
+					})
+			} else {
+				console.log(postObject)
+			}
 		},
 	},
 }

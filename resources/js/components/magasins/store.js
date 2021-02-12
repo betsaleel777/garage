@@ -4,18 +4,18 @@ class Store {
             magasin: {},
             zones: [],
             etageres: [],
-            tiroirs: [],
-            step: 0
+            tiroirs: {},
+            manuel: false
         };
     }
 
-    increment() {
-        this.state.step++
-    }
+    // increment() {
+    //     this.state.step++
+    // }
 
-    decrement() {
-        this.state.step--
-    }
+    // decrement() {
+    //     this.state.step--
+    // }
 }
 
 export default new Store();
