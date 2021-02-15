@@ -21,6 +21,7 @@ import MenuItemReparation from "./components/systeme/MenuItemReparation.vue";
 import PreviewImage from './components/PreviewImage.vue'
 import StepperPiece from './components/pieces/StepperPieceAdd.vue'
 import CreateMagasinForm from './components/magasins/CreateMagasinForm.vue'
+import MagasinTreeMaps from './components/magasins/show/MagasinTreeMaps.vue'
 
 import axios from "axios";
 import VueAxios from "vue-axios";
@@ -56,6 +57,7 @@ new Vue({
         MenuItemReparation,
         PreviewImage,
         StepperPiece,
-        CreateMagasinForm
+        CreateMagasinForm,
+        MagasinTreeMaps,
     }
 });

@@ -72,7 +72,7 @@ export default {
 			if (this.$v.$invalid) {
 				this.$v.$touch()
 			} else {
-				store.state.magasin = this.magasin
+				store.state.magasin = JSON.parse(JSON.stringify(this.magasin))
 				this.$root.$emit("first-to-second")
 			}
 		},

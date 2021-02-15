@@ -26,6 +26,7 @@
 <script>
 import store from "./store"
 import TreeView from "./TreeView"
+
 export default {
 	components: {
 		TreeView,
@@ -38,12 +39,11 @@ export default {
 	data() {
 		return {
 			tiroirs: [],
-			etageres: [],
 			manuel: false,
 		}
 	},
 	mounted() {
-		this.etageres = store.state.etageres
+		console.log(store.state)
 	},
 	methods: {
 		suivant() {
@@ -52,12 +52,12 @@ export default {
 				? this.$root.$emit("finish")
 				: this.notifier(message, "OPERATION ECHOUEE", "danger")
 		},
-		changeMode() {
-			store.state.tiroirs = {}
-			store.state.manuel = !store.state.manuel
-			this.manuel = store.state.manuel
-			return this.manuel
-		},
+		// changeMode() {
+		// 	store.state.tiroirs = {}
+		// 	store.state.manuel = !store.state.manuel
+		// 	this.manuel = store.state.manuel
+		// 	return this.manuel
+		// },
 		notifier(message, titre, variant) {
 			this.$bvToast.toast(message, {
 				title: titre,

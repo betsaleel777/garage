@@ -26,6 +26,7 @@ import MagasinForm from "./MagasinForm"
 import ZoneForm from "./ZoneForm"
 import EtagereForm from "./EtagereForm"
 import TiroirForm from "./TiroirForm"
+
 export default {
 	components: {
 		MagasinForm,
@@ -44,7 +45,6 @@ export default {
 			this.active.tiroir = true
 		})
 		this.$root.$on("finish", () => {
-			console.log("compris finish")
 			this.envoyer()
 		})
 	},
@@ -61,20 +61,23 @@ export default {
 		envoyer() {
 			const postObject = store.state
 			const { magasin, etageres, tiroirs } = postObject
+			let etagereValide = false
+			if (etageres.constructor.name === "Array") {
+				etagereValide = etageres.length > 0
+			} else {
+				etagereValide = Object.keys(etageres).length > 0
+			}
 			console.log(postObject)
-			if (magasin.nom && magasin.lieu && etageres.length > 0 && Object.keys(tiroirs).length > 0) {
-				console.log("on peut envoyer")
+			if (magasin.nom && magasin.lieu && etagereValide && Object.keys(tiroirs).length > 0) {
 				axios
 					.post("/systeme/magasin/storejs", { ...postObject })
 					.then(result => {
 						//rediriger vers le show du magasin
-						location.href = ""
+						//location.href = ""
 					})
 					.catch(err => {
 						console.log(err)
 					})
-			} else {
-				console.log(postObject)
 			}
 		},
 	},

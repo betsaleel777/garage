@@ -95,7 +95,7 @@ export default {
 	},
 	methods: {
 		onDel(node) {
-			console.log(node)
+			//console.log(node)
 			node.remove()
 			// delete store.state.tiroirs[node.pid]
 		},
@@ -113,7 +113,7 @@ export default {
 			// console.log(store.state.tiroirs)
 		},
 		onAddNode(params) {
-			console.log(params)
+			//console.log(params)
 			// let tiroirData = {
 			// 	name: "Tiroir " + this.compteur,
 			// 	isLeaf: true,
@@ -143,7 +143,7 @@ export default {
 			// console.log(store.state.tiroirs)
 		},
 		onClick(params) {
-			console.log(params)
+			// console.log(params)
 			const prefix = params.name.split(" ")[0]
 			if (prefix === "étagère" && !store.state.manuel) {
 				this.noeud = params

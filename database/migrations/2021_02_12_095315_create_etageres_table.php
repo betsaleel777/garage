@@ -16,7 +16,7 @@ class CreateEtageresTable extends Migration
         Schema::create('etageres', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('identifiant')->index();
+            $table->string('identifiant')->unique()->index();
             $table->unsignedBigInteger('zone')->nullable();
             $table->foreign('zone')->references('id')->on('zones')->onDelete('cascade');
             $table->timestamps();

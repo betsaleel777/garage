@@ -146,7 +146,7 @@ export default {
 						compteurY++
 						//pour la treeView
 						tiroirs.push({
-							name: "Tiroir " + ligne + colonne,
+							name: "Tiroir " + ligne + "." + colonne,
 							id: compteurX + compteurY,
 							isLeaf: true,
 							dragDisabled: true,
@@ -157,7 +157,7 @@ export default {
 						})
 						//pour le store
 						tiroirStore.push({
-							name: "Tiroir " + ligne + colonne,
+							name: "Tiroir " + ligne + "." + colonne,
 							id: compteurX + compteurY,
 							isLeaf: true,
 							dragDisabled: true,

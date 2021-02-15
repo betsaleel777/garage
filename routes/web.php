@@ -140,6 +140,7 @@ Route::prefix('systeme')->group(function () {
         Route::post('/store', 'Systeme\Stock\MagasinsController@store')->name('magasin_store');
         Route::post('/storejs', 'Systeme\Stock\MagasinsController@storejs')->name('magasin_storejs');
         Route::get('/edit/{id}', 'Systeme\Stock\MagasinsController@edit')->name('magasin_edit');
+        Route::get('/show/{id}', 'Systeme\Stock\MagasinsController@show')->name('magasin_show');
         Route::post('/update', 'Systeme\Stock\MagasinsController@update')->name('magasin_update');
     });
 
@@ -194,6 +195,10 @@ Route::prefix('systeme')->group(function () {
         Route::post('/intervention/reparation/store', 'Maintenance\InterventionsController@reparationStorejs');
         Route::post('/commentaire/reception/image/add', 'Maintenance\Reception\ReceptionsController@uploadAddjs');
         Route::post('/commentaire/reception/image/delete', 'Maintenance\Reception\ReceptionsController@uploadRemovejs');
+        Route::get('/magasin/generer/code-etagere', 'Systeme\Stock\MagasinsController@genererIdentEtagere');
+        Route::get('/magasin/find/code-etagere/{code}', 'Systeme\Stock\MagasinsController@foundIdentEtagere');
+        Route::get('/magasin/generer/code-zone', 'Systeme\Stock\MagasinsController@genererIdentZone');
+        Route::get('/magasin/find/code-zone/{code}', 'Systeme\Stock\MagasinsController@foundIdentZone');
     });
 
 });

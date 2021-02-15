@@ -16,6 +16,13 @@ class MagasinsController extends Controller
         $this->middleware('auth');
     }
 
+    private static function codeGen()
+    {
+        $lettres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $chiffres = '0123456789';
+        return substr(str_shuffle($lettres), 0, 3) . \substr(\str_shuffle($chiffres), 0, 4);
+    }
+
     public function index()
     {
         $titre = 'Magasins';
@@ -98,5 +105,49 @@ class MagasinsController extends Controller
         Magasin::where('id', $request->magasin)->update($request->except('magasin', '_token'));
         $message = "la modification du magasin a été effectuée avec succès";
         return redirect()->route('magasins')->with('success', $message);
+    }
+
+    public function show(int $id)
+    {
+        $magasin = Magasin::with('zones.etageres.tiroirs')->find($id);
+        $titre = 'Magasin ' . $magasin->nom;
+        return view('systeme.stock.magasin.show', compact('titre'));
+    }
+
+    public function genererIdentZone()
+    {
+        $code = self::codeGen();
+        $found = false;
+        $zones = Zone::where('identifiant', $code)->get()->all();
+        !empty($zones) ? $found = true : null;
+        return response()->json(['found' => $found, 'code' => $code]);
+
+    }
+
+    public function foundIdentZone(string $code)
+    {
+        $found = false;
+        $zones = Zone::where('identifiant', $code)->get()->all();
+        !empty($zones) ? $found = true : null;
+        return response()->json(['found' => $found]);
+
+    }
+
+    public function genererIdentEtagere()
+    {
+        $code = self::codeGen();
+        $found = false;
+        $etageres = Etagere::where('identifiant', $code)->get()->all();
+        !empty($etageres) ? $found = true : null;
+        return response()->json(['found' => $found, 'code' => $code]);
+    }
+
+    public function foundIdentEtagere(string $code)
+    {
+        $found = false;
+        $zones = Zone::where('identifiant', $code)->get()->all();
+        !empty($zones) ? $found = true : null;
+        return response()->json(['found' => $found]);
+
     }
 }

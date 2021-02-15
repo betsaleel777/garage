@@ -16,7 +16,7 @@ class CreateZonesTable extends Migration
         Schema::create('zones', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('identifiant')->index();
+            $table->string('identifiant')->unique()->index();
             $table->unsignedBigInteger('magasin');
             $table->foreign('magasin')->references('id')->on('magasins')->onDelete('cascade');
             $table->timestamps();
