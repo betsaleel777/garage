@@ -41,10 +41,51 @@ class ReceptionsController extends Controller
     /**
      * cette fonction permet de mettre à jours le nombre de receptions et les essais avant réparations non traités
      */
-    public static function decompte()
+    private static function decompte()
     {
         session()->put('receptions', Reception::recent()->get()->count());
         session()->put('essais', Reception::preEssayable()->get()->count() + Reception::postEssayable()->get()->count());
+    }
+
+    private static function downloadableMedia(array $medias)
+    {
+        $downloadExtensions = ['docx', 'pdf', 'txt', 'odt', 'doc', 'zip', '7z', 'rar'];
+        return array_values(array_filter(array_map(function ($file) use ($downloadExtensions) {
+            $exploded = explode('.', $file->media);
+            $caption = $exploded[0];
+            $extension = $exploded[1];
+            if (in_array($extension, $downloadExtensions)) {
+                return ['nom' => $caption, 'media' => $file->media];
+            }
+        }, $medias)));
+    }
+
+    private static function boxFormater(array $medias): array
+    {
+        $imageExtensions = ['jpg', 'jpeg', 'gif', 'png'];
+        $videoExtensions = ['3gp', 'avi', 'mp4', 'ogg'];
+        $mimes = ['3gp' => 'video/3gpp', 'avi' => 'video/x-msvideo', 'mp4' => 'video/mp4', 'ogg' => 'application/ogg'];
+        $baseUrl = 'media_reception/';
+        return array_values(array_filter(array_map(function ($file) use ($imageExtensions, $videoExtensions, $mimes, $baseUrl) {
+            $exploded = explode('.', $file->media);
+            $caption = $exploded[0];
+            $extension = $exploded[1];
+            if (in_array($extension, $imageExtensions)) {
+                return [
+                    'thumb' => $baseUrl . $file->media,
+                    'src' => $baseUrl . $file->media,
+                    'caption' => $caption,
+                    'type' => 'image',
+                ];
+            } else if (in_array($extension, $videoExtensions)) {
+                return [
+                    'src' => $baseUrl . $file->media,
+                    'type' => 'video',
+                    'caption' => $caption,
+                ];
+            }
+        }, $medias)));
+
     }
 
     public function index()
@@ -200,12 +241,14 @@ class ReceptionsController extends Controller
 
     public function show(int $id)
     {
-        $reception = Reception::with('vehicule.enjoliveurs', 'vehicule.auto', 'etat', 'personneLinked')->find($id);
+        $reception = Reception::with('commentaire.medias', 'vehicule.enjoliveurs', 'vehicule.auto', 'etat', 'personneLinked')->find($id);
         $enjoliveurs = join(',', array_map(function ($enjoliveur) {
             return $enjoliveur->nom;
         }, $reception->vehicule->enjoliveurs->all()));
         $titre = 'Réception ' . $reception->code;
-        return view('maintenance.reception.show', compact('enjoliveurs', 'reception', 'titre'));
+        $boxData = self::boxFormater($reception->commentaire->medias->all());
+        $downloadables = self::downloadableMedia($reception->commentaire->medias->all());
+        return view('maintenance.reception.show', compact('enjoliveurs', 'reception', 'titre', 'boxData', 'downloadables'));
     }
 
     public function delete(int $id)

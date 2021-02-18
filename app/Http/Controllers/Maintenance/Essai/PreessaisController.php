@@ -22,7 +22,7 @@ class PreessaisController extends Controller
 
     public function liste()
     {
-        $data = Reception::with('utilisateur', 'preessai', 'vehicule.auto')->orderBy('id', 'desc')->preEssayableAdmin()->get();
+        $data = Reception::with('commentaire.medias', 'utilisateur', 'preessai', 'vehicule.auto')->orderBy('id', 'desc')->preEssayableAdmin()->get();
         $receptions = array_filter(array_map(function ($reception) {
             if (empty($reception->preessai)) {
                 return $reception;

@@ -2,6 +2,9 @@
 @section('module-navbar')
    @include('partials.modules.nav-maintenance')
 @endsection
+@section('style')
+   <link href="{{ asset('dist/css/venobox.min.css') }}" rel="stylesheet" />
+@endsection
 @section('content')
    <!-- Content Wrapper. Contains page content -->
    <div class="content-wrapper">
@@ -53,6 +56,7 @@
                      </div>
                      <div class="card-body">
                         <div class="row">
+                           {{-- identification du client --}}
                            <div class="col-md-6">
                               <h3>IDENTIFICATION DU CLIENT</h3>
                               @if ($reception->personneLinked->nature() === 'particulier')
@@ -118,6 +122,7 @@
                                  </table>
                               @endif
                            </div>
+                           {{-- identification du véhicule --}}
                            <div class="col-md-6">
                               <h3>IDENTIFICATION DU VEHICULE</h3>
                               <table class="show-table-short">
@@ -173,6 +178,7 @@
                            </div>
                         </div>
                         <hr>
+                        {{-- checklist --}}
                         <div class="row">
                            <div class="col-md-4">
                               <h3>CHECKLIST</h3>
@@ -181,7 +187,7 @@
                               <span class="text-muted">{ I: inexistant , B: bon, P: passable, M: mauvais }</span>
                            </div>
                         </div>
-                        <div style="margin-bottom: 2%" class="row">
+                        <div class="row">
                            <div class="col-md-6">
                               <table class="show-table">
                                  <thead>
@@ -1058,18 +1064,59 @@
                            </div>
                         </div>
                         <div class="row">
-                           {{-- informations du véhicule --}}
+                           {{-- ressenti du client --}}
                            <div class="col-md-6">
                               <h3>RESSENTI DU CLIENT</h3>
                               <dd>{{ $reception->ressenti }}</dd>
                            </div>
-
-                           {{-- schema véhicule morceaux --}}
+                           {{-- schéma du véhicule en morceaux --}}
                            <div class="col-md-6">
                               <img style="padding: 12% ; margin-top: 2%; margin-left:4%"
                                  src="{{ asset('images/dessein.png') }}" width="508" height="369" alt="dessein">
                            </div>
                         </div>
+                        {{-- commentaire de reception avec pieces jointes --}}
+                        @if (!empty($reception->commentaire->contenu) or !empty($boxData) or !empty($dowloadables))
+                           <h3>COMMENTAIRE DU RECEPTIONISTE</h3>
+                           <hr>
+                           {{-- commentaire de reception --}}
+                           <div style="margin-bottom: 2%" class="row">
+                              <div class="col-md-6">
+                                 <dd>{{ $reception->commentaire->contenu }}</dd>
+                              </div>
+                              <div class="col-md-6">
+                                 @if (!empty($boxData))
+                                    @foreach ($boxData as $item)
+                                       @if ($item['type'] === 'image')
+                                          <a class="venobox" data-gall="myGallery" title="{{ $item['caption'] }}"
+                                             href="{{ url('storage/' . $item['src']) }}">
+                                             <img width="100" height="100" src="{{ url('storage/' . $item['src']) }}" />
+                                          </a>
+                                       @else
+                                          <a class="venobox" data-gall="myGallery" data-autoplay="true" data-vbtype="video"
+                                             href="{{ url('storage/' . $item['src']) }}">
+                                             {{ $item['caption'] }}
+                                          </a>
+                                       @endif
+                                    @endforeach
+                                 @endif
+                                 @if (!empty($downloadables))
+                                    <p>
+                                    <h6>Documents</h6>
+                                    <ul>
+                                       @foreach ($downloadables as $item)
+                                          <li>
+                                             <a href="{{ url('storage/media_reception/' . $item['media']) }}" download>
+                                                {{ $item['nom'] }}
+                                             </a>
+                                          </li>
+                                       @endforeach
+                                    </ul>
+                                    </p>
+                                 @endif
+                              </div>
+                           </div>
+                        @endif
                      </div>
                   </div>
                </div>
@@ -1077,4 +1124,80 @@
          </div>
       </div>
    </div>
+@endsection
+@section('scripts')
+   <script src="{{ asset('dist/js/venobox.min.js') }}"></script>
+   <script>
+      $('.venobox').venobox({
+         // color of navigation arroes
+         arrowsColor: '#B6B6B6',
+
+         // same as data-autoplay
+         autoplay: false,
+
+         // background color
+         bgcolor: '#fff',
+
+         // border
+         border: '0',
+
+         // background color of close button
+         closeBackground: '#161617',
+
+         // colr of close button
+         closeColor: "#d2d2d2",
+
+         // frame width/height
+         framewidth: '',
+         frameheight: '',
+
+         // show items as a gallery
+         gallItems: false,
+
+         // infinite loop
+         infinigall: false,
+
+         // custom controls
+         htmlClose: '&times;',
+         htmlNext: '<span>Next</span>',
+         htmlPrev: '<span>Prev</span>',
+
+         // shows counter
+         numeratio: false,
+
+         // background color of counter
+         numerationBackground: '#161617',
+
+         // counter color
+         numerationColor: '#d2d2d2',
+
+         // 'top' || 'bottom'
+         numerationPosition: 'top',
+
+         // close the lightbox by clicking the background overlay
+         overlayClose: true,
+
+         // color of the background overlay
+         overlayColor: 'rgba(23,23,23,0.85)',
+
+         // available: 'rotating-plane' | 'double-bounce' | 'wave' | 'wandering-cubes' | 'spinner-pulse' | 'chasing-dots' | 'three-bounce' | 'circle' | 'cube-<a href="https://www.jqueryscript.net/tags.php?/grid/">grid</a>' | 'fading-circle' | 'folding-cube'
+         spinner: 'double-bounce',
+
+         // spinner color
+         spinColor: '#d2d2d2',
+
+         // same as data-title
+         titleattr: 'title',
+
+         // title background color
+         titleBackground: '#161617',
+
+         // title color
+         titleColor: '#d2d2d2',
+
+         // 'top' || 'bottom'
+         titlePosition: 'top'
+      });
+
+   </script>
 @endsection

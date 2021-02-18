@@ -27,7 +27,7 @@
       <!-- Main content -->
       <div class="content">
          <div class="container-fluid">
-            <magasin-tree-maps :donnees="{{ json_encode([]) }}"></magasin-tree-maps>
+            <magasin-tree-maps :donnees="{{ json_encode($magasin) }}"></magasin-tree-maps>
          </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->

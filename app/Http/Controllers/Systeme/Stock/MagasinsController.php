@@ -89,7 +89,7 @@ class MagasinsController extends Controller
                 $tiroir->save();
             }
         }
-        return;
+        return response()->json(['magasin' => $magasin->id]);
     }
 
     public function edit(int $id)
@@ -111,7 +111,7 @@ class MagasinsController extends Controller
     {
         $magasin = Magasin::with('zones.etageres.tiroirs')->find($id);
         $titre = 'Magasin ' . $magasin->nom;
-        return view('systeme.stock.magasin.show', compact('titre'));
+        return view('systeme.stock.magasin.show', compact('titre', 'magasin'));
     }
 
     public function genererIdentZone()

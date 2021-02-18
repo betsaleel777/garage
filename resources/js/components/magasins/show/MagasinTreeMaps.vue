@@ -1,5 +1,11 @@
 <template>
-	<google-chart type="ColumnChart" :data="chartData" :options="chartOptions" />
+	<GChart
+		:generateTooltip="showStaticTooltip"
+		:settings="{ packages: ['treemap'] }"
+		type="TreeMap"
+		:data="chartData"
+		:options="chartOptions"
+	/>
 </template>
 
 <script>
@@ -7,30 +13,54 @@ import { GChart } from "vue-google-charts"
 export default {
 	props: {
 		donnees: {
-			type: Array,
-			reuired: true,
+			type: [Array, Object],
+			required: true,
 		},
 	},
 	components: {
-		GoogleChart: GChart,
+		GChart,
+	},
+	mounted() {
+		let donneesFormatees = [
+			["Racine", "Parent", "Nombre", "Couleur"],
+			["zones", null, 0, 0],
+		]
+		this.donnees.zones.forEach(zone => {
+			const nomZone = zone.nom
+			const nombreEtagere = zone.etageres.length + 10
+			donneesFormatees.push([nomZone, "zones", nombreEtagere, 50])
+			let numeroTiroir = 1
+			zone.etageres.forEach(etagere => {
+				const etagereNom = etagere.nom
+				const nombreTiroir = etagere.tiroirs.length + 10
+				donneesFormatees.push([etagereNom, nomZone, nombreTiroir, 63])
+				numeroTiroir++
+				etagere.tiroirs.forEach(tiroir => {
+					const tiroirNom = "#" + numeroTiroir + " " + tiroir.nom
+					donneesFormatees.push([tiroirNom, etagereNom, 5, -52])
+				})
+			})
+		})
+		console.log(this.donnees, donneesFormatees)
+		this.chartData = donneesFormatees
 	},
 	data() {
 		return {
 			// Array will be automatically processed with visualization.arrayToDataTable function
-			chartData: [
-				["Year", "Sales", "Expenses", "Profit"],
-				["2014", 1000, 400, 200],
-				["2015", 1170, 460, 250],
-				["2016", 660, 1120, 300],
-				["2017", 1030, 540, 350],
-			],
+			chartData: [],
 			chartOptions: {
 				chart: {
-					title: "Company Performance",
-					subtitle: "Sales, Expenses, and Profit: 2014-2017",
+					title: "Présentation du magasin",
+					subtitle: "zones, étagères, tiroirs, ...",
 				},
 			},
 		}
+	},
+	methods: {
+		showStaticTooltip(row, size, value) {
+			return `<div style="background:#fd9; padding:10px; border-style:solid">
+           Read more about the <a href="http://en.wikipedia.org/wiki/Kingdom_(biology)">kingdoms of life</a>.</div>`
+		},
 	},
 }
 </script>

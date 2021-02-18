@@ -61,6 +61,9 @@
                                        <a class="text-primary" href="{{ route('magasin_edit', $magasin) }}"><i
                                              class="fas fa-lg fa-edit"></i>
                                        </a>
+                                       <a class="text-primary" href="{{ route('magasin_show', $magasin) }}"><i
+                                             class="fas fa-lg fa-eye"></i>
+                                       </a>
                                     </td>
                                  </tr>
                               @endforeach

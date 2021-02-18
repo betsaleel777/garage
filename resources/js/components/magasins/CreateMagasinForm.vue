@@ -72,8 +72,7 @@ export default {
 				axios
 					.post("/systeme/magasin/storejs", { ...postObject })
 					.then(result => {
-						//rediriger vers le show du magasin
-						//location.href = ""
+						location.href = "/systeme/magasin/show/" + result.data.magasin
 					})
 					.catch(err => {
 						console.log(err)
