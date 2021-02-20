@@ -5,13 +5,7 @@
 				<div class="row">
 					<div class="col-md-8">
 						<div class="form-group input-group">
-							<input
-								type="text"
-								v-model="contact"
-								class="form-control"
-								id="contact"
-								placeholder="renseignez le contact du client"
-							/>
+							<cool-select v-model="critere" :items="suggestions" placeholder="Select name" />
 							<span class="input-group-append">
 								<button @click="rechercher" type="button" class="btn btn-primary btn-flat">
 									rechercher
@@ -188,23 +182,37 @@
 
 <script>
 import store from "./Store"
+import { CoolSelect } from "vue-cool-select"
+import "vue-cool-select/dist/themes/bootstrap.css"
 export default {
+	components: {
+		CoolSelect,
+	},
 	props: {
 		errors: {
 			type: [Object, Array],
 		},
+	},
+	mounted() {
+		axios
+			.get("/systeme/async/personne/suggestions")
+			.then(result => {
+				this.suggestions = result.data.suggestions
+			})
+			.catch(err => {})
 	},
 	updated() {
 		store.state.client = this.client
 	},
 	data() {
 		return {
+			suggestions: [],
 			particulier: false,
 			assurance: false,
 			entreprise: false,
 			nouveau_client: false,
 			kind: null,
-			contact: "",
+			critere: "",
 			client: {
 				nom_complet: "",
 				telephone: "",
@@ -245,13 +253,33 @@ export default {
 				this.vider_entreprise()
 			}
 		},
+		onSelected(option) {
+			console.log(option)
+			this.critere = option.item
+		},
+		onInputChange(text) {
+			if (text === "" || text === undefined) {
+				return
+			}
+			/* Full control over filtering. Maybe fetch from API?! Up to you!!! */
+			const filteredData = this.suggestions
+				.filter(item => {
+					return item.toLowerCase().indexOf(text.toLowerCase()) > -1
+				})
+				.slice(0, this.limit)
+			this.filteredOptions = [
+				{
+					data: filteredData,
+				},
+			]
+		},
 		rechercher() {
 			axios
-				.get("/systeme/async/personne/find/" + this.contact)
+				.get("/systeme/async/personne/find/" + this.critere)
 				.then(result => {
 					let personne = result.data.personne
 					if (personne) {
-						this.$bvToast.toast("Un client possedant ce contact existe", {
+						this.$bvToast.toast("Un client correspondant à ce critère existe", {
 							title: "INFORMATION",
 							solid: true,
 							variant: "info",
@@ -292,7 +320,7 @@ export default {
 							this.client.email = personne.email
 						}
 					} else {
-						this.$bvToast.toast("Aucun client possedant ce contact n'as été trouvé", {
+						this.$bvToast.toast("Aucun client correspondant à ce critère n'as été trouvé", {
 							title: "INFORMATION",
 							solid: true,
 							variant: "info",
@@ -324,7 +352,7 @@ export default {
 			this.assurance = false
 			this.entreprise = false
 			this.kind = null
-			this.contact = ""
+			this.critere = ""
 			this.client.nom_complet = ""
 			this.client.telephone = ""
 			this.client.email = ""

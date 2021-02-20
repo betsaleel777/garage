@@ -15,7 +15,7 @@
 					/>
 				</div>
 				<div class="col-1">
-					<button @click="generer" class="btn btn-primary btn-sm ui-button">
+					<button v-if="currentStep" @click="generer" class="btn btn-primary btn-sm ui-button">
 						<i class="fas fa-cog fa-sm"></i>
 					</button>
 				</div>
@@ -29,7 +29,7 @@
 					/>
 				</div>
 				<div class="col-1">
-					<button @click="ajouter" class="btn btn-primary btn-sm ui-button">
+					<button v-if="currentStep" @click="ajouter" class="btn btn-primary btn-sm ui-button">
 						<i class="fas fa-plus-circle fa-sm"></i>
 					</button>
 				</div>
@@ -40,7 +40,7 @@
 						<ul class="listing">
 							<li v-for="element in zones" :key="element.id">
 								{{ element.nom }} (#{{ element.identifiant }})
-								<span style="margin-left:1%">
+								<span v-if="currentStep" style="margin-left:1%">
 									<span class="text-primary overable"
 										><i @click="runEdit(element.id)" class="fas fa-edit fa-sm"></i
 									></span>
@@ -63,7 +63,12 @@
 			</vue-custom-scrollbar>
 		</div>
 		<div class="card-footer">
-			<div style="float:right">
+			<div v-if="currentStep" style="float:left">
+				<button @click="precedent" class="btn btn-outline-primary btn-sm">
+					précedent
+				</button>
+			</div>
+			<div v-if="currentStep" style="float:right">
 				<button @click="suivant" class="btn btn-outline-primary btn-sm">
 					{{ textButton }}
 				</button>
@@ -108,6 +113,7 @@ export default {
 	},
 	data() {
 		return {
+			currentStep: true,
 			compteur: 1,
 			zone: {
 				nom: "",
@@ -124,7 +130,12 @@ export default {
 	methods: {
 		suivant() {
 			store.state.zones = JSON.parse(JSON.stringify(this.zones))
-			this.$root.$emit("second-to-third")
+			this.$emit("second-to-third")
+			this.currentStep = false
+		},
+		precedent() {
+			store.state.zones = []
+			this.$emit("second-to-first")
 		},
 		deleteZone(id) {
 			this.zones = this.zones.filter(zone => zone.id !== id)

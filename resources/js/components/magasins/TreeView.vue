@@ -2,22 +2,24 @@
 	<div class="container">
 		<div class="row">
 			<div v-for="data in treeData" class="col-md-4">
-				<vue-tree-list
-					@click="onClick"
-					@change-name="onChangeName"
-					@delete-node="onDel"
-					@add-node="onAddNode"
-					:model="data"
-					default-tree-node-name="new node"
-					default-leaf-node-name="nouveaux tiroir"
-					v-bind:default-expanded="true"
-				>
-					<template v-slot:leafNameDisplay="slotProps">
-						<span>
-							{{ slotProps.model.name }}
-						</span>
-					</template>
-				</vue-tree-list>
+				<vue-custom-scrollbar class="scrollarea">
+					<vue-tree-list
+						@click="onClick"
+						@change-name="onChangeName"
+						@delete-node="onDel"
+						@add-node="onAddNode"
+						:model="data"
+						default-tree-node-name="new node"
+						default-leaf-node-name="nouveaux tiroir"
+						v-bind:default-expanded="true"
+					>
+						<template v-slot:leafNameDisplay="slotProps">
+							<span>
+								{{ slotProps.model.name }}
+							</span>
+						</template>
+					</vue-tree-list>
+				</vue-custom-scrollbar>
 			</div>
 		</div>
 		<modal-tiroir @tiroirs="onAddTiroir" :identifiant="sendId" />
@@ -28,10 +30,13 @@
 import store from "./store"
 import { VueTreeList, Tree } from "vue-tree-list"
 import ModalTiroir from "./ModalTiroir"
+import vueCustomScrollbar from "vue-custom-scrollbar"
+import "vue-custom-scrollbar/dist/vueScrollbar.css"
 export default {
 	components: {
 		VueTreeList,
 		ModalTiroir,
+		vueCustomScrollbar,
 	},
 	mounted() {
 		const etageres = store.state.etageres
@@ -239,4 +244,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.scrollarea {
+	height: 15.8em;
+}
+</style>

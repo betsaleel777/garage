@@ -185,7 +185,8 @@ Route::prefix('systeme')->group(function () {
         Route::get('/categories', 'Systeme\Stock\CategoriesController@getAll');
         Route::get('/scategories/from/{categorie}', 'Systeme\Stock\SousCategoriesController@getFrom');
         Route::get('/scategories', 'Systeme\Stock\SousCategoriesController@getAll');
-        Route::get('/personne/find/{contact}', 'PersonnesController@findjs');
+        Route::get('/personne/find/{critere}', 'PersonnesController@findjs');
+        Route::get('/personne/suggestions', 'PersonnesController@suggestjs');
         Route::post('/personne/store', 'PersonnesController@storejs');
         Route::get('/reception/find/{id}', 'Maintenance\Reception\ReceptionsController@findjs');
         Route::get('/vehicules/from/{id}', 'Maintenance\Reception\ReceptionsController@vehiculesFrom');

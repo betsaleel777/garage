@@ -1,21 +1,26 @@
 <template>
 	<div class="row">
 		<div class="col-md-6">
-			<magasin-form />
+			<magasin-form @first-to-second="active.zone = true" />
 		</div>
 		<div class="col-md-6">
-			<zone-form v-if="active.zone" />
+			<zone-form
+				@second-to-third="active.etagere = true"
+				@second-to-first="active.zone = false"
+				:key="refresh.zone"
+				v-if="active.zone"
+			/>
 		</div>
 		<div class="col-md-12">
-			<etagere-form v-if="active.etagere" />
+			<etagere-form
+				@third-to-last="active.tiroir = true"
+				:key="refresh.etagere"
+				@third-to-second="onThirdSecond"
+				v-if="active.etagere"
+			/>
 		</div>
 		<div class="col-md-12">
-			<tiroir-form v-if="active.tiroir" />
-		</div>
-		<div style="margin-bottom:1%" class="col-md-2">
-			<button type="button" @click="envoyer" class="btn btn-primary btn-sm ui-btn">
-				enregistrer
-			</button>
+			<tiroir-form @last-to-third="onLastthird" v-if="active.tiroir" />
 		</div>
 	</div>
 </template>
@@ -55,6 +60,10 @@ export default {
 				etagere: false,
 				tiroir: false,
 			},
+			refresh: {
+				zone: false,
+				etagere: true,
+			},
 		}
 	},
 	methods: {
@@ -78,6 +87,14 @@ export default {
 						console.log(err)
 					})
 			}
+		},
+		onThirdSecond() {
+			this.active.etagere = false
+			this.refresh.zone = !this.refresh.zone
+		},
+		onLastthird() {
+			this.active.tiroir = false
+			this.refresh.etagere = !this.refresh.etagere
 		},
 	},
 }

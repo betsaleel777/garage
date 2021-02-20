@@ -9,7 +9,7 @@
 					<h6>
 						<b>{{ "Zone: " + element.nom }}</b>
 					</h6>
-					<div v-if="element.status === 'done'">
+					<div v-if="element.status === 'done' && etageres[element.identifiant].length > 0">
 						<!-- visualisation des données d'étagères -->
 						<div style="margin-top: 3%" class="row">
 							<div class="col-md-12">
@@ -37,7 +37,12 @@
 					<!-- formulaire d'enregistrement des étagères avec visualisation des données -->
 					<!-- formulaire -->
 					<div class="form-row">
-						<div class="col-7">
+						<div class="col-1">
+							<button v-if="currentStep" @click="nextEtagere" class="btn btn-danger btn-sm ui-button">
+								<i class="fas fa-forward fa-sm"></i>
+							</button>
+						</div>
+						<div class="col-6">
 							<input
 								ref="nom"
 								placeholder="Nom d'étagère"
@@ -47,7 +52,7 @@
 							/>
 						</div>
 						<div class="col-1">
-							<button @click="generer" class="btn btn-primary btn-sm ui-button">
+							<button v-if="currentStep" @click="generer" class="btn btn-primary btn-sm ui-button">
 								<i class="fas fa-cog fa-sm"></i>
 							</button>
 						</div>
@@ -60,7 +65,7 @@
 							/>
 						</div>
 						<div class="col-1">
-							<button @click="ajouter" class="btn btn-primary btn-sm">
+							<button v-if="currentStep" @click="ajouter" class="btn btn-primary btn-sm">
 								<i class="fas fa-plus-circle fa-sm"></i>
 							</button>
 						</div>
@@ -104,7 +109,7 @@
 							/>
 						</div>
 						<div class="col-1">
-							<button @click="generer" class="btn btn-primary btn-sm ui-button">
+							<button v-if="currentStep" @click="generer" class="btn btn-primary btn-sm ui-button">
 								<i class="fas fa-cog fa-sm"></i>
 							</button>
 						</div>
@@ -117,7 +122,7 @@
 							/>
 						</div>
 						<div class="col-1">
-							<button @click="add" class="btn btn-primary btn-sm">
+							<button v-if="currentStep" @click="add" class="btn btn-primary btn-sm">
 								<i class="fas fa-plus-circle fa-sm"></i>
 							</button>
 						</div>
@@ -144,7 +149,12 @@
 			</div>
 		</div>
 		<div class="card-footer">
-			<div style="float:right">
+			<div v-if="currentStep" style="float:left">
+				<button @click="precedant" class="btn btn-outline-primary btn-sm">
+					precedant
+				</button>
+			</div>
+			<div v-if="currentStep" style="float:right">
 				<button @click="suivant" class="btn btn-outline-primary btn-sm">
 					suivant
 				</button>
@@ -204,6 +214,7 @@ export default {
 	},
 	data() {
 		return {
+			currentStep: true,
 			checked: false,
 			zonesDisabled: [],
 			zoneEncour: {},
@@ -218,14 +229,16 @@ export default {
 		}
 	},
 	mounted() {
-		console.log(store.state)
 		this.zonner()
-		console.log(store.state)
 	},
 	methods: {
 		suivant() {
 			store.state.etageres = JSON.parse(JSON.stringify(this.etageres))
-			this.$root.$emit("third-to-last")
+			this.$emit("third-to-last")
+			this.currentStep = false
+		},
+		precedant() {
+			this.$emit("third-to-second")
 		},
 		vider() {
 			this.etagere = {

@@ -73,7 +73,7 @@ export default {
 				this.$v.$touch()
 			} else {
 				store.state.magasin = JSON.parse(JSON.stringify(this.magasin))
-				this.$root.$emit("first-to-second")
+				this.$emit("first-to-second")
 			}
 		},
 		setLieu(value) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Maintenance\Reception\VehiculeReception;
 use App\Models\Personne;
 use Illuminate\Http\Request;
 
@@ -37,16 +38,57 @@ class PersonnesController extends Controller
 
     }
 
-    public function findjs($contact)
+    public function findjs($critere)
     {
-        $personne = Personne::orWhere('telephone', $contact)->orWhere('contact_entreprise', $contact)->orWhere('contact_assurance', $contact)->get()->first();
+        $personne = Personne::orWhere('telephone', $critere)
+            ->orWhere('contact_entreprise', $critere)
+            ->orWhere('contact_assurance', $critere)
+            ->orWhere('nom_complet', $critere)
+            ->orWhere('nom_assurance', $critere)
+            ->orWhere('nom_entreprise', $critere)
+            ->get()->first();
+
         $nature = null;
         if (!empty($personne)) {
             $nature = $personne->nature();
         } else {
-            $personne = false;
+            $personne = VehiculeReception::with('personneLinked')->where('immatriculation', $critere)->get()->first()?->personneLinked;
+            empty($personne) ? $personne = false : null;
         }
         return response()->json(['personne' => $personne, 'nature' => $nature]);
+    }
+
+    public function suggestjs()
+    {
+        $personnes = Personne::with(['vehicules' => function ($query) {$query->select('id', 'personne', 'immatriculation');}])->get();
+        $suggestions = [];
+        foreach ($personnes as $personne) {
+            //les noms
+            if (!empty($personne->nom_complet)) {
+                array_push($suggestions, $personne->nom_complet);
+            } elseif (!empty($personne->nom_assurance)) {
+                array_push($suggestions, $personne->nom_assurance);
+            } elseif (!empty($personne->nom_entreprise)) {
+                array_push($suggestions, $personne->nom_entreprise);
+            }
+
+            //les contacts
+            if (!empty($personne->telephone)) {
+                array_push($suggestions, $personne->telephone);
+            } elseif (!empty($personne->contact_assurance)) {
+                array_push($suggestions, $personne->contact_assurance);
+            } elseif (!empty($personne->contact_entreprise)) {
+                array_push($suggestions, $personne->contact_entreprise);
+            }
+
+            //les immatriculations
+            if (!empty($personne->vehicules->all())) {
+                foreach ($personne->vehicules as $vehicule) {
+                    array_push($suggestions, $vehicule->immatriculation);
+                }
+            }
+        }
+        return response()->json(['suggestions' => $suggestions]);
     }
 
     public function storejs(Request $request)

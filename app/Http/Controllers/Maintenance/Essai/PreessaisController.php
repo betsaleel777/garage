@@ -59,5 +59,4 @@ class PreessaisController extends Controller
         session()->flash('success', $message);
         return;
     }
-    //post essais functions
 }
