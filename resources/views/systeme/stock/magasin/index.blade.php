@@ -39,7 +39,18 @@
                <div class="col-md-8">
                   <div class="card">
                      <div class="card-header">
-                        <a class="btn btn-primary" href="{{ route('magasin_add') }}">Nouveaux magasin</a>
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Créer magasin
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                           <a class="dropdown-item" href="{{ route('magasin_add') }}">en mode
+                              automatique
+                           </a>
+                           <a class="dropdown-item" href="{{ route('magasin_add_manuel') }}">en mode
+                              manuel
+                           </a>
+                        </div>
                      </div>
                      <div class="card-body">
                         <table id="magasins" class="table table-bordered table-hover">

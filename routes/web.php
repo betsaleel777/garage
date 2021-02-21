@@ -154,8 +154,10 @@ Route::prefix('systeme')->group(function () {
 
     Route::prefix('magasin')->group(function () {
         Route::get('/index', 'Systeme\Stock\MagasinsController@index')->name('magasins');
-        Route::get('/add', 'Systeme\Stock\MagasinsController@add')->name('magasin_add');
+        Route::get('/add/auto', 'Systeme\Stock\MagasinsController@add')->name('magasin_add');
+        Route::get('/add/manuel', 'Systeme\Stock\MagasinsController@addManuel')->name('magasin_add_manuel');
         Route::post('/store', 'Systeme\Stock\MagasinsController@store')->name('magasin_store');
+        Route::post('/store/manuel', 'Systeme\Stock\MagasinsController@storeManuel')->name('magasin_store_manuel');
         Route::get('/edit/{id}', 'Systeme\Stock\MagasinsController@edit')->name('magasin_edit');
         Route::post('/update', 'Systeme\Stock\MagasinsController@update')->name('magasin_update');
     });

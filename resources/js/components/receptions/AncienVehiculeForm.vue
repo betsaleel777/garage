@@ -5,22 +5,21 @@
 		<div class="row">
 			<div class="col-md-5">
 				<div class="list-group">
-					<button
+					<a
 						@click="ancienForm(element.id)"
-						type="button"
 						v-for="element in vehicules"
 						:key="element.id"
+						:class="{ 'list-group-item-primary': element.selected }"
 						class="list-group-item list-group-item-action"
 					>
 						{{ element.nom }}
-					</button>
-					<button
+					</a>
+					<a
 						@click="emitNewVehicule"
-						type="button"
-						class="text-center list-group-item list-group-item-action active"
+						class="text-center text-primary list-group-item list-group-item-action list-group-item-light"
 					>
 						NOUVEAU VEHICULE
-					</button>
+					</a>
 				</div>
 			</div>
 			<div v-if="ancien_form_show" class="col-md-7">
@@ -164,27 +163,30 @@ export default {
 			type: [Object, Array],
 		},
 		personne: Number,
+		matricule: String,
 	},
 	mounted() {
 		axios
 			.get("/systeme/async/vehicules/from/" + this.personne)
 			.then(result => {
 				const { vehicules } = result.data
+				let selected = false
+				let id = null
 				this.vehicules = vehicules.map(vehicule => {
+					if (this.matricule === vehicule.immatriculation) {
+						selected = true
+						id = vehicule.id
+					}
 					return {
-						nom:
-							vehicule.marque +
-							" " +
-							vehicule.modele +
-							" " +
-							vehicule.type_vehicule +
-							" " +
-							vehicule.annee +
-							" " +
-							vehicule.couleur,
+						nom: `${vehicule.marque} ${vehicule.modele} ${vehicule.type_vehicule}
+                              ${vehicule.annee} ${vehicule.couleur}`,
 						id: vehicule.id,
+						selected,
 					}
 				})
+				if (this.matricule !== "") {
+					this.ancienForm(id)
+				}
 			})
 			.catch(err => {})
 	},
@@ -217,6 +219,9 @@ export default {
 		ancienForm(id) {
 			this.ancien_form_show = true
 			this.ancien.vehicule = id
+			this.vehicules.forEach(vehicule => {
+				vehicule.id === id ? (vehicule.selected = true) : (vehicule.selected = false)
+			})
 		},
 		emitNewVehicule() {
 			this.ancien_gear = false

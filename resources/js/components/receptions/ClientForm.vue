@@ -267,17 +267,18 @@ export default {
 					return item.toLowerCase().indexOf(text.toLowerCase()) > -1
 				})
 				.slice(0, this.limit)
-			this.filteredOptions = [
-				{
-					data: filteredData,
-				},
-			]
+			this.filteredOptions = [{ data: filteredData }]
 		},
 		rechercher() {
 			axios
 				.get("/systeme/async/personne/find/" + this.critere)
 				.then(result => {
-					let personne = result.data.personne
+					let { personne, vehicule } = result.data
+					let vehiculeFound = null
+					if (vehicule) {
+						const { personne_linked, ...data } = vehicule
+						vehiculeFound = data
+					}
 					if (personne) {
 						this.$bvToast.toast("Un client correspondant à ce critère existe", {
 							title: "INFORMATION",
@@ -285,7 +286,7 @@ export default {
 							variant: "info",
 						})
 						this.nouveau_client = true
-						this.$root.$emit("ancien-gear", personne)
+						this.$root.$emit("ancien-gear", personne.id, vehiculeFound.immatriculation)
 						if (result.data.nature === "assurance") {
 							this.kind = "assurance"
 							this.assurance = true

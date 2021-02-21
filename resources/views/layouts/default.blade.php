@@ -18,8 +18,8 @@
       @include('partials.footer')
    </div>
    <!-- jQuery -->
-   <script src="{{ asset('js/app.js') }}"></script>
    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+   <script src="{{ asset('js/app.js') }}"></script>
    {{-- <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js">
    </script> --}}
    <!-- Bootstrap 4 -->

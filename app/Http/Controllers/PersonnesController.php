@@ -47,15 +47,16 @@ class PersonnesController extends Controller
             ->orWhere('nom_assurance', $critere)
             ->orWhere('nom_entreprise', $critere)
             ->get()->first();
-
+        $vehicule = false;
         $nature = null;
         if (!empty($personne)) {
             $nature = $personne->nature();
         } else {
-            $personne = VehiculeReception::with('personneLinked')->where('immatriculation', $critere)->get()->first()?->personneLinked;
-            empty($personne) ? $personne = false : null;
+            $vehicule = VehiculeReception::with('personneLinked')->where('immatriculation', $critere)->get()->first();
+            $personne = $vehicule?->personneLinked;
+            empty($personne) ? $personne = false : $nature = $personne->nature();
         }
-        return response()->json(['personne' => $personne, 'nature' => $nature]);
+        return response()->json(['personne' => $personne, 'nature' => $nature, 'vehicule' => $vehicule]);
     }
 
     public function suggestjs()

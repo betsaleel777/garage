@@ -8,7 +8,12 @@
 					<client-form />
 				</div>
 			</div>
-			<ancien-vehicule-form v-if="ancien_gear" :personne="personne" :enjoliveurs="enjoliveurs" />
+			<ancien-vehicule-form
+				v-if="ancien_gear"
+				:matricule="matricule"
+				:personne="personne"
+				:enjoliveurs="enjoliveurs"
+			/>
 			<div style="margin-bottom:2%" class="col-md-12">
 				<h5 class="text-primary">Informations du véhicule</h5>
 				<hr />
@@ -51,15 +56,17 @@ export default {
 		this.$root.$on("nouveau-vehicule", () => {
 			this.ancien_gear = false
 		})
-		this.$root.$on("ancien-gear", personne => {
+		this.$root.$on("ancien-gear", (personne, matricule) => {
 			this.ancien_gear = true
-			this.personne = personne.id
+			this.personne = personne
+			this.matricule = String(matricule)
 		})
 	},
 	data() {
 		return {
 			ancien_gear: false,
 			personne: null,
+			matricule: null,
 		}
 	},
 	methods: {

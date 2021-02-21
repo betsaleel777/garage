@@ -36,7 +36,13 @@ class MagasinsController extends Controller
         return view('systeme.stock.magasin.add', compact('titre'));
     }
 
-    public function store(Request $request)
+    public function addManuel()
+    {
+        $titre = 'Créer magasin';
+        return view('systeme.stock.magasin.manuel', compact('titre'));
+    }
+
+    public function storeManuel(Request $request)
     {
         $request->validate(Magasin::RULES);
         $magasin = new Magasin($request->all());
