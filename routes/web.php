@@ -142,6 +142,9 @@ Route::prefix('systeme')->group(function () {
         Route::get('/edit/{id}', 'Systeme\Stock\MagasinsController@edit')->name('magasin_edit');
         Route::get('/show/{id}', 'Systeme\Stock\MagasinsController@show')->name('magasin_show');
         Route::post('/update', 'Systeme\Stock\MagasinsController@update')->name('magasin_update');
+        Route::get('/add/auto', 'Systeme\Stock\MagasinsController@add')->name('magasin_add');
+        Route::get('/add/manuel', 'Systeme\Stock\MagasinsController@addManuel')->name('magasin_add_manuel');
+        Route::post('/store/manuel', 'Systeme\Stock\MagasinsController@storeManuel');
     });
 
     Route::prefix('fabricant')->group(function () {
@@ -152,14 +155,40 @@ Route::prefix('systeme')->group(function () {
         Route::post('/update', 'Systeme\Stock\FabricantsController@update')->name('fabricant_update');
     });
 
-    Route::prefix('magasin')->group(function () {
-        Route::get('/index', 'Systeme\Stock\MagasinsController@index')->name('magasins');
-        Route::get('/add/auto', 'Systeme\Stock\MagasinsController@add')->name('magasin_add');
-        Route::get('/add/manuel', 'Systeme\Stock\MagasinsController@addManuel')->name('magasin_add_manuel');
-        Route::post('/store', 'Systeme\Stock\MagasinsController@store')->name('magasin_store');
-        Route::post('/store/manuel', 'Systeme\Stock\MagasinsController@storeManuel')->name('magasin_store_manuel');
-        Route::get('/edit/{id}', 'Systeme\Stock\MagasinsController@edit')->name('magasin_edit');
-        Route::post('/update', 'Systeme\Stock\MagasinsController@update')->name('magasin_update');
+    Route::prefix('zone')->group(function () {
+        Route::get('/index', 'Systeme\Stock\ZonesController@index')->name('zones');
+        Route::get('/magasin/{id}', 'Systeme\Stock\ZonesController@zonesOfmagasin')->name('zone_magasin');
+        Route::get('/plug/{id}', 'Systeme\Stock\ZonesController@plugZone')->name('zone_plug');
+        Route::get('/store/plug', 'Systeme\Stock\ZonesController@storePlug')->name('zone_store_plug');
+        Route::get('/edit/{id}', 'Systeme\Stock\ZonesController@edit')->name('zone_edit');
+        Route::get('/edit/plug/{id}', 'Systeme\Stock\ZonesController@editPlug')->name('zone_edit_plug');
+        Route::post('/update', 'Systeme\Stock\ZonesController@update')->name('zone_update');
+        Route::post('/update/plug', 'Systeme\Stock\ZonesController@updatePlug')->name('zone_update_plug');
+        Route::post('/store/manuel', 'Systeme\Stock\ZonesController@storeManuel');
+    });
+
+    Route::prefix('etagere')->group(function () {
+        Route::get('/index', 'Systeme\Stock\EtageresController@index')->name('etageres');
+        Route::get('/zone/{id}', 'Systeme\Stock\EtageresController@etageresOfzone')->name('etagere_zone');
+        Route::get('/plug/{id}', 'Systeme\Stock\EtageresController@plugEtagere')->name('etagere_plug');
+        Route::get('/store/plug', 'Systeme\Stock\EtageresController@storePlug')->name('etagere_store_plug');
+        Route::get('/edit/{id}', 'Systeme\Stock\EtageresController@edit')->name('etagere_edit');
+        Route::get('/edit/plug/{id}', 'Systeme\Stock\EtageresController@editPlug')->name('etagere_edit_plug');
+        Route::post('/update', 'Systeme\Stock\EtageresController@update')->name('etagere_update');
+        Route::post('/update/plug', 'Systeme\Stock\EtageresController@updatePlug')->name('etagere_update_plug');
+        Route::post('/store/manuel', 'Systeme\Stock\EtageresController@storeManuel');
+    });
+
+    Route::prefix('tiroir')->group(function () {
+        Route::get('/index', 'Systeme\Stock\TiroirsController@index')->name('tiroirs');
+        Route::get('/etagere/{id}', 'Systeme\Stock\TiroirsController@tiroirsOfetagere')->name('tiroir_etagere');
+        Route::get('/plug/{id}', 'Systeme\Stock\TiroirsController@plugTiroir')->name('tiroir_plug');
+        Route::get('/store/plug', 'Systeme\Stock\TiroirsController@storePlug')->name('tiroir_store_plug');
+        Route::get('/edit/{id}', 'Systeme\Stock\TiroirsController@edit')->name('tiroir_edit');
+        Route::get('/edit/plug/{id}', 'Systeme\Stock\TiroirsController@editPlug')->name('tiroir_edit_plug');
+        Route::post('/update', 'Systeme\Stock\TiroirsController@update')->name('tiroir_update');
+        Route::post('/update/plug', 'Systeme\Stock\TiroirsController@updatePlug')->name('tiroir_update_plug');
+        Route::post('/store/manuel', 'Systeme\Stock\TiroirsController@storeManuel');
     });
 
     Route::prefix('fournisseur')->group(function () {

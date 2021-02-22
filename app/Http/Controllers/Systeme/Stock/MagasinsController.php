@@ -8,6 +8,7 @@ use App\Models\Stock\Magasin;
 use App\Models\Stock\Tiroir;
 use App\Models\Stock\Zone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MagasinsController extends Controller
 {
@@ -16,7 +17,7 @@ class MagasinsController extends Controller
         $this->middleware('auth');
     }
 
-    private static function codeGen()
+    private static function codeGen(): String
     {
         $lettres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $chiffres = '0123456789';
@@ -46,10 +47,11 @@ class MagasinsController extends Controller
     {
         $request->validate(Magasin::RULES);
         $magasin = new Magasin($request->all());
-        $magasin->user = session('user_id');
+        $magasin->user = Auth::id();
         $magasin->save();
-        $message = "le magasin $request->nom a été enregistré avec succès";
-        return redirect()->route('magasins')->with('success', $message);
+        $message = "le magasin $magasin->nom a été enregistré avec succès";
+        session()->flash('success', $message);
+        return response()->json(['id' => $magasin->id]);
     }
 
     public function storejs(Request $request)
@@ -119,7 +121,7 @@ class MagasinsController extends Controller
         $titre = 'Magasin ' . $magasin->nom;
         return view('systeme.stock.magasin.show', compact('titre', 'magasin'));
     }
-
+    //générer le code d'une zone
     public function genererIdentZone()
     {
         $code = self::codeGen();
@@ -129,7 +131,7 @@ class MagasinsController extends Controller
         return response()->json(['found' => $found, 'code' => $code]);
 
     }
-
+    //trouver une zone qui porte de code: $code
     public function foundIdentZone(string $code)
     {
         $found = false;
@@ -138,7 +140,7 @@ class MagasinsController extends Controller
         return response()->json(['found' => $found]);
 
     }
-
+    //generer le code d'une étagère
     public function genererIdentEtagere()
     {
         $code = self::codeGen();
@@ -147,13 +149,12 @@ class MagasinsController extends Controller
         !empty($etageres) ? $found = true : null;
         return response()->json(['found' => $found, 'code' => $code]);
     }
-
+    //trouver une étagère qui porte le code $code
     public function foundIdentEtagere(string $code)
     {
         $found = false;
         $zones = Zone::where('identifiant', $code)->get()->all();
         !empty($zones) ? $found = true : null;
         return response()->json(['found' => $found]);
-
     }
 }

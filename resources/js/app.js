@@ -28,6 +28,10 @@ import FormReparation from "./components/reparations/FormReparation.vue";
 import StepperPiece from './components/pieces/StepperPieceAdd.vue'
 import CreateMagasinForm from './components/magasins/CreateMagasinForm.vue'
 import MagasinTreeMaps from './components/magasins/show/MagasinTreeMaps.vue'
+import CreateMagasinManuel from './components/magasins/manuel/CreateMagasinManuel.vue'
+import CreateZoneManuel from './components/magasins/manuel/CreateZoneManuel.vue'
+import CreateEtagereManuel from './components/magasins/manuel/CreateEtagereManuel.vue'
+import CreateTiroirManuel from './components/magasins/manuel/CreateTiroirManuel.vue'
 
 
 //plugins
@@ -63,5 +67,9 @@ new Vue({
         StepperPiece,
         CreateMagasinForm,
         MagasinTreeMaps,
+        CreateMagasinManuel,
+        CreateZoneManuel,
+        CreateEtagereManuel,
+        CreateTiroirManuel
     }
 });

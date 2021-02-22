@@ -2,14 +2,14 @@
 	<form action="">
 		<div class="form-group">
 			<label for="nom">Nom du magasin</label>
-			<input id="nom" v-model.trim="magasin.nom" type="text" />
+			<input class="form-control form-control-sm" id="nom" v-model.trim="magasin.nom" type="text" />
 			<small>
 				<span class="text-danger" v-if="messages.nom.exist">{{ messages.nom.value }}</span>
 			</small>
 		</div>
 		<div class="form-group">
 			<label for="lieu">Lieu de stockage</label>
-			<input id="lieu" v-model.trim="magasin.lieu" type="text" />
+			<input class="form-control form-control-sm" id="lieu" v-model.trim="magasin.lieu" type="text" />
 			<small>
 				<span class="text-danger" v-if="messages.lieu.exist">{{ messages.lieu.value }}</span>
 			</small>
@@ -44,10 +44,10 @@ export default {
 		enregistrer() {
 			const { nom, lieu } = this.magasin
 			axios
-				.post("/systeme/async/magasin/store/manuel", { nom, lieu })
+				.post("/systeme/magasin/store/manuel", { nom, lieu })
 				.then(result => {
 					this.$bvModal
-						.msgBoxConfirm("Voulez vous continuer vers la création des zones de stockage?.", {
+						.msgBoxConfirm("Voulez vous continuer vers la création des zones de stockage ?", {
 							title: "Confirmation",
 							size: "sm",
 							buttonSize: "sm",
@@ -59,7 +59,9 @@ export default {
 							centered: true,
 						})
 						.then(value => {
-							value ? (location.href = "") : (location.href = "")
+							value
+								? (location.href = "/zone/magasin/" + result.data.id)
+								: (location.href = "/systeme/magasin/index")
 						})
 						.catch(err => {})
 				})

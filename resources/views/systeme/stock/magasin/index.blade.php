@@ -75,6 +75,9 @@
                                        <a class="text-primary" href="{{ route('magasin_show', $magasin) }}"><i
                                              class="fas fa-lg fa-eye"></i>
                                        </a>
+                                       <a class="text-primary" href="{{ route('zone_magasin', $magasin) }}"><i
+                                             class="fas fa-lg fa-plus-circle"></i>
+                                       </a>
                                     </td>
                                  </tr>
                               @endforeach
