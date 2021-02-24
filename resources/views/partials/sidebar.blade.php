@@ -25,8 +25,11 @@
              <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
              <li class="nav-item">
-                <a href="{{ route('acceuil') }}"
-                   class="nav-link @php if(Route::currentRouteName() === 'acceuil') { echo 'active' ;} @endphp ">
+                <a href="{{ route('acceuil') }}" class="nav-link @php
+                   if (Route::currentRouteName() === 'acceuil') {
+                       echo 'active';
+                   }
+                @endphp ">
                    <i class="nav-icon fas fa-tachometer-alt"></i>
                    <p>
                       Tableau de bord
@@ -34,30 +37,37 @@
                 </a>
              </li>
              <li class="nav-item">
-                <a href="#"
-                   class="nav-link @php if(Route::currentRouteName() === 'crm_index') { echo 'active' ;} @endphp">
+                <a href="#" class="nav-link @php
+                   if (Route::currentRouteName() === 'crm_index') {
+                       echo 'active';
+                   }
+                @endphp">
                    <i class="nav-icon fas fa-th"></i>
                    <p>
                       CRM
-                      {{-- <span class="right badge badge-danger">New</span>
-                      --}}
+                      {{-- <span class="right badge badge-danger">New</span> --}}
                    </p>
                 </a>
              </li>
              <li class="nav-item">
-                <a href="{{ route('maintenance_index') }}"
-                   class="nav-link @php if(Route::currentRouteName() === 'maintenance_index') { echo 'active' ;} @endphp">
+                <a href="{{ route('maintenance_index') }}" class="nav-link @php
+                   if (Route::currentRouteName() === 'maintenance_index') {
+                       echo 'active';
+                   }
+                @endphp">
                    <i class="nav-icon fas fa-th"></i>
                    <p>
                       Maintenance
-                      {{-- <span class="right badge badge-danger">New</span>
-                      --}}
+                      {{-- <span class="right badge badge-danger">New</span> --}}
                    </p>
                 </a>
              </li>
              <li class="nav-item">
-                <a href="{{ route('stock_index') }}"
-                   class="nav-link @php if(Route::currentRouteName() === 'stock_index') { echo 'active'; } @endphp">
+                <a href="{{ route('stock_index') }}" class="nav-link @php
+                   if (Route::currentRouteName() === 'stock_index') {
+                       echo 'active';
+                   }
+                @endphp">
                    <i class="nav-icon fas fa-th"></i>
                    <p>
                       Stock
@@ -65,19 +75,23 @@
                 </a>
              </li>
              <li class="nav-item">
-                <a href="#"
-                   class="nav-link @php if(Route::currentRouteName() === 'finance_index') { echo 'active'; } @endphp">
+                <a href="{{ route('finance_index') }}" class="nav-link @php
+                   if (Route::currentRouteName() === 'finance_index') {
+                       echo 'active';
+                   }
+                @endphp">
                    <i class="nav-icon fas fa-th"></i>
                    <p>
                       Finance
-                      {{-- <span class="right badge badge-danger">New</span>
-                      --}}
                    </p>
                 </a>
              </li>
              <li class="nav-item">
-                <a href="#"
-                   class="nav-link @php if(Route::currentRouteName() === 'rapport_index') { echo 'active'; } @endphp">
+                <a href="#" class="nav-link @php
+                   if (Route::currentRouteName() === 'rapport_index') {
+                       echo 'active';
+                   }
+                @endphp">
                    <i class="nav-icon fas fa-th"></i>
                    <p>
                       Rapport
@@ -85,8 +99,11 @@
                 </a>
              </li>
              <li class="nav-item">
-                <a href="{{ route('systeme_index') }}"
-                   class="nav-link @php if(Route::currentRouteName() === 'systeme_index') { echo 'active'; } @endphp">
+                <a href="{{ route('systeme_index') }}" class="nav-link @php
+                   if (Route::currentRouteName() === 'systeme_index') {
+                       echo 'active';
+                   }
+                @endphp">
                    <i class="nav-icon fas fa-cogs"></i>
                    <p>
                       Système

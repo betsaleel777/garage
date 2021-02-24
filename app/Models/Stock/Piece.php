@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Piece extends Model
 {
     use HasFactory;
-    protected $fillable = ['code', 'nom', 'prix_achat', 'prix_vente', 'sous_categorie', 'categorie', 'emplacement', 'type_piece', 'fiche', 'vehicule', 'magasin'];
+    protected $fillable = ['code', 'nom', 'sous_categorie', 'categorie', 'type_piece', 'fiche', 'vehicule', 'etat_piece', 'reference', 'image'];
     const RULES = [
-        'prix_achat' => 'required',
-        'prix_vente' => 'required|gte:prix_achat',
         'categorie' => 'required',
         'sous_categorie' => 'required',
         'type_piece' => 'required',
-        'fiche' => 'nullbale|file|mimes:pdf',
+        'reference' => 'required',
+        'etat_piece' => 'required',
+        'fiche' => 'nullable|file|mimes:pdf',
     ];
 
     public function makeCode()

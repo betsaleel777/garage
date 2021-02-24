@@ -52,7 +52,7 @@
                               <tr>
                                  <th>#</th>
                                  <th>Code</th>
-                                 <th>Nom</th>
+                                 <th>Référence</th>
                                  <th>Categorie</th>
                                  <th>Type</th>
                                  <th>Options</th>
@@ -63,7 +63,7 @@
                                  <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $piece->code }}</td>
-                                    <td>{{ $piece->nom }}</td>
+                                    <td>{{ $piece->reference }}</td>
                                     <td>{{ $piece->categorieLinked->nom }}</td>
                                     <td>{{ $piece->type_piece }}</td>
                                     <td>

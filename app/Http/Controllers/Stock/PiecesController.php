@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Stock;
 
 use App\Http\Controllers\Controller;
-use App\Models\Stock\Magasin;
+use App\Models\Stock\Fabricant;
 use App\Models\Stock\Piece;
 use App\Models\Stock\SousCategorie;
 use App\Models\Systeme\Vehicule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PiecesController extends Controller
 {
@@ -26,15 +28,15 @@ class PiecesController extends Controller
     public function add()
     {
         $titre = 'Nouvelle pièce';
-        $data = Magasin::get()->all();
-        $magasins = array_map(function ($magasin) {
-            return ['label' => $magasin->nom, 'code' => $magasin->id];
+        $data = Fabricant::get()->all();
+        $fabricants = array_map(function ($fabricant) {
+            return ['label' => $fabricant->nom, 'code' => $fabricant->id];
         }, $data);
         $data = Vehicule::get()->all();
         $vehicules = array_map(function ($vehicule) {
             return ['label' => $vehicule->designation, 'code' => $vehicule->id];
         }, $data);
-        return view('stock.piece.add', compact('titre', 'magasins', 'vehicules'));
+        return view('stock.piece.add', compact('titre', 'fabricants', 'vehicules'));
     }
 
     public function store(Request $request)
@@ -44,7 +46,7 @@ class PiecesController extends Controller
         $piece->makeCode();
         if (!empty($request->vehicule)) {
             $piece->vehicule = $request->vehicule;
-            $vehicule = Vehicule::find($request->vehicule);
+            $vehicule = Vehicule::findOrFail($request->vehicule);
         } else {
             $request->validate(Vehicule::RULES);
             $vehicule = new Vehicule($request->all());
@@ -56,29 +58,39 @@ class PiecesController extends Controller
         $scategorie = SousCategorie::find($request->sous_categorie);
         $piece->makeName($scategorie->slug, $piece->type_piece, $vehicule->designation);
         $piece->user = session('user_id');
+        //upload of image
+        if ($request->hasFile('image')) {
+            $path = Storage::putFile('public/pieces', $request->file('image'));
+            $piece->image = Str::substr($path, 7);
+        }
         $piece->save();
-        $message = "la piece $piece->nom a été enregistrée avec succès.";
+        $message = "la piece $piece->reference a été enregistrée avec succès.";
         session()->flash('success', $message);
         return;
     }
 
     public function edit(int $id)
     {
-        $piece = Piece::find($id);
-        $magasins = Magasin::get();
+        $piece = Piece::with(['categorieLinked' => function ($query) {
+            $query->select('id', 'nom', 'image');
+        }, 'categorieEnfant' => function ($query) {
+            $query->select('id', 'nom');
+        }])->find($id);
         $titre = 'Modifier ' . $piece->code;
-        return view('stock.piece.edit', compact('piece', 'magasins', 'titre'));
+        return view('stock.piece.edit', compact('piece', 'titre'));
     }
 
     public function update(Request $request)
     {
         $piece = Piece::find($request->piece);
-        $piece->prix_achat = $request->prix_achat;
-        $piece->prix_vente = $request->prix_vente;
-        $piece->emplacement = $request->emplacement;
-        $piece->magasin = $request->magasin;
+        $piece->description = $request->description;
+        if ($request->hasFile('image')) {
+            Storage::delete('public/' . $piece->image);
+            $path = Storage::putFile('public/pieces', $request->file('image'));
+            $piece->image = Str::substr($path, 7);
+        }
         $piece->save();
-        $message = "la piece $piece->nom a été modifiée avec succès";
+        $message = "la piece $piece->reference a été modifiée avec succès";
         return redirect()->route('pieces')->with('success', $message);
     }
 

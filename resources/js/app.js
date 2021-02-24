@@ -26,7 +26,7 @@ import OldIntervention from "./components/OldIntervention.vue";
 import FormReparation from "./components/reparations/FormReparation.vue";
 //Stock components
 import StepperPiece from './components/pieces/StepperPieceAdd.vue'
-import CreateMagasinForm from './components/magasins/CreateMagasinForm.vue'
+import CreateMagasinForm from './components/magasins/automatique/CreateMagasinForm.vue'
 import MagasinTreeMaps from './components/magasins/show/MagasinTreeMaps.vue'
 import CreateMagasinManuel from './components/magasins/manuel/CreateMagasinManuel.vue'
 import CreateZoneManuel from './components/magasins/manuel/CreateZoneManuel.vue'

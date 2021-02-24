@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\Route;
  */
 Auth::routes();
 Route::get('/', 'DashboardController@index')->name('acceuil');
+
 Route::get('/deconnexion', 'Auth\LoginController@logout')->name('deconnexion');
+
 Route::prefix('maintenance')->group(function () {
     Route::get('/index', 'DashboardController@maintenance')->name('maintenance_index');
-
     Route::prefix('reception')->group(function () {
         Route::get('/index', 'Maintenance\Reception\ReceptionsController@index')->name('receptions');
         Route::get('/liste', 'Maintenance\Reception\ReceptionsController@liste')->name('reception_liste');
@@ -84,6 +85,19 @@ Route::prefix('maintenance')->group(function () {
         Route::get('/show/{id}', 'Maintenance\Reception\HangarsController@show')->name('hangar_show');
         Route::post('/store', 'Maintenance\Reception\HangarsController@store')->name('hangar_store');
         Route::post('/update', 'Maintenance\Reception\HangarsController@update')->name('hangar_update');
+    });
+});
+
+Route::prefix('finance')->group(function () {
+    Route::get('index', 'Finance\FinancesController@index')->name('finance_index');
+    Route::prefix('commande')->group(function () {
+        Route::get('index', 'Finance\Commande\CommandesController@index')->name('commandes');
+        Route::prefix('simple')->group(function () {
+            Route::get('liste', 'Finance\Commande\CommandesSimplesController@liste')->name('commande_simple_liste');
+        });
+        Route::prefix('reparation')->group(function () {
+            Route::get('liste', 'Finance\Commande\CommandesReparationsController@liste')->name('commande_reparation_liste');
+        });
     });
 });
 

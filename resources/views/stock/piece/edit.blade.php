@@ -14,7 +14,15 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-8">
-                  <h1 class="m-0 text-dark">Piece: {{ $piece->nom }}</h1>
+                  <div class="row">
+                     {{-- <div class="col-md-2">
+                        <img width="100" height="100" src="{{ url('storage/' . $piece->categorieLinked->image) }}"
+                           alt="{{ $piece->categorieLinked->nom }}">
+                     </div> --}}
+                     <div class="col-md-6">
+                        <h1 class="m-0 text-dark">Piece: {{ $piece->reference }}</h1>
+                     </div>
+                  </div>
                </div><!-- /.col -->
                <div class="col-sm-4">
                   <ol class="breadcrumb float-sm-right">
@@ -40,45 +48,32 @@
                         {{-- <h5 class="m-0">Featured</h5> --}}
                      </div>
                      <div class="card-body">
-                        <form enctype="multipart/form-data" method="post" action="{{ route('piece_update') }}" role="form">
+                        <form enctype="multipart/form-data" method="post" action="{{ route('piece_update') }}"
+                           role="form">
                            @csrf
                            <input hidden name="piece" type="text" value="{{ $piece->id }}">
                            <div class="form-group">
-                              <label for="prix_achat">Prix achat</label>
-                              <input value="{{ $piece->prix_achat }}" name="prix_achat" class="form-control"
-                                 id="prix_achat">
-                              @error('prix_achat')
-                                 <span class="text-danger"> {{ $message }}</span>
-                              @enderror
+                              <div class="row">
+                                 <div class="col-md-4"></div>
+                                 <div class="col-md-4">
+                                    <img class="img-thumbnail" src="{{ url('storage/' . $piece->image) }}"
+                                       alt="{{ $piece->reference }}">
+                                    <center><span
+                                          class="text-dark"><b>{{ $piece->reference }}</b>:{{ $piece->categorieEnfant->nom }}</span>
+                                    </center>
+                                 </div>
+                                 <div class="col-md-4"></div>
+                              </div>
                            </div>
                            <div class="form-group">
-                              <label for="prix_vente">Prix vente</label>
-                              <input value="{{ $piece->prix_vente }}" name="prix_vente" class="form-control"
-                                 id="prix_vente">
-                              @error('prix_vente')
-                                 <span class="text-danger"> {{ $message }}</span>
-                              @enderror
+                              <label for="image">Image</label>
+                              <input id="image" type="file" name="image">
                            </div>
                            <div class="form-group">
-                              <label for="emplacement">Emplacement</label>
-                              <input value="{{ $piece->emplacement }}" name="emplacement" class="form-control"
-                                 id="emplacement">
-                              @error('emplacement')
-                                 <span class="text-danger"> {{ $message }}</span>
-                              @enderror
-                           </div>
-                           <div class="form-group">
-                              <label for="magasin">Magasin de stockage</label>
-                              <select class="select2 form-control" name="magasin" id="magasin">
-                                 @foreach ($magasins as $magasin)
-                                    @if ($piece->magasin === $magasin->id)
-                                       <option selected value="{{ $magasin->id }}">{{ $magasin->nom }}</option>
-                                    @else
-                                       <option value="{{ $magasin->id }}">{{ $magasin->nom }}</option>
-                                    @endif
-                                 @endforeach
-                              </select>
-                              @error('magasin')
+                              <label for="description">Description</label>
+                              <textarea name="description" class="form-control" id="description" cols="30"
+                                 rows="4">{{ $piece->description }}</textarea>
+                              @error('description')
                                  <span class="text-danger"> {{ $message }}</span>
                               @enderror
                            </div>
@@ -99,15 +94,4 @@
       <!-- /.content -->
    </div>
    <!-- /.content-wrapper -->
-@endsection
-@section('scripts')
-   <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-   <script>
-      $(function() {
-         $('.select2').select2({
-            theme: 'bootstrap4'
-         })
-      })
-
-   </script>
 @endsection
