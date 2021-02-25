@@ -21,6 +21,8 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
+                     <li class="breadcrumb-item"><a href="{{ route('maintenance_index') }}">Tableau de maintenance</a>
+                     </li>
                      <li class="breadcrumb-item"><a href="{{ route('essais') }}">Tableau des Essais</a></li>
                      <li class="breadcrumb-item active">Essais après réparations</li>
                   </ol>

@@ -2,6 +2,7 @@
 
 namespace App\Models\Stock;
 
+use App\Models\Finance\Commande\CommandeSimple;
 use App\Models\Systeme\Vehicule;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -44,5 +45,12 @@ class Piece extends Model
     public function vehiculeLinked()
     {
         return $this->belongsTo(Vehicule::class, 'vehicule');
+    }
+
+    public function commandeSimple()
+    {
+        return $this->belongsToMany(CommandeSimple::class, 'pieces_commandes_simples', 'commande', 'piece')
+            ->withPivot('quantite', 'prix_achat', 'prix_vente')
+            ->withTimestamps();
     }
 }

@@ -279,7 +279,7 @@ class ReceptionsController extends Controller
     }
 
     function print(int $id) {
-        $reception = Reception::with('vehicule.enjoliveurs', 'etat', 'personneLinked')->find($id);
+        $reception = Reception::with('commentaire.medias', 'vehicule.enjoliveurs', 'vehicule.auto', 'etat', 'personneLinked')->find($id);
         $enjoliveurs = join(',', array_map(function ($enjoliveur) {
             return $enjoliveur->nom;
         }, $reception->vehicule->enjoliveurs->all()));

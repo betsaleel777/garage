@@ -21,8 +21,8 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('stock_index') }}">Tableau de bord</a></li>
-                     <li class="breadcrumb-item active">Liste réceptions</li>
+                     <li class="breadcrumb-item"><a href="{{ route('stock_index') }}">Tableau du stock</a></li>
+                     <li class="breadcrumb-item active">pieces</li>
                   </ol>
                </div><!-- /.col -->
             </div><!-- /.row -->
@@ -39,9 +39,9 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="row">
-                           <div class="col-md-3">
-                              <a class="btn btn-primary ui-button" href="{{ route('piece_add') }}">Nouvelle
-                                 Pièce
+                           <div class="col-md-2">
+                              <a class="btn btn-primary btn-sm ui-button" href="{{ route('piece_add') }}">Créer
+                                 une pièce
                               </a>
                            </div>
                         </div>

@@ -19,8 +19,10 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('receptions') }}">Tableau de bord</a></li>
-                     <li class="breadcrumb-item"><a href="{{ route('reception_liste') }}">Liste réception</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('maintenance_index') }}">Tableau de maintenance</a>
+                     </li>
+                     <li class="breadcrumb-item"><a href="{{ route('essais') }}">Tableau des essais</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('preessai_liste') }}">Essais av-réparation</a></li>
                      <li class="breadcrumb-item active">{{ $preessai->code }}</li>
                   </ol>
                </div><!-- /.col -->
@@ -48,9 +50,7 @@
                               <select class="form-control" name="reception" id="reception">
                                  <option selected disabled> .....</option>
                                  @foreach ($receptions as $id => $code)
-                                    <option @if ($preessai->reception == $id)
-                                       selected
-                                 @endif value="{{ $id }}">{{ $code }}</option>
+                                    <option @if ($preessai->reception == $id) selected @endif value="{{ $id }}">{{ $code }}</option>
                                  @endforeach
                               </select>
                               @error('reception')

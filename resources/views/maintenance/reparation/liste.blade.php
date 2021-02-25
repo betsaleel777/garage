@@ -21,6 +21,8 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
+                     <li class="breadcrumb-item"><a href="{{ route('maintenance_index') }}">Tableau de maintenance</a>
+                     </li>
                      <li class="breadcrumb-item"><a href="{{ route('reparations') }}">Tableau des Réparations</a></li>
                      <li class="breadcrumb-item active">Réparations</li>
                   </ol>
@@ -65,7 +67,8 @@
                                        @if ($reception->reparation->est_valide() or $reception->reparation->en_transition())
                                           <div class="row">
                                              <div class="col-md-3">
-                                                <a class="text-primary" href="{{ route('reparation_show', $reception) }}">
+                                                <a class="text-primary"
+                                                   href="{{ route('reparation_show', $reception) }}">
                                                    <i class="fas fa-lg fa-eye"></i>
                                                 </a>
                                              </div>

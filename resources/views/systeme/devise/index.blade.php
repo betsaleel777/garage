@@ -39,7 +39,7 @@
                <div class="col-md-6">
                   <div class="card">
                      <div class="card-header">
-                        <a class="btn btn-primary" href="{{ route('devise_add') }}">Créer Devise</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('devise_add') }}">Créer devise</a>
                      </div>
                      <div class="card-body">
                         <table id="devises" class="table table-bordered table-hover">

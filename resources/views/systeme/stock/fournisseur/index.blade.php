@@ -39,7 +39,7 @@
                <div class="col-md-8">
                   <div class="card">
                      <div class="card-header">
-                        <a class="btn btn-primary" href="{{ route('fournisseur_add') }}">Nouveau fournisseur</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('fournisseur_add') }}">Créer fournisseur</a>
                      </div>
                      <div class="card-body">
                         <table id="fournisseurs" class="table table-bordered table-hover">
@@ -98,7 +98,6 @@
             "searching": true,
             "ordering": true,
             "info": true,
-            "responsive": true,
          });
       });
 

@@ -14,7 +14,7 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil système</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('fournisseurs') }}">Fournisseurs</a></li>
                      <li class="breadcrumb-item active">Créer Fournisseur</li>
                   </ol>
@@ -53,7 +53,8 @@
                            </div>
                            <div class="form-group">
                               <label for="email">Email</label>
-                              <input type="email" value="{{ old('email') }}" name="email" class="form-control" id="email">
+                              <input type="email" value="{{ old('email') }}" name="email" class="form-control"
+                                 id="email">
                               @error('email')
                                  <span class="text-danger"> {{ $message }}</span>
                               @enderror

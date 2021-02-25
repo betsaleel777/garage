@@ -94,6 +94,7 @@ Route::prefix('finance')->group(function () {
         Route::get('index', 'Finance\Commande\CommandesController@index')->name('commandes');
         Route::prefix('simple')->group(function () {
             Route::get('liste', 'Finance\Commande\CommandesSimplesController@liste')->name('commande_simple_liste');
+            Route::get('add', 'Finance\Commande\CommandesSimplesController@add')->name('commande_simple_add');
         });
         Route::prefix('reparation')->group(function () {
             Route::get('liste', 'Finance\Commande\CommandesReparationsController@liste')->name('commande_reparation_liste');
@@ -113,6 +114,17 @@ Route::prefix('stock')->group(function () {
         Route::get('add', 'Stock\PiecesController@add')->name('piece_add');
         Route::post('store', 'Stock\PiecesController@store')->name('piece_store');
     });
+    Route::prefix('commande')->group(function () {
+        Route::get('index', 'Stock\Commande\CommandesController@index')->name('commandes_bystock');
+        Route::prefix('simple')->group(function () {
+            Route::get('liste', 'Stock\Commande\CommandesSimplesController@liste')->name('commande_simple_liste_bystock');
+            Route::get('add', 'Stock\Commande\CommandesSimplesController@add')->name('commande_simple_add_bystock');
+        });
+        Route::prefix('reparation')->group(function () {
+            Route::get('liste', 'Stock\Commande\CommandesReparationsController@liste')->name('commande_reparation_liste_bystock');
+        });
+    });
+
 });
 
 Route::prefix('systeme')->group(function () {

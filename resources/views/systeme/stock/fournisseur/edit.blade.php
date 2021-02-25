@@ -10,13 +10,13 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1 class="m-0 text-dark">Nouveau Fournisseur</h1>
+                  <h1 class="m-0 text-dark">Modifier {{ $fournisseur->nom }}</h1>
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil système</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('fournisseurs') }}">Fournisseurs</a></li>
-                     <li class="breadcrumb-item active">Créer Fournisseur</li>
+                     <li class="breadcrumb-item active">{{ $fournisseur->nom }}</li>
                   </ol>
                </div><!-- /.col -->
             </div><!-- /.row -->
@@ -29,6 +29,7 @@
          <div class="container-fluid">
             <div class="row">
                <!-- /.col-md-6 -->
+               <div class="col-md-3"></div>
                <div class="col-md-6">
                   <div class="card">
                      <div class="card-header">
@@ -47,7 +48,8 @@
                            </div>
                            <div class="form-group">
                               <label for="contact">Contact</label>
-                              <input value="{{ $fournisseur->contact }}" name="contact" class="form-control" id="contact">
+                              <input value="{{ $fournisseur->contact }}" name="contact" class="form-control"
+                                 id="contact">
                               @error('contact')
                                  <span class="text-danger"> {{ $message }}</span>
                               @enderror
@@ -75,6 +77,7 @@
                      <!-- /.card-body -->
                   </div>
                </div>
+               <div class="col-md-3"></div>
                <!-- /.col-md-6 -->
             </div>
             <!-- /.row -->

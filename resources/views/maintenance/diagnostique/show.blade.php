@@ -14,6 +14,8 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
+                     <li class="breadcrumb-item"><a href="{{ route('maintenance_index') }}">Tableau de maintenance</a>
+                     </li>
                      <li class="breadcrumb-item"><a href="{{ route('diagnostiques') }}">Tableau Diagnostique</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('diagnostique_liste') }}">Liste Diagnostique</a></li>
                      <li class="breadcrumb-item active">Détails diagnostique</li>
@@ -610,7 +612,8 @@
                                     <div class="form-group">
                                        <label for="volant_direction">Volant, direction</label>
                                        <textarea name="volant_direction" class="form-control" id="volant_direction"
-                                          cols="30" rows="6">{{ $reception->prediagnostique->volant_direction }}</textarea>
+                                          cols="30"
+                                          rows="6">{{ $reception->prediagnostique->volant_direction }}</textarea>
                                     </div>
                                     <div class="form-group">
                                        <label for="pot_echappement">Pot d'échappement</label>
@@ -627,7 +630,8 @@
                                     <div class="form-group">
                                        <label for="tuyauterie_frein">Tuyauterie frein</label>
                                        <textarea name="tuyauterie_frein" class="form-control" id="tuyauterie_frein"
-                                          cols="30" rows="6">{{ $reception->prediagnostique->tuyauterie_frein }}</textarea>
+                                          cols="30"
+                                          rows="6">{{ $reception->prediagnostique->tuyauterie_frein }}</textarea>
                                     </div>
                                     <div class="form-group">
                                        <label for="fuite_huile">Fuite d'huile</label>
@@ -637,7 +641,8 @@
                                     <div class="form-group">
                                        <label for="sous_carrosserie">Etat générale sous la carrosserie</label>
                                        <textarea name="sous_carrosserie" class="form-control" id="sous_carrosserie"
-                                          cols="30" rows="6">{{ $reception->prediagnostique->sous_carrosserie }}</textarea>
+                                          cols="30"
+                                          rows="6">{{ $reception->prediagnostique->sous_carrosserie }}</textarea>
                                     </div>
                                     <div class="form-group">
                                        <label for="test_routier">Test routier</label>

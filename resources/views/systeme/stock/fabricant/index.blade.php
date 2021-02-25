@@ -39,7 +39,7 @@
                <div class="col-md-6">
                   <div class="card">
                      <div class="card-header">
-                        <a class="btn btn-primary" href="{{ route('fabricant_add') }}">Nouveaux fabricant</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('fabricant_add') }}">Nouveaux fabricant</a>
                      </div>
                      <div class="card-body">
                         <table id="fabricants" class="table table-bordered table-hover">

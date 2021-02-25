@@ -42,7 +42,7 @@
                        echo 'active';
                    }
                 @endphp">
-                   <i class="nav-icon fas fa-th"></i>
+                   <i class="nav-icon fas fa-address-book"></i>
                    <p>
                       CRM
                       {{-- <span class="right badge badge-danger">New</span> --}}
@@ -55,7 +55,7 @@
                        echo 'active';
                    }
                 @endphp">
-                   <i class="nav-icon fas fa-th"></i>
+                   <i class="nav-icon fas fa-car-crash"></i>
                    <p>
                       Maintenance
                       {{-- <span class="right badge badge-danger">New</span> --}}
@@ -68,7 +68,7 @@
                        echo 'active';
                    }
                 @endphp">
-                   <i class="nav-icon fas fa-th"></i>
+                   <i class="nav-icon fas fa-dolly"></i>
                    <p>
                       Stock
                    </p>
@@ -80,7 +80,7 @@
                        echo 'active';
                    }
                 @endphp">
-                   <i class="nav-icon fas fa-th"></i>
+                   <i class="nav-icon fas fa-landmark"></i>
                    <p>
                       Finance
                    </p>
@@ -92,7 +92,7 @@
                        echo 'active';
                    }
                 @endphp">
-                   <i class="nav-icon fas fa-th"></i>
+                   <i class="nav-icon fas fa-file-alt"></i>
                    <p>
                       Rapport
                    </p>

@@ -39,7 +39,7 @@
                <div class="col-md-6">
                   <div class="card">
                      <div class="card-header">
-                        <a class="btn btn-primary" href="{{ route('categorie_add') }}">Nouvelle catégorie</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('categorie_add') }}">Créer catégorie</a>
                      </div>
                      <div class="card-body">
                         <table id="categories" class="table table-bordered table-hover">

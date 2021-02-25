@@ -21,7 +21,7 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil compte</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil système</a></li>
                      <li class="breadcrumb-item active">Liste compte</li>
                   </ol>
                </div><!-- /.col -->
@@ -39,7 +39,7 @@
                   <div class="card">
                      <div class="card-header">
                         {{-- <h5 class="m-0">Featured</h5> --}}
-                        <a class="btn btn-primary" href="{{ route('compte_add') }}">Nouveau compte</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('compte_add') }}">Créer compte</a>
                      </div>
                      <div class="card-body">
                         <table id="receptions" class="table table-bordered table-hover">

@@ -15,7 +15,7 @@
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item"><a href="{{ route('acceuil') }}">Tableau de bord</a></li>
-                     <li class="breadcrumb-item active">Stock</li>
+                     <li class="breadcrumb-item active">Tableau du Stock</li>
                   </ol>
                </div><!-- /.col -->
             </div><!-- /.row -->

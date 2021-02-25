@@ -17,7 +17,9 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('acceuil') }}">Acceuil principale</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('maintenance_index') }}">Tableau de maintenance</a>
+                     </li>
+                     <li class="breadcrumb-item"><a href="{{ route('receptions') }}">Tableau des réceptions</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('reception_liste') }}">Réceptions</a></li>
                      <li class="breadcrumb-item active">{{ $reception->code }}</li>
                   </ol>

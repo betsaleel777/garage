@@ -33,7 +33,8 @@
                   <div class="card">
                      <div class="card-header">
                         <small>
-                           <a class="btn btn-primary" href="{{ route('sous_categorie_add', $categorie) }}">Créer une sous
+                           <a class="btn btn-primary btn-sm" href="{{ route('sous_categorie_add', $categorie) }}">Créer
+                              une sous
                               categorie de
                               {{ $categorie->nom }}
                            </a>

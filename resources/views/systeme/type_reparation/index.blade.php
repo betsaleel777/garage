@@ -40,7 +40,7 @@
                   <div class="card">
                      <div class="card-header">
                         {{-- <h5 class="m-0">Featured</h5> --}}
-                        <a class="btn btn-primary" href="{{ route('types_reparation_add') }}">Nouveau type</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('types_reparation_add') }}">Créer type</a>
                      </div>
                      <div class="card-body">
                         <table id="types" class="table table-bordered table-hover">

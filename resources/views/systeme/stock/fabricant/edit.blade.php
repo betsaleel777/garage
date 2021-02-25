@@ -10,13 +10,13 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1 class="m-0 text-dark">Nouveau Fabricant de stockage</h1>
+                  <h1 class="m-0 text-dark">Modifier {{ $fabricant->nom }}</h1>
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil système</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('fabricants') }}">fabricants</a></li>
-                     <li class="breadcrumb-item active">Créer Fabricant</li>
+                     <li class="breadcrumb-item active">{{ $fabricant->nom }}</li>
                   </ol>
                </div><!-- /.col -->
             </div><!-- /.row -->

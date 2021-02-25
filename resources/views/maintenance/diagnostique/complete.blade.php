@@ -12,11 +12,12 @@ use Carbon\Carbon;
       <div class="content-header">
          <div class="container-fluid">
             <div class="row mb-2">
-               <div class="col-md-6">
+               <div class="col-md-4">
                   <h1 class="m-0 text-dark">Réception: {{ $reception->code }}</h1>
                </div><!-- /.col -->
-               <div class="col-sm-6">
+               <div class="col-sm-8">
                   <ol class="breadcrumb float-sm-right">
+                     <li class="breadcrumb-item"><a href="{{ route('maintenance_index') }}">Tableau maintenance</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('diagnostiques') }}">Tableau Diagnostics</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('diagnostique_liste') }}">Liste Diagnostics</a></li>
                      <li class="breadcrumb-item active">Completer</li>
@@ -448,7 +449,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="protection_interne" class="form-control" id="protection_interne"
                                              cols="15" rows="1">{{ $reception->prediagnostique->protection_interne }}
-                                          </textarea>
+                                                   </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -463,7 +464,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="protection_interne" class="form-control" id="protection_interne"
                                              cols="15" rows="2">{{ $reception->prediagnostique->protection_interne }}
-                                          </textarea>
+                                                   </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -481,7 +482,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="eclairage_int" class="form-control" id="eclairage_int" cols="30"
                                              rows="1">{{ $reception->prediagnostique->eclairage_int }}
-                                          </textarea>
+                                                   </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -494,9 +495,8 @@ use Carbon\Carbon;
                                           @endif
                                        </td>
                                        <td>
-                                          <textarea name="klaxon" class="form-control" id="klaxon" cols="30"
-                                             rows="1">{{ $reception->prediagnostique->klaxon }}
-                                          </textarea>
+                                          <textarea name="klaxon" class="form-control" id="klaxon" cols="30" rows="1">{{ $reception->prediagnostique->klaxon }}
+                                                   </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -540,7 +540,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="frein_main" class="form-control" id="frein_main" cols="30"
                                              rows="1">{{ $reception->prediagnostique->frein_main }}
-                                          </textarea>
+                                                   </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -849,7 +849,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="volant_direction" class="form-control" id="volant_direction"
                                              cols="30" rows="1">{{ $reception->prediagnostique->volant_direction }}
-                                          </textarea>
+                                                   </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -1243,7 +1243,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="volant_direction" class="form-control" id="volant_direction"
                                              cols="30" rows="1">
-                                                                                                                                                                                                                  </textarea>
+                                                                                                                                                                                                                           </textarea>
                                        </td>
                                     </tr>
                                     <tr>

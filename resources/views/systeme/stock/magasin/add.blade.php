@@ -14,7 +14,7 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('systeme_index') }}">Acceuil système</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('magasins') }}">Magasins</a></li>
                      <li class="breadcrumb-item active">Créer Magasin</li>
                   </ol>

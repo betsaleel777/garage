@@ -14,7 +14,9 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('receptions') }}">Tableau de bord</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('maintenance_index') }}">Tableau de maintenance</a>
+                     </li>
+                     <li class="breadcrumb-item"><a href="{{ route('receptions') }}">Tableau des receptions</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('reception_liste') }}">Liste réception</a></li>
                      <li class="breadcrumb-item active">Créer réception</li>
                   </ol>

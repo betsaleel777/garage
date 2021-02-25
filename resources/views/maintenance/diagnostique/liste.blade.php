@@ -21,7 +21,10 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('diagnostiques') }}">Tableau des diagnostiques</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('maintenance_index') }}">Tableau de maintenance</a>
+                     </li>
+                     <li class="breadcrumb-item"><a href="{{ route('diagnostiques') }}">Tableau des diagnostiques</a>
+                     </li>
                      <li class="breadcrumb-item active">Diagnostiques</li>
                   </ol>
                </div><!-- /.col -->
@@ -58,7 +61,9 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $reception->code }}</td>
                                     <td>{{ $reception->vehicule->auto->immatriculation }}</td>
-                                    <td>{{ $reception->vehicule->auto->marque . ' ' . $reception->vehicule->auto->modele }}</td>
+                                    <td>
+                                       {{ $reception->vehicule->auto->marque . ' ' . $reception->vehicule->auto->modele }}
+                                    </td>
                                     <td>{{ $reception->created_at->format('d-m-Y') }}</td>
                                     <td>{{ $reception->utilisateur->name }}</td>
                                     <td>

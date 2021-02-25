@@ -34,12 +34,12 @@
       <div class="content">
          <div class="container-fluid">
             <div class="row">
-               <div class="col-md-2"></div>
+               <div class="col-md-3"></div>
                <!-- /.col-md-6 -->
-               <div class="col-md-8">
+               <div class="col-md-6">
                   <div class="card">
                      <div class="card-header">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            Créer magasin
                         </button>
@@ -56,10 +56,10 @@
                         <table id="magasins" class="table table-bordered table-hover">
                            <thead>
                               <tr>
-                                 <th>#</th>
-                                 <th>Nom</th>
-                                 <th>lieu</th>
-                                 <th>Option</th>
+                                 <th style="width: 3%">#</th>
+                                 <th style="width: 45%">Nom</th>
+                                 <th style="width: 35%">lieu</th>
+                                 <th style="width: 17%">Option</th>
                               </tr>
                            </thead>
                            <tbody>
@@ -69,15 +69,23 @@
                                     <td>{{ $magasin->nom }}</td>
                                     <td>{{ $magasin->lieu }}</td>
                                     <td>
-                                       <a class="text-primary" href="{{ route('magasin_edit', $magasin) }}"><i
-                                             class="fas fa-lg fa-edit"></i>
-                                       </a>
-                                       <a class="text-primary" href="{{ route('magasin_show', $magasin) }}"><i
-                                             class="fas fa-lg fa-eye"></i>
-                                       </a>
-                                       <a class="text-primary" href="{{ route('zone_magasin', $magasin) }}"><i
-                                             class="fas fa-lg fa-plus-circle"></i>
-                                       </a>
+                                       <div class="row">
+                                          <div class="col-md-2">
+                                             <a class="text-primary" href="{{ route('magasin_edit', $magasin) }}"><i
+                                                   class="fas fa-lg fa-edit"></i>
+                                             </a>
+                                          </div>
+                                          <div class="col-md-2">
+                                             <a class="text-primary" href="{{ route('magasin_show', $magasin) }}"><i
+                                                   class="fas fa-lg fa-eye"></i>
+                                             </a>
+                                          </div>
+                                          <div class="col-md-2">
+                                             <a class="text-primary" href="{{ route('zone_magasin', $magasin) }}"><i
+                                                   class="fas fa-lg fa-plus-circle"></i>
+                                             </a>
+                                          </div>
+                                       </div>
                                     </td>
                                  </tr>
                               @endforeach
@@ -88,7 +96,7 @@
                   </div>
                </div>
                <!-- /.col-md-6 -->
-               <div class="col-md-2"></div>
+               <div class="col-md-3"></div>
             </div>
             <!-- /.row -->
          </div><!-- /.container-fluid -->

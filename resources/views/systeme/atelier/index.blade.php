@@ -39,7 +39,7 @@
                <div class="col-md-6">
                   <div class="card">
                      <div class="card-header">
-                        <a class="btn btn-primary" href="{{ route('atelier_add') }}">Nouvel Atelier</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('atelier_add') }}">Créer atelier</a>
                      </div>
                      <div class="card-body">
                         <table id="ateliers" class="table table-bordered table-hover">

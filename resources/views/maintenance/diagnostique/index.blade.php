@@ -14,7 +14,8 @@
                </div><!-- /.col -->
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('acceuil') }}">Acceuil principale</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('maintenance_index') }}">Tableau de maintenance</a>
+                     </li>
                      <li class="breadcrumb-item active">Tableau de bord</li>
                   </ol>
                </div><!-- /.col -->
@@ -32,22 +33,20 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="row">
-                           <div class="col-md-9"></div>
-                           <div class="col-md-3">
-                              <a class="btn btn-primary ui-button" href="{{ route('diagnostique_liste') }}">Liste
-                                 diagnostiques
+                           <div class="col-md-10"></div>
+                           <div class="col-md-2">
+                              <a class="btn btn-primary btn-sm ui-button" href="{{ route('diagnostique_liste') }}">
+                                 <i class="fas fa-list-ul"></i> Liste diagnostiques
                               </a>
                            </div>
                         </div>
                      </div>
                      <div class="card-body">
-                        {{-- <h6 class="card-title">Special title treatment</h6>
-                        --}}
+                        {{-- <h6 class="card-title">Special title treatment</h6> --}}
                         <p class="card-text">cette page doit contenir les statistiques pertinantes qui serviront de contenu
                            au dashbord mais uniquement concernant les diagnostiques
                         </p>
-                        {{-- <a href="#" class="btn btn-primary">Go somewhere</a>
-                        --}}
+                        {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
                      </div>
                   </div>
                </div>
