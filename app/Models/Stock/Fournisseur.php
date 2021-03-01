@@ -13,6 +13,7 @@ class Fournisseur extends Model
     const RULES = [
         'nom' => 'required|unique:fournisseurs,nom',
         'contact' => 'required|unique:fournisseurs,contact',
+        'siege' => 'required',
         'email' => 'nullable|email|unique:fournisseurs,email',
     ];
 
@@ -21,6 +22,7 @@ class Fournisseur extends Model
         return [
             'nom' => 'required|unique:fournisseurs,nom,' . $id,
             'contact' => 'required|unique:fournisseurs,contact,' . $id,
+            'siege' => 'required',
             'email' => 'required|email|unique:fournisseurs,email,' . $id,
         ];
     }

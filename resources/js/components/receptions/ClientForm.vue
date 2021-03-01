@@ -273,21 +273,15 @@ export default {
 			axios
 				.get("/systeme/async/personne/find/" + this.critere)
 				.then(result => {
-					let { personne, vehicule } = result.data
-					let vehiculeFound = null
+					let { personne, vehicule, nature } = result.data
+					let vehiculeFound = { immatriculation: "" }
 					if (vehicule) {
-						const { personne_linked, ...data } = vehicule
-						vehiculeFound = data
+						vehiculeFound.immatriculation = vehicule.immatriculation
 					}
 					if (personne) {
-						this.$bvToast.toast("Un client correspondant à ce critère existe", {
-							title: "INFORMATION",
-							solid: true,
-							variant: "info",
-						})
 						this.nouveau_client = true
 						this.$root.$emit("ancien-gear", personne.id, vehiculeFound.immatriculation)
-						if (result.data.nature === "assurance") {
+						if (nature === "assurance") {
 							this.kind = "assurance"
 							this.assurance = true
 							this.particulier = false
@@ -298,7 +292,7 @@ export default {
 							this.client.email_assurance = personne.email_assurance
 							this.client.nom_assurance = personne.nom_assurance
 							this.client.representant_assurance = personne.representant_assurance
-						} else if (result.data.nature === "entreprise") {
+						} else if (nature === "entreprise") {
 							this.kind = "entreprise"
 							this.entreprise = true
 							this.particulier = false

@@ -168,7 +168,6 @@ Route::prefix('systeme')->group(function () {
         Route::get('/edit/{id}', 'Systeme\Stock\MagasinsController@edit')->name('magasin_edit');
         Route::get('/show/{id}', 'Systeme\Stock\MagasinsController@show')->name('magasin_show');
         Route::post('/update', 'Systeme\Stock\MagasinsController@update')->name('magasin_update');
-        Route::get('/add/auto', 'Systeme\Stock\MagasinsController@add')->name('magasin_add');
         Route::get('/add/manuel', 'Systeme\Stock\MagasinsController@addManuel')->name('magasin_add_manuel');
         Route::post('/store/manuel', 'Systeme\Stock\MagasinsController@storeManuel');
     });
@@ -223,6 +222,8 @@ Route::prefix('systeme')->group(function () {
         Route::post('/store', 'Systeme\Stock\FournisseursController@store')->name('fournisseur_store');
         Route::get('/edit/{id}', 'Systeme\Stock\FournisseursController@edit')->name('fournisseur_edit');
         Route::post('/update', 'Systeme\Stock\FournisseursController@update')->name('fournisseur_update');
+        Route::post('/storejs', 'Systeme\Stock\FournisseursController@storejs');
+        Route::get('/all/select', 'Systeme\Stock\FournisseursController@getSelect');
     });
 
     Route::prefix('categorie')->group(function () {

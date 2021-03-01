@@ -36,6 +36,27 @@ class FournisseursController extends Controller
         return redirect()->route('fournisseurs')->with('sucess', $message);
     }
 
+    public function storejs(Request $request)
+    {
+        $request->validate(Fournisseur::RULES);
+        $fournisseur = new Fournisseur($request->all());
+        $fournisseur->user = session('user_id');
+        $fournisseur->save();
+        $message = "le fournisseur $request->nom a été crée avec succès!";
+        return response()->json(['message' => $message]);
+    }
+
+    public function getSelect()
+    {
+        $fournisseurs = array_map(function ($fournisseur) {
+            return [
+                'code' => $fournisseur->id,
+                'label' => $fournisseur->nom,
+            ];
+        }, Fournisseur::get()->all());
+        return response()->json(['fournisseurs' => $fournisseurs]);
+    }
+
     public function edit(int $id)
     {
         $fournisseur = Fournisseur::find($id);

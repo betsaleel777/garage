@@ -37,7 +37,7 @@
                      </div>
                      <div class="card-body">
                         <commande-simple-form :pieces="{{ json_encode($pieces) }}"
-                           :fournisseurs="{{ json_encode($fournisseurs) }}"></commande-simple-form>
+                           :fournisseurs="{{ json_encode($fournisseurs) }}" :magasins="{{json_encode($magasins)}}"></commande-simple-form>
                      </div>
                   </div>
                </div>

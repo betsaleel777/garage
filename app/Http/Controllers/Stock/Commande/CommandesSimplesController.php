@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Stock\Commande;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Commande\CommandeSimple;
 use App\Models\Stock\Fournisseur;
+use App\Models\Stock\Magasin;
 use App\Models\Stock\Piece;
 use Illuminate\Http\Request;
 
 class CommandesSimplesController extends Controller
 {
+
     public function liste()
     {
         $titre = 'Commandes simples';
@@ -20,9 +22,25 @@ class CommandesSimplesController extends Controller
     public function add()
     {
         $titre = 'Créer une commande simple';
-        $pieces = Piece::get();
-        $fournisseurs = Fournisseur::get();
-        return view('stock.commande.simple.add', compact('titre', 'fournisseurs', 'pieces'));
+        $pieces = array_map(function ($piece) {
+            return [
+                'code' => $piece->id,
+                'label' => $piece->reference . '-' . $piece->nom,
+            ];
+        }, Piece::get()->all());
+        $fournisseurs = array_map(function ($fournisseur) {
+            return [
+                'code' => $fournisseur->id,
+                'label' => $fournisseur->nom,
+            ];
+        }, Fournisseur::get()->all());
+        $magasins = array_map(function ($magasin) {
+            return [
+                'code' => $magasin->id,
+                'label' => $magasin->nom,
+            ];
+        }, Magasin::get()->all());
+        return view('stock.commande.simple.add', compact('titre', 'fournisseurs', 'pieces', 'magasins'));
     }
 
     public function store(Request $request)
