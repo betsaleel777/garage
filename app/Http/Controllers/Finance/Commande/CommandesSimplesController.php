@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class CommandesSimplesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function liste()
     {
         $titre = 'Commandes simples';
@@ -25,7 +30,7 @@ class CommandesSimplesController extends Controller
         $pieces = array_map(function ($piece) {
             return [
                 'code' => $piece->id,
-                'label' => $piece->reference . '-' . $piece->nom,
+                'name' => $piece->reference . '.' . $piece->nom,
             ];
         }, Piece::get()->all());
         $fournisseurs = array_map(function ($fournisseur) {
@@ -45,6 +50,7 @@ class CommandesSimplesController extends Controller
 
     public function store(Request $request)
     {
-
+        dd($request->all());
+        return response()->json([$request->all()]);
     }
 }

@@ -68,7 +68,7 @@
                                     <td>{{ $commande->code }}</td>
                                     <td>{{ $commande->reference }}</td>
                                     <td>{{ $commande->fournisseurLinked->nom }}</td>
-                                    <td>{{ $commande->status }}</td>
+                                    <td><span class="badge badge-primary">{{ $commande->status }}</span></td>
                                     <td>
                                        {{-- <a href="{{ route('piece_edit', $piece) }}"><i class="fas fa-lg fa-edit"></i></a>
                                        <a href="{{ route('piece_show', $piece) }}"><i class="fas fa-lg fa-eye"></i></a>

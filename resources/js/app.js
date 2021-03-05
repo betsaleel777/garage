@@ -32,7 +32,7 @@ import CreateMagasinManuel from './components/magasins/manuel/CreateMagasinManue
 import CreateZoneManuel from './components/magasins/manuel/CreateZoneManuel.vue'
 import CreateEtagereManuel from './components/magasins/manuel/CreateEtagereManuel.vue'
 import CreateTiroirManuel from './components/magasins/manuel/CreateTiroirManuel.vue'
-import CommandeSimpleForm from './components/finance/CommandeSimpleForm.vue'
+import CommandeSimpleForm from './components/commande/CommandeSimpleForm.vue'
 
 
 //plugins

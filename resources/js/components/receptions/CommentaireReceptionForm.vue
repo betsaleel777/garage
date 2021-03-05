@@ -108,7 +108,6 @@ export default {
 			}
 		},
 		vider_errors() {
-			console.log("vidange")
 			this.messages = {
 				media: {
 					exist: false,

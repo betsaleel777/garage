@@ -49,7 +49,7 @@ class Piece extends Model
 
     public function commandeSimple()
     {
-        return $this->belongsToMany(CommandeSimple::class, 'pieces_commandes_simples', 'commande', 'piece')
+        return $this->belongsToMany(CommandeSimple::class, 'pieces_commandes_simples', 'piece', 'commande')
             ->withPivot('quantite', 'prix_achat', 'prix_vente')
             ->withTimestamps();
     }
