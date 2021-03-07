@@ -16,10 +16,10 @@
       <div class="content-header">
          <div class="container-fluid">
             <div class="row mb-2">
-               <div class="col-sm-6">
+               <div class="col-md-3">
                   <h1 class="m-0 text-dark">Liste</h1>
                </div><!-- /.col -->
-               <div class="col-sm-6">
+               <div class="col-md-9">
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item"><a href="{{ route('finance_index') }}">Tableau finance</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('commandes') }}">Tableau des commandes</a></li>
@@ -65,13 +65,15 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $commande->code }}</td>
                                     <td>{{ $commande->reference }}</td>
-                                    <td>{{ $commande->status }}</td>
                                     <td>{{ $commande->fournisseurLinked->nom }}</td>
+                                    <td><span class="badge badge-primary">{{ $commande->status }}</span></td>
                                     <td>
-                                       {{-- <a href="{{ route('piece_edit', $piece) }}"><i class="fas fa-lg fa-edit"></i></a>
-                                       <a href="{{ route('piece_show', $piece) }}"><i class="fas fa-lg fa-eye"></i></a>
-                                       <delete-button :url="'/stock/piece/delete/'" :identifiant="{{ $piece->id }}">
-                                       </delete-button> --}}
+                                       <a href="{{ route('commande_simple_edit', $commande) }}"><i
+                                             class="fas fa-lg fa-edit"></i></a>
+                                       {{-- <a href="{{ route('piece_show', $piece) }}"><i class="fas fa-lg fa-eye"></i></a> --}}
+                                       <direct-delete :url="'/finance/commande/simple/delete/'"
+                                          :identifiant="{{ $commande->id }}">
+                                       </direct-delete>
                                     </td>
                                  </tr>
                               @endforeach

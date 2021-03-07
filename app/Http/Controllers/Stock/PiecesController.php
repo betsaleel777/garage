@@ -56,7 +56,7 @@ class PiecesController extends Controller
             $piece->vehicule = $vehicule->id;
         }
         $scategorie = SousCategorie::find($request->sous_categorie);
-        $piece->makeName($scategorie->slug, $piece->type_piece, $vehicule->designation);
+        $piece->makeName($scategorie->slug, $piece->etat, $piece->type_piece, $vehicule->designation);
         $piece->user = session('user_id');
         //upload of image
         if ($request->hasFile('image')) {

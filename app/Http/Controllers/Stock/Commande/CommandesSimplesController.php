@@ -86,4 +86,38 @@ class CommandesSimplesController extends Controller
         session()->flash('success', $message);
         return;
     }
+
+    public function edit(int $id)
+    {
+        $commande = CommandeSimple::with('pieces')->find($id);
+        $titre = 'Modifier commande ' . $commande->code;
+        $pieces = array_map(function ($piece) {
+            return [
+                'code' => $piece->id,
+                'name' => $piece->reference . '.' . $piece->nom,
+            ];
+        }, Piece::get()->all());
+        $fournisseurs = array_map(function ($fournisseur) {
+            return [
+                'code' => $fournisseur->id,
+                'label' => $fournisseur->nom,
+            ];
+        }, Fournisseur::get()->all());
+        $magasins = array_map(function ($magasin) {
+            return [
+                'code' => $magasin->id,
+                'label' => $magasin->nom,
+            ];
+        }, Magasin::get()->all());
+        return view('stock.commande.simple.edit', compact('titre', 'pieces', 'magasins', 'fournisseurs', 'commande'));
+    }
+
+    public function delete(int $id)
+    {
+        $commande = CommandeSimple::find($id);
+        $commande->delete();
+        $message = "la commande $commande->code a été supprimé avec succes";
+        session()->flash('success', $message);
+        return response()->json(['message' => $message]);
+    }
 }

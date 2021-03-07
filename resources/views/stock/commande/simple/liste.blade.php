@@ -70,10 +70,14 @@
                                     <td>{{ $commande->fournisseurLinked->nom }}</td>
                                     <td><span class="badge badge-primary">{{ $commande->status }}</span></td>
                                     <td>
+                                       <a href="{{ route('commande_simple_edit_bystock', $commande) }}"><i
+                                             class="fas fa-lg fa-edit"></i>
+                                       </a>
                                        {{-- <a href="{{ route('piece_edit', $piece) }}"><i class="fas fa-lg fa-edit"></i></a>
-                                       <a href="{{ route('piece_show', $piece) }}"><i class="fas fa-lg fa-eye"></i></a>
-                                       <delete-button :url="'/stock/piece/delete/'" :identifiant="{{ $piece->id }}">
-                                       </delete-button> --}}
+                                       <a href="{{ route('piece_show', $piece) }}"><i class="fas fa-lg fa-eye"></i></a> --}}
+                                       <direct-delete :url="'/stock/commande/simple/delete/'"
+                                          :identifiant="{{ $commande->id }}">
+                                       </direct-delete>
                                     </td>
                                  </tr>
                               @endforeach

@@ -287,16 +287,19 @@
 import vueCustomScrollbar from "vue-custom-scrollbar"
 import "vue-custom-scrollbar/dist/vueScrollbar.css"
 import VueSelect from "vue-select"
-import { FormWizard, TabContent } from "vue-step-wizard"
+import { FormWizard, TabContent, ValidationHelper } from "vue-step-wizard"
+import { required } from "vuelidate/lib/validators"
 import PictureInput from "vue-picture-input"
 //step content
 let sous_categories_initial = []
 let sous_categorie_concern = []
+let currentStep = 1
 export default {
 	props: {
 		fabricants: Array,
 		vehicules: Array,
 	},
+	mixins: [ValidationHelper],
 	components: {
 		FormWizard,
 		TabContent,
@@ -310,9 +313,11 @@ export default {
 			selected: false,
 			nouveau: false,
 			categories: [],
-			categorie: null,
+			formData: {
+				categorie: null,
+				scategorie: null,
+			},
 			scategories: [],
-			scategorie: null,
 			piece: {
 				reference: "",
 				image: "",
@@ -390,6 +395,7 @@ export default {
 				suppressScrollX: true,
 				wheelPropagation: false,
 			},
+			validationRules: [{ categorie: { required } }, { scategorie: { required } }],
 			custom: {
 				drag: "Glisser, déposer une image ou <br><b>cliquer ici pour selectioner une image</b>", // HTML allowed
 				change: "Changer image", // Text only
@@ -441,7 +447,7 @@ export default {
 		},
 		getScategoriesFrom() {
 			axios
-				.get("/systeme/async/scategories/from/" + this.categorie)
+				.get("/systeme/async/scategories/from/" + this.formData.categorie)
 				.then(result => {
 					const { scategories } = result.data
 					this.scategories = scategories.map(scategorie => {
@@ -456,14 +462,16 @@ export default {
 				})
 				.catch(err => {})
 		},
-		nextStep() {},
+		nextStep() {
+			console.log(this.$v.$invalid)
+		},
 		complete() {
 			let formData = new FormData()
 			formData.append("image", this.piece.image)
-			formData.append("categorie", this.categorie)
+			formData.append("categorie", this.formData.categorie)
 			formData.append("reference", this.piece.reference)
 			formData.append("description", this.piece.description)
-			formData.append("sous_categorie", this.scategorie)
+			formData.append("sous_categorie", this.formData.scategorie)
 			formData.append("description", this.piece.description)
 			formData.append("etat_piece", this.piece.etat_piece)
 			formData.append("type_piece", this.piece.type_piece)
@@ -473,7 +481,6 @@ export default {
 			formData.append("modele", this.piece.modele)
 			formData.append("annee", this.piece.annee)
 			formData.append("type_vehicule", this.piece.type_vehicule)
-			console.log(formData)
 			axios
 				.post("/stock/piece/store", formData, {
 					headers: {
@@ -545,14 +552,13 @@ export default {
 				})
 		},
 		previousStep() {
+			currentStep--
 			this.getCategories()
-			if (this.scategorie) {
-				this.getScategoriesFrom()
-				this.scategorie = null
-			} else {
-				this.getScategories()
-			}
 			this.search = null
+			if (this.formData.scategorie) {
+				this.getScategoriesFrom()
+				this.formData.scategorie = null
+			}
 		},
 		rechercher() {
 			if (this.search) {
@@ -570,7 +576,8 @@ export default {
 			}
 		},
 		selectCategorie(id) {
-			this.categorie = id
+			console.log("selectCategorie", id)
+			this.formData.categorie = id
 			this.categories.forEach(categorie => {
 				if (categorie.id === id) {
 					categorie.selected = true
@@ -583,7 +590,8 @@ export default {
 			this.scategories = sous_categorie_concern
 		},
 		selectScategorie(id) {
-			this.scategorie = id
+			console.log("selectScategorie", id)
+			this.formData.scategorie = id
 			this.scategories.forEach(scategorie => {
 				if (scategorie.id === id) {
 					scategorie.selected = true
@@ -597,7 +605,6 @@ export default {
 		onChanged() {
 			if (this.$refs.pictureInput.file) {
 				this.piece.image = this.$refs.pictureInput.file
-				console.log(this.piece.image)
 			} else {
 				console.log("Old browser. No support for Filereader API")
 			}

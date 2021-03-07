@@ -9,6 +9,7 @@ import "./bootstrap";
 import Vue from "vue";
 import NotificationsUser from "./components/Notifications.vue";
 import DeleteButton from "./components/DeleteButton.vue";
+import DirectDelete from './components/DirectDelete.vue'
 import PreviewImage from './components/PreviewImage.vue'
 import axios from "axios";
 import VueAxios from "vue-axios";
@@ -33,7 +34,7 @@ import CreateZoneManuel from './components/magasins/manuel/CreateZoneManuel.vue'
 import CreateEtagereManuel from './components/magasins/manuel/CreateEtagereManuel.vue'
 import CreateTiroirManuel from './components/magasins/manuel/CreateTiroirManuel.vue'
 import CommandeSimpleForm from './components/commande/CommandeSimpleForm.vue'
-
+import CommandeSimpleEditForm from './components/commande/CommandeSimpleEditForm.vue'
 
 //plugins
 import { ToastPlugin, ModalPlugin } from "bootstrap-vue";
@@ -55,6 +56,7 @@ new Vue({
         NotificationsUser,
         ReceptionForm,
         DeleteButton,
+        DirectDelete,
         ModalPreessaiAdd,
         ModalPreessaiEdit,
         ModalPostessaiAdd,
@@ -73,5 +75,6 @@ new Vue({
         CreateEtagereManuel,
         CreateTiroirManuel,
         CommandeSimpleForm,
+        CommandeSimpleEditForm
     }
 });

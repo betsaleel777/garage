@@ -27,9 +27,9 @@ class Piece extends Model
         $this->attributes['code'] = 'PIE' . substr(str_shuffle($lettres), 0, 3) . \substr(\str_shuffle($chiffres), 0, 4);
     }
 
-    public function makeName(string $scategorie, string $type_piece, string $vehicule)
+    public function makeName(string $scategorie, string $etat, string $type, string $vehicule)
     {
-        $this->attributes['nom'] = $scategorie . '_' . substr($type_piece, 0, 5) . '_' . $vehicule;
+        $this->attributes['nom'] = $scategorie . '_' . substr($etat, 0, 5) . '_' . substr($type, 0, 5) . '_' . $vehicule;
     }
 
     public function categorieLinked()
