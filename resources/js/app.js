@@ -35,9 +35,11 @@ import CreateEtagereManuel from './components/magasins/manuel/CreateEtagereManue
 import CreateTiroirManuel from './components/magasins/manuel/CreateTiroirManuel.vue'
 import CommandeSimpleForm from './components/commande/CommandeSimpleForm.vue'
 import CommandeSimpleEditForm from './components/commande/CommandeSimpleEditForm.vue'
+import CreateDemandeForm from './components/demande/CreateDemandeForm.vue'
 
 //plugins
 import { ToastPlugin, ModalPlugin } from "bootstrap-vue";
+import { CoolSelectPlugin } from "vue-cool-select";
 //style
 import "vue-step-wizard/dist/vue-step-wizard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -47,6 +49,7 @@ import 'vue-select/dist/vue-select.css';
 //initialisation des plugins
 Vue.use(ModalPlugin);
 Vue.use(ToastPlugin);
+Vue.use(CoolSelectPlugin);
 Vue.use(VueAxios, axios);
 Vue.config.performance = true;
 
@@ -75,6 +78,7 @@ new Vue({
         CreateEtagereManuel,
         CreateTiroirManuel,
         CommandeSimpleForm,
-        CommandeSimpleEditForm
+        CommandeSimpleEditForm,
+        CreateDemandeForm
     }
 });

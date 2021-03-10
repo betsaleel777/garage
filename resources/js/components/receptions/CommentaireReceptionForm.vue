@@ -57,28 +57,7 @@ export default {
 				thumbnailWidth: 150,
 				maxFilesize: 4,
 				dictRemoveFile: "<i class='fa fa-remove'></i>",
-				createImageThumbnails: false,
-				acceptedFiles: [
-					//images
-					"image/png",
-					"image/jpeg",
-					"image/gif",
-					//document
-					"application/vnd.oasis.opendocument.text",
-					"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-					"application/msword",
-					"application/pdf",
-					"text/plain",
-					//videos
-					"video/x-msvideo",
-					"application/ogg",
-					"video/mp4",
-					"video/3gpp",
-					//archives
-					"application/zip",
-					"application/x-7z-compressed",
-					"application/vnd.rar",
-				],
+				createImageThumbnails: true,
 				dictMaxFilesExceeded: "limite de fichier atteinte!!",
 				dictDefaultMessage: "Cliquez ici pour choisir un fichier",
 				dictFileTooBig: "Le fichier est trop grand",

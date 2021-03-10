@@ -201,7 +201,7 @@
 						<h3>Véhicule</h3>
 						<hr />
 						<div v-if="!nouveau" class="row">
-							<div class="col-md-6">
+							<div class="col-md-9">
 								<div class="form-group">
 									<vue-select v-model="piece.oldcar" :options="vehicules"></vue-select>
 								</div>
@@ -211,7 +211,7 @@
 									</span>
 								</small>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<button @click="nouveau = true" class="btn btn-primary btn-sm">
 									Nouveau véhicule
 								</button>

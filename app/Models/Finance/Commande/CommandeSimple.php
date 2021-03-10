@@ -2,6 +2,7 @@
 
 namespace App\Models\Finance\Commande;
 
+use App\Models\Stock\DemandeStock;
 use App\Models\Stock\Fournisseur;
 use App\Models\Stock\Magasin;
 use App\Models\Stock\Piece;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class CommandeSimple extends Model
 {
     use HasFactory;
-    protected $fillable = ['notes', 'status', 'magasin', 'user', 'reference', 'code', 'fournisseur'];
+    protected $fillable = ['notes', 'status', 'magasin', 'user', 'reference', 'code', 'fournisseur', 'demande'];
     protected $table = 'commandes_simples';
 
     public function genererCode(): void
@@ -29,6 +30,11 @@ class CommandeSimple extends Model
     const RULES = [
         'magasin' => 'required',
         'reference' => 'required',
+        'fournisseur' => 'required',
+    ];
+
+    const EDIT_RULES = [
+        'magasin' => 'required',
         'fournisseur' => 'required',
     ];
 
@@ -50,6 +56,11 @@ class CommandeSimple extends Model
     public function medias()
     {
         return $this->hasMany(MediaCommande::class, 'commande');
+    }
+
+    public function demandeLinked()
+    {
+        return $this->belongsTo(DemandeStock::class, 'demande');
     }
 
     public function utilisateur()

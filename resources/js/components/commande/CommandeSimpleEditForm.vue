@@ -22,9 +22,30 @@
 			<div class="form-group">
 				<products-edit-form :key="cle" :piecesSelected="selectedPieces" :pieces="pieces" />
 			</div>
+			<div>
+				<ul>
+					<li v-for="media in commande.medias" :key="media.id">
+						<a :href="`/storage/${media.media}`">{{ media.media.split("/")[1] }}</a>
+						<span class="text-danger overable">
+							<i class="fas fa-trash-alt fa-sm"></i>
+						</span>
+					</li>
+				</ul>
+			</div>
 			<div class="form-group">
 				<label for="doc">Documents joints</label>
-				<b-form-file v-model="documents" placeholder="aucun fichier selectioné" id="doc" multiple size="sm">
+				<b-form-file
+					accept="application/vnd.oasis.opendocument.text,
+					        application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+					        application/msword,
+					        application/pdf,
+					        text/plain"
+					v-model="documents"
+					placeholder="aucun fichier selectioné"
+					id="doc"
+					multiple
+					size="sm"
+				>
 					<template slot="file-name" slot-scope="{ names }">
 						<b-badge variant="primary">{{ names[0] }}</b-badge>
 						<b-badge v-if="names.length > 1" variant="primary" class="ml-1">
@@ -138,8 +159,9 @@ export default {
 			this.clearMessages()
 			let formdata = new FormData()
 			formdata.append("magasin", this.magasin ? this.magasin.code : "")
+			formdata.append("fournisseur", this.fournisseur ? this.fournisseur.code : "")
 			formdata.append("notes", this.notes)
-			formdata.append("fournisseur", store.state.fournisseur ? store.state.fournisseur.code : "")
+			formdata.append("commande", this.commande.id)
 			this.documents.forEach(file => {
 				formdata.append("medias[]", file)
 			})
@@ -147,7 +169,7 @@ export default {
 				formdata.append("pieces[]", JSON.stringify(piece))
 			})
 			this.axios
-				.post(`/${this.from}/commande/simple/store`, formdata, {
+				.post(`/${this.from}/commande/simple/update`, formdata, {
 					headers: {
 						"content-type": "multipart/form-data",
 					},
@@ -217,4 +239,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.overable::hover {
+	background-color: brown;
+}
+</style>

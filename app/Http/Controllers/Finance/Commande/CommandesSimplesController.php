@@ -26,10 +26,8 @@ class CommandesSimplesController extends Controller
         return view('finance.commande.simple.liste', compact('titre', 'commandes'));
     }
 
-    public function add()
+    private static function prepareForm()
     {
-        $titre = 'Créer une commande simple';
-        $titre = 'Créer une commande simple';
         $pieces = array_map(function ($piece) {
             return [
                 'code' => $piece->id,
@@ -48,6 +46,13 @@ class CommandesSimplesController extends Controller
                 'label' => $magasin->nom,
             ];
         }, Magasin::get()->all());
+        return ['pieces' => $pieces, 'magasins' => $magasins, 'fournisseurs' => $fournisseurs];
+    }
+
+    public function add()
+    {
+        $titre = 'Créer une commande simple';
+        ['fournisseurs' => $fournisseurs, 'magasins' => $magasins, 'pieces' => $pieces] = self::prepareForm();
         return view('finance.commande.simple.add', compact('titre', 'fournisseurs', 'pieces', 'magasins'));
     }
 
@@ -90,26 +95,9 @@ class CommandesSimplesController extends Controller
 
     public function edit(int $id)
     {
-        $commande = CommandeSimple::with('pieces')->find($id);
+        $commande = CommandeSimple::with('pieces', 'medias')->find($id);
         $titre = 'Modifier commande ' . $commande->code;
-        $pieces = array_map(function ($piece) {
-            return [
-                'code' => $piece->id,
-                'name' => $piece->reference . '.' . $piece->nom,
-            ];
-        }, Piece::get()->all());
-        $fournisseurs = array_map(function ($fournisseur) {
-            return [
-                'code' => $fournisseur->id,
-                'label' => $fournisseur->nom,
-            ];
-        }, Fournisseur::get()->all());
-        $magasins = array_map(function ($magasin) {
-            return [
-                'code' => $magasin->id,
-                'label' => $magasin->nom,
-            ];
-        }, Magasin::get()->all());
+        ['fournisseurs' => $fournisseurs, 'magasins' => $magasins, 'pieces' => $pieces] = self::prepareForm();
         return view('finance.commande.simple.edit', compact('titre', 'pieces', 'magasins', 'fournisseurs', 'commande'));
     }
 

@@ -3,20 +3,24 @@
 		<div class="row">
 			<div v-if="!nouveau_client" class="col-md-5">
 				<div class="row">
-					<div class="col-md-8">
-						<div class="form-group input-group">
-							<cool-select v-model="critere" :items="suggestions" placeholder="Select name" />
-							<span class="input-group-append">
-								<button @click="rechercher" type="button" class="btn btn-primary btn-flat">
-									rechercher
-								</button>
-							</span>
-						</div>
-					</div>
 					<div v-if="!nouveau_client" class="col-md-4">
 						<button type="button" @click="nouveau_client = true" class="btn btn-primary btn-flat">
 							Nouveau client
 						</button>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group input-group">
+							<cool-select
+								v-model="critere"
+								:items="suggestions"
+								placeholder="rechercher ancien client"
+							/>
+							<span class="input-group-append">
+								<button @click="rechercher" type="button" class="btn btn-primary btn-flat">
+									<i class="fas fa-search"></i>
+								</button>
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -197,7 +201,7 @@ export default {
 		axios
 			.get("/systeme/async/personne/suggestions")
 			.then(result => {
-				this.suggestions = result.data.suggestions
+				this.suggestions = result.data.suggestions ? result.data.suggestions : []
 			})
 			.catch(err => {})
 	},
@@ -252,22 +256,6 @@ export default {
 				this.vider_assurance()
 				this.vider_entreprise()
 			}
-		},
-		onSelected(option) {
-			console.log(option)
-			this.critere = option.item
-		},
-		onInputChange(text) {
-			if (text === "" || text === undefined) {
-				return
-			}
-			/* Full control over filtering. Maybe fetch from API?! Up to you!!! */
-			const filteredData = this.suggestions
-				.filter(item => {
-					return item.toLowerCase().indexOf(text.toLowerCase()) > -1
-				})
-				.slice(0, this.limit)
-			this.filteredOptions = [{ data: filteredData }]
 		},
 		rechercher() {
 			axios

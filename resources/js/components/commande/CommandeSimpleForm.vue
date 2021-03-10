@@ -27,7 +27,18 @@
 			</div>
 			<div class="form-group">
 				<label for="doc">Documents joints</label>
-				<b-form-file v-model="documents" placeholder="aucun fichier selectioné" id="doc" multiple size="sm">
+				<b-form-file
+					accept="application/vnd.oasis.opendocument.text,
+					        application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+					        application/msword,
+					        application/pdf,
+					        text/plain"
+					v-model="documents"
+					placeholder="aucun fichier selectioné"
+					id="doc"
+					multiple
+					size="sm"
+				>
 					<template slot="file-name" slot-scope="{ names }">
 						<b-badge variant="primary">{{ names[0] }}</b-badge>
 						<b-badge v-if="names.length > 1" variant="primary" class="ml-1">

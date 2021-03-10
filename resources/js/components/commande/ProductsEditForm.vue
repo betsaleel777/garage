@@ -45,14 +45,13 @@ export default {
 	mounted() {
 		this.options = this.pieces
 		this.value = this.piecesSelected.map(piece => {
-			return { code: piece.id, name: `${piece.reference}.${piece.name}` }
+			return { code: piece.code, name: `${piece.reference}.${piece.name}` }
 		})
-		// console.log(this.piecesSelected)
 		store.state.pieces = this.piecesSelected.map(piece => {
 			return {
-				code: piece.id,
+				code: piece.code,
 				reference: piece.reference,
-				name: piece.nom,
+				name: piece.name,
 				achat: piece.achat,
 				vente: piece.vente,
 				quantite: piece.quantite,

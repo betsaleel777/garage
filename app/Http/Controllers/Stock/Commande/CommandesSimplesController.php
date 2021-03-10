@@ -26,9 +26,8 @@ class CommandesSimplesController extends Controller
         return view('stock.commande.simple.liste', compact('titre', 'commandes'));
     }
 
-    public function add()
+    private static function prepareForm()
     {
-        $titre = 'Créer une commande simple';
         $pieces = array_map(function ($piece) {
             return [
                 'code' => $piece->id,
@@ -47,6 +46,27 @@ class CommandesSimplesController extends Controller
                 'label' => $magasin->nom,
             ];
         }, Magasin::get()->all());
+        return ['pieces' => $pieces, 'magasins' => $magasins, 'fournisseurs' => $fournisseurs];
+    }
+
+    private static function mediaStorage($medias, $commande)
+    {
+        if (!empty($medias)) {
+            foreach ($medias as $file) {
+                $media = new MediaCommande();
+                $media->user = session('user_id');
+                $media->commande = $commande;
+                $path = Storage::putFile('public/commandes_simples', $file);
+                $media->media = Str::substr($path, 7);
+                $media->save();
+            }
+        }
+    }
+
+    public function add()
+    {
+        $titre = 'Créer une commande simple';
+        ['fournisseurs' => $fournisseurs, 'magasins' => $magasins, 'pieces' => $pieces] = self::prepareForm();
         return view('stock.commande.simple.add', compact('titre', 'fournisseurs', 'pieces', 'magasins'));
     }
 
@@ -71,17 +91,7 @@ class CommandesSimplesController extends Controller
                 ]);
         }
         //créer les pieces jointes (document) si elles existent
-        $medias = $request->medias;
-        if (!empty($medias)) {
-            foreach ($medias as $file) {
-                $media = new MediaCommande();
-                $media->user = session('user_id');
-                $media->commande = $commande->id;
-                $path = Storage::putFile('public/commandes_simples', $file);
-                $media->media = Str::substr($path, 7);
-                $media->save();
-            }
-        }
+        self::mediaStorage($request->medias, $commande->id);
         $message = "la commande $commande->code a été enregistrée avec succès.";
         session()->flash('success', $message);
         return;
@@ -89,26 +99,9 @@ class CommandesSimplesController extends Controller
 
     public function edit(int $id)
     {
-        $commande = CommandeSimple::with('pieces')->find($id);
+        $commande = CommandeSimple::with('pieces', 'medias')->find($id);
         $titre = 'Modifier commande ' . $commande->code;
-        $pieces = array_map(function ($piece) {
-            return [
-                'code' => $piece->id,
-                'name' => $piece->reference . '.' . $piece->nom,
-            ];
-        }, Piece::get()->all());
-        $fournisseurs = array_map(function ($fournisseur) {
-            return [
-                'code' => $fournisseur->id,
-                'label' => $fournisseur->nom,
-            ];
-        }, Fournisseur::get()->all());
-        $magasins = array_map(function ($magasin) {
-            return [
-                'code' => $magasin->id,
-                'label' => $magasin->nom,
-            ];
-        }, Magasin::get()->all());
+        ['fournisseurs' => $fournisseurs, 'magasins' => $magasins, 'pieces' => $pieces] = self::prepareForm();
         return view('stock.commande.simple.edit', compact('titre', 'pieces', 'magasins', 'fournisseurs', 'commande'));
     }
 
@@ -119,5 +112,29 @@ class CommandesSimplesController extends Controller
         $message = "la commande $commande->code a été supprimé avec succes";
         session()->flash('success', $message);
         return response()->json(['message' => $message]);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate(CommandeSimple::EDIT_RULES);
+        $commande = CommandeSimple::find($request->commande);
+        $commande->fournisseur = $request->fournisseur;
+        $commande->magasin = $request->magasin;
+        $commande->save();
+        //associer les pieces à la commande qui vient d'être enregistrée
+        $arraySync = [];
+        foreach ($request->pieces as $pieceJson) {
+            $piece = json_decode($pieceJson);
+            $arraySync = array_merge($arraySync, [$piece->code,
+                [
+                    'quantite' => (int) $piece->quantite,
+                    'prix_achat' => (int) $piece->achat,
+                    'prix_vente' => (int) $piece->vente,
+                ]]);
+        }
+        //créer les pieces jointes (document) si elles existent
+        //self::mediaStorage();
+        $message = "la commande $commande->code a été modifiée avec succès";
+        session()->flash('success', $message);
     }
 }

@@ -18,6 +18,14 @@
       </a>
    </li>
    <li class="nav-item d-none d-sm-inline-block">
+      <a href="{{ route('demande_stock') }}" class="nav-link @php
+         if ($controller == 'DemandesStockController') {
+             echo 'text-pink';
+         }
+      @endphp">Demandes
+      </a>
+   </li>
+   <li class="nav-item d-none d-sm-inline-block">
       <a href="{{ route('commandes_bystock') }}" class="nav-link @php
          if ($controller == 'CommandesController' || $controller == 'CommandesSimplesController' || $controller == 'CommandesReparationsController') {
              echo 'text-pink';

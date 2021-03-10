@@ -15,6 +15,7 @@
 						{{ element.nom }}
 					</a>
 					<a
+						v-if="newVehicule"
 						@click="emitNewVehicule"
 						class="text-center text-primary list-group-item list-group-item-action list-group-item-light"
 					>
@@ -176,6 +177,7 @@ export default {
 					if (this.matricule === vehicule.immatriculation) {
 						selected = true
 						id = vehicule.id
+						this.newVehicule = false
 					}
 					return {
 						nom: `${vehicule.marque} ${vehicule.modele} ${vehicule.type_vehicule}
@@ -200,6 +202,7 @@ export default {
 		return {
 			ancien_gear: false,
 			ancien_form_show: false,
+			newVehicule: true,
 			vehicules: [],
 			ancien: {
 				vide: true,

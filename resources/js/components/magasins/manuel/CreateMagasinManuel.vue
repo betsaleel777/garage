@@ -60,7 +60,7 @@ export default {
 						})
 						.then(value => {
 							value
-								? (location.href = "/zone/magasin/" + result.data.id)
+								? (location.href = "/systeme/zone/magasin/" + result.data.id)
 								: (location.href = "/systeme/magasin/index")
 						})
 						.catch(err => {})

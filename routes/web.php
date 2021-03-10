@@ -95,7 +95,7 @@ Route::prefix('finance')->group(function () {
         Route::prefix('simple')->group(function () {
             Route::get('liste', 'Finance\Commande\CommandesSimplesController@liste')->name('commande_simple_liste');
             Route::get('add', 'Finance\Commande\CommandesSimplesController@add')->name('commande_simple_add');
-            Route::get('edit', 'Finance\Commande\CommandesSimplesController@edit')->name('commande_simple_edit');
+            Route::get('edit/{id}', 'Finance\Commande\CommandesSimplesController@edit')->name('commande_simple_edit');
             Route::post('store', 'Finance\Commande\CommandesSimplesController@store');
             Route::get('delete/{id}', 'Finance\Commande\CommandesSimplesController@delete');
         });
@@ -129,6 +129,13 @@ Route::prefix('stock')->group(function () {
         Route::prefix('reparation')->group(function () {
             Route::get('liste', 'Stock\Commande\CommandesReparationsController@liste')->name('commande_reparation_liste_bystock');
         });
+    });
+    Route::prefix('demande')->group(function () {
+        Route::get('/', 'Stock\DemandesStockController@index')->name('demande_stock');
+        Route::get('/add', 'Stock\DemandesStockController@add')->name('demande_add');
+        Route::post('/store', 'Stock\DemandesStockController@store')->name('demande_store');
+        Route::get('/show/{id}', 'Stock\DemandesStockController@show')->name('demande_show');
+        Route::get('/delete/{id}', 'Stock\DemandesStockController@delete')->name('demande_delete');
     });
 
 });

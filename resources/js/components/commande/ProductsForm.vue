@@ -17,11 +17,6 @@
 				@tag="addTag"
 			></multiselect>
 		</div>
-		<!-- <div class="col-1">
-			<button @click="sendToTable" type="button" class="btn btn-primary btn-flat btn-sm ui-button">
-				<i class="fas fa-plus-circle fa-lg"></i>
-			</button>
-		</div> -->
 		<div class="col-12">
 			<piece-table :key="cle" />
 		</div>
@@ -84,4 +79,3 @@ export default {
 }
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<style></style>
