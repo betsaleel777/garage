@@ -40,15 +40,6 @@ export default {
 		TiroirForm,
 	},
 	mounted() {
-		this.$root.$on("first-to-second", () => {
-			this.active.zone = true
-		})
-		this.$root.$on("second-to-third", () => {
-			this.active.etagere = true
-		})
-		this.$root.$on("third-to-last", () => {
-			this.active.tiroir = true
-		})
 		this.$root.$on("finish", () => {
 			this.envoyer()
 		})

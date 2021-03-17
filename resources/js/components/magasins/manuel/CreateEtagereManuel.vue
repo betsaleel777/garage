@@ -71,8 +71,8 @@ export default {
 						})
 						.then(value => {
 							value
-								? (location.href = "/systeme/tiroir/etagere/" + result.data.id)
-								: (location.href = "/systeme/etagere/zone/" + this.zone)
+								? (location.href = "/projects/garage/systeme/tiroir/etagere/" + result.data.id)
+								: (location.href = "/projects/garage/systeme/etagere/zone/" + this.zone)
 						})
 						.catch(err => {})
 				})

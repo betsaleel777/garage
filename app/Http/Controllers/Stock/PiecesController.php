@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Stock\Fabricant;
 use App\Models\Stock\Piece;
 use App\Models\Stock\SousCategorie;
+use App\Models\Stock\Tiroir;
 use App\Models\Systeme\Vehicule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -16,6 +17,20 @@ class PiecesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    private static function getEmplacements(): array
+    {
+        $tiroirs = Tiroir::with('etagereLinked.zoneLinked.magasinLinked')->get();
+        $emplacements = array_map(function ($tiroir) {
+            $labelMagasin = empty($tiroir->etagereLinked->zoneLinked?->magasinLinked->nom) ? $labelMagasin = $tiroir->etagereLinked->magasinLinked->nom : $labelMagasin = $tiroir->etagereLinked->zoneLinked?->magasinLinked->nom;
+            $label = $tiroir->nom
+            . '-' . $tiroir->etagereLinked->identifiant
+            . '-' . $tiroir->etagereLinked->zoneLinked?->identifiant
+                . '-' . $labelMagasin;
+            return ['label' => $label, 'code' => $tiroir->id];
+        }, $tiroirs->all());
+        return $emplacements;
     }
 
     public function liste()
@@ -36,7 +51,8 @@ class PiecesController extends Controller
         $vehicules = array_map(function ($vehicule) {
             return ['label' => $vehicule->designation, 'code' => $vehicule->id];
         }, $data);
-        return view('stock.piece.add', compact('titre', 'fabricants', 'vehicules'));
+        $emplacements = self::getEmplacements();
+        return view('stock.piece.add', compact('titre', 'fabricants', 'vehicules', 'emplacements'));
     }
 
     public function store(Request $request)
@@ -44,17 +60,9 @@ class PiecesController extends Controller
         $request->validate(Piece::RULES);
         $piece = new Piece($request->all());
         $piece->makeCode();
-        if (!empty($request->vehicule)) {
-            $piece->vehicule = $request->vehicule;
-            $vehicule = Vehicule::findOrFail($request->vehicule);
-        } else {
-            $request->validate(Vehicule::RULES);
-            $vehicule = new Vehicule($request->all());
-            $vehicule->user = session('user_id');
-            $vehicule->makeName();
-            $vehicule->save();
-            $piece->vehicule = $vehicule->id;
-        }
+        //choisir plusieurs vehicule après
+        $piece->vehicule = $request->vehicule;
+        $vehicule = Vehicule::find($request->vehicule);
         $scategorie = SousCategorie::find($request->sous_categorie);
         $piece->makeName($scategorie->slug, $piece->etat_piece, $piece->type_piece, $vehicule->designation);
         $piece->user = session('user_id');
@@ -76,14 +84,16 @@ class PiecesController extends Controller
         }, 'categorieEnfant' => function ($query) {
             $query->select('id', 'nom');
         }])->find($id);
+        $emplacements = self::getEmplacements();
         $titre = 'Modifier ' . $piece->code;
-        return view('stock.piece.edit', compact('piece', 'titre'));
+        return view('stock.piece.edit', compact('piece', 'titre', 'emplacements'));
     }
 
     public function update(Request $request)
     {
         $piece = Piece::find($request->piece);
         $piece->description = $request->description;
+        $piece->emplacement = $request->emplacement;
         if ($request->hasFile('image')) {
             Storage::delete('public/' . $piece->image);
             $path = Storage::putFile('public/pieces', $request->file('image'));

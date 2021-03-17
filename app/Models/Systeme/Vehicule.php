@@ -9,18 +9,21 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicule extends Model
 {
     use HasFactory;
-    protected $fillable = ['marque', 'type_vehicule', 'annee', 'modele'];
+    protected $fillable = ['marque', 'annee', 'modele', 'carburant', 'boite'];
     const RULES = [
         'designation' => 'nullable|unique:vehicules,designation',
         'marque' => 'required',
-        'type_vehicule' => 'required',
         'annee' => 'required',
         'modele' => 'required',
+        'carburant' => 'required',
+        'boite' => 'required',
     ];
 
     public function makeName()
     {
-        $this->attributes['designation'] = $this->attributes['modele'] . '_' . str_replace(' ', '-', $this->attributes['type_vehicule']) . '_' . $this->attributes['annee'];
+        $vitesse = $this->attributes['boite'];
+        $carburant = $this->attributes['carburant'];
+        $this->attributes['designation'] = $this->attributes['marque'] . '_' . $this->attributes['modele'] . '_' . substr($carburant, 0, 4) . '_' . substr($vitesse, 0, 4) . '_' . $this->attributes['annee'];
     }
 
     public function pieces()

@@ -102,50 +102,12 @@ export default {
 		onDel(node) {
 			//console.log(node)
 			node.remove()
-			// delete store.state.tiroirs[node.pid]
 		},
 		onChangeName(params) {
-			// let calebasse = {}
-			// if (Object.keys(store.state.tiroirs).length > 0) {
-			// 	calebasse = store.state.tiroirs
-			// 	for (const key in calebasse) {
-			// 		if (Object.hasOwnProperty.call(calebasse, key)) {
-			// 			let found = calebasse[key].find(element => element.id == params.id)
-			// 			console.log(found)
-			// 		}
-			// 	}
-			// }
-			// console.log(store.state.tiroirs)
+			console.log(store.state.tiroirs)
 		},
 		onAddNode(params) {
-			//console.log(params)
-			// let tiroirData = {
-			// 	name: "Tiroir " + this.compteur,
-			// 	isLeaf: true,
-			// 	dragDisabled: true,
-			// 	addTreeNodeDisabled: true,
-			// 	addLeafNodeDisabled: true,
-			// 	editNodeDisabled: true,
-			// 	delNodeDisabled: true,
-			// }
-			// let calebasse = {}
-			// if (Object.keys(store.state.tiroirs).length > 0) {
-			// 	calebasse = store.state.tiroirs
-			// 	for (const key in calebasse) {
-			// 		if (Object.hasOwnProperty.call(calebasse, key)) {
-			// 			if (params.pid == key) {
-			// 				calebasse[key] = tiroirData
-			// 			} else {
-			// 				this.compteur++
-			// 				const marmite = calebasse
-			// 				store.state.tiroirs = { ...marmite, [params.pid]: tiroirData }
-			// 			}
-			// 		}
-			// 	}
-			// } else {
-			// 	store.state.tiroirs = { [params.pid]: tiroirData }
-			// }
-			// console.log(store.state.tiroirs)
+			console.log(params)
 		},
 		onClick(params) {
 			// console.log(params)

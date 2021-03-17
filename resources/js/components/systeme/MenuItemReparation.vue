@@ -1,8 +1,8 @@
 <template>
 	<b-link>
 		<b-dropdown variant="link" toggle-class="text-decoration-none" no-caret text="Réparations">
-			<b-dropdown-item @click="rediriger('/systeme/types_reparation/index')">Type de réparations</b-dropdown-item>
-			<b-dropdown-item @click="rediriger('/systeme/atelier/index')">Ateliers</b-dropdown-item>
+			<b-dropdown-item @click="rediriger('types_reparation/index')">Type de réparations</b-dropdown-item>
+			<b-dropdown-item @click="rediriger('atelier/index')">Ateliers</b-dropdown-item>
 		</b-dropdown>
 	</b-link>
 </template>

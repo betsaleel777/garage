@@ -9,10 +9,10 @@
 				<div class="form-group">
 					<label for="urgence">Urgence de la demande</label>
 					<vue-slider
+						v-model="urgence"
 						@change="changeRange"
 						:processStyle="processStyle"
 						:tooltipStyle="tooltipStyle"
-						v-model="urgence"
 						:data="sliderValues"
 						:marks="true"
 						:hide-label="true"
@@ -172,7 +172,7 @@ export default {
 			reparation: null,
 			magasin: null,
 			urgence: "normale",
-			sliderValues: ["faible", "normale", "elévée", "maxiamle"],
+			sliderValues: ["faible", "normale", "élévée", "maximale"],
 			processStyle: { "background-color": "blue" },
 			tooltipStyle: { "background-color": "blue" },
 			messages: {
@@ -207,7 +207,7 @@ export default {
 			} else if (this.urgence === "normale") {
 				this.processStyle = { "background-color": "blue" }
 				this.tooltipStyle = { "background-color": "blue" }
-			} else if (this.urgence === "elévée") {
+			} else if (this.urgence === "élévée") {
 				this.processStyle = { "background-color": "orange" }
 				this.tooltipStyle = { "background-color": "orange" }
 			} else {

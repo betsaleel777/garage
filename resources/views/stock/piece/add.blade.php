@@ -30,8 +30,8 @@
             <div class="row">
                <!-- /.col-md-6 -->
                <div class="col-md-12">
-                  <stepper-piece :fabricants="{{ json_encode($fabricants) }}"
-                     :vehicules="{{ json_encode($vehicules) }}">
+                  <stepper-piece :emplacements="{{ json_encode($emplacements) }}"
+                     :fabricants="{{ json_encode($fabricants) }}" :vehicules="{{ json_encode($vehicules) }}">
                   </stepper-piece>
                </div>
                <!-- /.col-md-6 -->

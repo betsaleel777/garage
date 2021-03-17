@@ -67,7 +67,20 @@
                                     <td>{{ $demande->code }}</td>
                                     <td>{{ $demande->nom }}</td>
                                     <td>{{ $demande->motif }}</td>
-                                    <td>{{ $demande->urgence }}</td>
+                                    <td>
+                                       @if ($demande->urgence === 'normale')
+                                          <span class="badge badge-primary">{{ $demande->urgence }}</span>
+                                       @endif
+                                       @if ($demande->urgence === 'faible')
+                                          <span class="badge badge-success">{{ $demande->urgence }}</span>
+                                       @endif
+                                       @if ($demande->urgence === 'maximale')
+                                          <span class="badge badge-danger">{{ $demande->urgence }}</span>
+                                       @endif
+                                       @if ($demande->urgence === 'élévée')
+                                          <span class="badge badge-warning">{{ $demande->urgence }}</span>
+                                       @endif
+                                    </td>
                                     <td>{{ $demande->destinataire }}</td>
                                     <td>{{ $demande->utilisateur->name }}</td>
                                     <td>
@@ -101,7 +114,7 @@
    <script src=" {{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }} "></script>
    <script>
       $(function() {
-         $('#demandes').DataTable({
+         $('#demande').DataTable({
             "paging": true,
             "lengthChange": true,
             "searching": true,

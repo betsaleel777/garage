@@ -28,6 +28,11 @@ class Magasin extends Model
         return $this->hasMany(Zone::class, 'magasin');
     }
 
+    public function etageres()
+    {
+        return $this->hasMany(Etagere::class, 'magasin');
+    }
+
     public function demandes()
     {
         return $this->hasMany(DemandeStock::class, 'magasin');

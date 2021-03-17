@@ -47,10 +47,13 @@ import "bootstrap-vue/dist/bootstrap-vue.min.css";
 import 'vue-select/dist/vue-select.css';
 
 //initialisation des plugins
+const localBaseUrl = 'localhost:8000'
+const deployBaseUrl = 'ahoussou.segoor.net/projects/garage'
 Vue.use(ModalPlugin);
 Vue.use(ToastPlugin);
 Vue.use(CoolSelectPlugin);
 Vue.use(VueAxios, axios);
+Vue.axios.defaults.baseURL = 'http://' + localBaseUrl
 Vue.config.performance = true;
 
 new Vue({

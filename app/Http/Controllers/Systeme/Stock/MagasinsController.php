@@ -82,6 +82,7 @@ class MagasinsController extends Controller
             $etageres = $request->etageres;
             foreach ($etageres as $etagereData) {
                 $etagere = new Etagere($etagereData);
+                $etagere->magasin = $magasin->id;
                 $etagere->save();
             }
         }
@@ -117,7 +118,7 @@ class MagasinsController extends Controller
 
     public function show(int $id)
     {
-        $magasin = Magasin::with('zones.etageres.tiroirs')->find($id);
+        $magasin = Magasin::with('zones.etageres.tiroirs', 'etageres.tiroirs')->find($id);
         $titre = 'Magasin ' . $magasin->nom;
         return view('systeme.stock.magasin.show', compact('titre', 'magasin'));
     }

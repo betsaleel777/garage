@@ -23,6 +23,11 @@ class Etagere extends Model
         ];
     }
 
+    public function magasinLinked()
+    {
+        return $this->belongsTo(Magasin::class, 'magasin');
+    }
+
     public function zoneLinked()
     {
         return $this->belongsTo(Zone::class, 'zone');

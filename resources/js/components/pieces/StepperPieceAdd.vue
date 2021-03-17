@@ -168,6 +168,21 @@
 							</small>
 						</div>
 						<div class="form-group">
+							<label for="emplacement"
+								>Emplacement dans le magasin<span class="requiredStar">*</span></label
+							>
+							<vue-select
+								id="emplacement"
+								v-model="piece.emplacement"
+								:options="emplacements"
+							></vue-select>
+							<small>
+								<span v-if="messages.emplacement.exist" class="text-danger">
+									{{ messages.emplacement.value }}
+								</span>
+							</small>
+						</div>
+						<div class="form-group">
 							<label for="description">Description</label>
 							<textarea
 								v-model="piece.description"
@@ -181,6 +196,7 @@
 							<label for="fabricant">Image</label>
 							<picture-input
 								ref="pictureInput"
+								:zIndex="0"
 								@change="onChanged"
 								@remove="onRemoved"
 								:width="200"
@@ -203,7 +219,7 @@
 						<div v-if="!nouveau" class="row">
 							<div class="col-md-9">
 								<div class="form-group">
-									<vue-select v-model="piece.oldcar" :options="vehicules"></vue-select>
+									<vue-select v-model="piece.oldcar" :options="vehiculesOptions"></vue-select>
 								</div>
 								<small>
 									<span v-if="messages.vehicule.exist" class="text-danger">
@@ -217,12 +233,19 @@
 								</button>
 							</div>
 						</div>
-						<div v-if="nouveau" class="row form-group">
-							<div class="col-3">
+						<b-modal
+							@cancel="clearVehicule"
+							@hide="clearVehicule"
+							@ok.prevent="saveVehicule"
+							v-model="nouveau"
+							title="Création d'un nouveau véhicule"
+							id="vehicule-modal"
+						>
+							<div class="form-group">
 								<label for="marque">Marque<span class="requiredStar">*</span></label>
 								<input
 									class="form-control form-control-sm"
-									v-model="piece.marque"
+									v-model="vehicule.marque"
 									type="text"
 									id="marque"
 								/>
@@ -232,11 +255,11 @@
 									</span>
 								</small>
 							</div>
-							<div class="col-3">
+							<div class="form-group">
 								<label for="modele">Modèle<span class="requiredStar">*</span></label>
 								<input
 									class="form-control form-control-sm"
-									v-model="piece.modele"
+									v-model="vehicule.modele"
 									type="text"
 									id="modele"
 								/>
@@ -246,11 +269,11 @@
 									</span>
 								</small>
 							</div>
-							<div class="col-2">
+							<div class="form-group">
 								<label for="annee">Année<span class="requiredStar">*</span></label>
 								<input
 									class="form-control form-control-sm"
-									v-model="piece.annee"
+									v-model="vehicule.annee"
 									type="text"
 									id="annee"
 								/>
@@ -260,20 +283,80 @@
 									</span>
 								</small>
 							</div>
-							<div class="col-4">
-								<label for="type_vehicule">Type<span class="requiredStar">*</span></label>
-								<vue-select
-									id="type_vehicule"
-									:options="types_vehicule"
-									v-model="piece.type_vehicule"
-								></vue-select>
+							<div class="form-group">
+								<label for="carburant">Energie<span class="requiredStar">*</span></label
+								><br />
+								<div class="form-check form-check-inline">
+									<input
+										v-model="vehicule.carburant"
+										class="form-check-input"
+										name="carburant"
+										type="radio"
+										id="C1"
+										value="diesel"
+									/>
+									<label class="form-check-label" for="C1">Diesiel</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input
+										v-model="vehicule.carburant"
+										class="form-check-input"
+										name="carburant"
+										type="radio"
+										id="C2"
+										value="gasoil"
+									/>
+									<label class="form-check-label" for="C2">Gasoil</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input
+										v-model="piece.carburant"
+										class="form-check-input"
+										name="carburant"
+										type="radio"
+										id="C3"
+										value="electrique"
+									/>
+									<label class="form-check-label" for="C3">Electrique</label>
+								</div>
 								<small>
-									<span v-if="messages.type_vehicule.exist" class="text-danger">
-										{{ messages.type_vehicule.value }}
+									<span v-if="messages.carburant.exist" class="text-danger">
+										{{ messages.carburant.value }}
 									</span>
 								</small>
 							</div>
-						</div>
+							<div class="form-group">
+								<label for="vitesse">Boîte des vitesse<span class="requiredStar">*</span></label
+								><br />
+								<div class="form-check form-check-inline">
+									<input
+										v-model="vehicule.vitesse"
+										class="form-check-input"
+										name="vitesse"
+										type="radio"
+										id="B1"
+										value="automatique"
+									/>
+									<label class="form-check-label" for="B1">Boîte automatique</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input
+										v-model="vehicule.vitesse"
+										class="form-check-input"
+										name="vitesse"
+										type="radio"
+										id="B2"
+										value="manuel"
+									/>
+									<label class="form-check-label" for="B2">Boîte manuelle</label>
+								</div>
+								<small>
+									<span v-if="messages.vitesse.exist" class="text-danger">
+										{{ messages.vitesse.value }}
+									</span>
+								</small>
+							</div>
+						</b-modal>
 					</form>
 					<div class="col-md-1"></div>
 				</div>
@@ -287,6 +370,7 @@
 import vueCustomScrollbar from "vue-custom-scrollbar"
 import "vue-custom-scrollbar/dist/vueScrollbar.css"
 import VueSelect from "vue-select"
+import { BModal } from "bootstrap-vue"
 import { FormWizard, TabContent, ValidationHelper } from "vue-step-wizard"
 import { required } from "vuelidate/lib/validators"
 import PictureInput from "vue-picture-input"
@@ -298,6 +382,7 @@ export default {
 	props: {
 		fabricants: Array,
 		vehicules: Array,
+		emplacements: Array,
 	},
 	mixins: [ValidationHelper],
 	components: {
@@ -306,48 +391,37 @@ export default {
 		VueSelect,
 		vueCustomScrollbar,
 		PictureInput,
+		BModal,
 	},
 	data() {
 		return {
 			search: "",
 			selected: false,
 			nouveau: false,
+			vehiculesOptions: [],
 			categories: [],
 			formData: {
 				categorie: null,
 				scategorie: null,
 			},
 			scategories: [],
+			vehicule: {
+				marque: "",
+				modele: "",
+				annee: "",
+				vitesse: "",
+				carburant: "",
+			},
 			piece: {
 				reference: "",
 				image: "",
 				description: "",
 				type_piece: "",
 				etat_piece: "",
+				emplacement: "",
 				fabricant: "",
 				oldcar: "",
-				marque: "",
-				modele: "",
-				annee: "",
-				type_vehicule: "",
 			},
-			types_vehicule: [
-				"citadine",
-				"berline break",
-				"berline familliale",
-				"berline grande routière",
-				"berline limousine",
-				"SUV urbains",
-				"SUV familiaux",
-				"SUV 4x4",
-				"monospace",
-				"ludospace",
-				"coupé",
-				"cabriolet",
-				"utilitaire",
-				"utilitaire léger",
-				"camion",
-			],
 			image: {
 				scategorie: null,
 				nom: "",
@@ -385,7 +459,15 @@ export default {
 					exist: false,
 					value: null,
 				},
-				type_vehicule: {
+				vitesse: {
+					exist: false,
+					value: null,
+				},
+				carburant: {
+					exist: false,
+					value: null,
+				},
+				emplacement: {
 					exist: false,
 					value: null,
 				},
@@ -410,6 +492,7 @@ export default {
 	mounted() {
 		this.getCategories()
 		this.getScategories()
+		this.vehiculesOptions = this.vehicules
 	},
 	methods: {
 		getCategories() {
@@ -462,6 +545,62 @@ export default {
 				})
 				.catch(err => {})
 		},
+		clearVehicule() {
+			this.messages.marque = {
+				exist: false,
+				value: null,
+			}
+			this.messages.modele = {
+				exist: false,
+				value: null,
+			}
+			this.messages.annee = {
+				exist: false,
+				value: null,
+			}
+			this.messages.vitesse = {
+				exist: false,
+				value: null,
+			}
+			this.messages.carburant = {
+				exist: false,
+				value: null,
+			}
+		},
+		refreshVehicules() {
+			axios
+				.get("/systeme/async/vehicules")
+				.then(result => {
+					this.vehiculesOptions = result.data.vehicules
+				})
+				.catch(err => {})
+		},
+		saveVehicule() {
+			this.clearVehicule()
+			const postObject = {
+				marque: this.vehicule.marque,
+				annee: this.vehicule.annee,
+				modele: this.vehicule.modele,
+				carburant: this.vehicule.carburant,
+				boite: this.vehicule.vitesse,
+			}
+			this.axios
+				.post("/stock/vehicule/store", { ...postObject })
+				.then(result => {
+					this.notifier(result.data.message, "OPERATION REUSSIE", "success")
+					this.refreshVehicules()
+					//fermer le modal
+					this.$nextTick(() => {
+						this.$bvModal.hide("vehicule-modal")
+					})
+				})
+				.catch(err => {
+					const { errors } = err.response.data
+					if (errors) {
+						this.errorVehiculeWriting(errors)
+					}
+				})
+		},
 		nextStep() {
 			console.log(this.$v.$invalid)
 		},
@@ -470,6 +609,7 @@ export default {
 			formData.append("image", this.piece.image)
 			formData.append("categorie", this.formData.categorie)
 			formData.append("reference", this.piece.reference)
+			formData.append("emplacement", this.piece.emplacement ? this.piece.emplacement.code : "")
 			formData.append("description", this.piece.description)
 			formData.append("sous_categorie", this.formData.scategorie)
 			formData.append("description", this.piece.description)
@@ -477,10 +617,6 @@ export default {
 			formData.append("type_piece", this.piece.type_piece)
 			formData.append("fabricant", this.piece.fabricant ? this.piece.fabricant.code : "")
 			formData.append("vehicule", this.piece.oldcar ? this.piece.oldcar.code : "")
-			formData.append("marque", this.piece.marque)
-			formData.append("modele", this.piece.modele)
-			formData.append("annee", this.piece.annee)
-			formData.append("type_vehicule", this.piece.type_vehicule)
 			axios
 				.post("/stock/piece/store", formData, {
 					headers: {
@@ -507,49 +643,62 @@ export default {
 				})
 				.catch(err => {
 					const { errors } = err.response.data
-					if (errors.reference) {
-						this.messages.reference.exist = true
-						this.messages.reference.value = errors.reference[0]
-					}
-					if (errors.etat_piece) {
-						this.messages.etat_piece.exist = true
-						this.messages.etat_piece.value = errors.etat_piece[0]
-					}
-					if (errors.type_piece) {
-						this.messages.type_piece.exist = true
-						this.messages.type_piece.value = errors.type_piece[0]
-					}
-					if (errors.image) {
-						this.messages.image.exist = true
-						this.messages.image.value = errors.image[0]
-					}
-					if (errors.vehicule) {
-						this.messages.vehicule.exist = true
-						this.messages.vehicule.value = errors.vehicule[0]
-					}
-					if (errors.marque) {
-						this.messages.marque.exist = true
-						this.messages.marque.value = errors.marque[0]
-					}
-					if (errors.modele) {
-						this.messages.modele.exist = true
-						this.messages.modele.value = errors.modele[0]
-					}
-					if (errors.type_vehicule) {
-						this.messages.type_vehicule.exist = true
-						this.messages.type_vehicule.value = errors.type_vehicule[0]
-					}
-					if (errors.annee) {
-						this.messages.annee.exist = true
-						this.messages.annee.value = errors.annee[0]
-					}
-					if (errors.marque || errors.modele || errors.annee || errors.type_vehicule) {
-						if (!this.nouveau) {
-							this.messages.vehicule.exist = true
-							this.messages.vehicule.value = "le véhicule est requis."
-						}
+					if (errors) {
+						this.errorWriting(errors)
 					}
 				})
+		},
+		errorWriting(errors) {
+			if (errors.reference) {
+				this.messages.reference.exist = true
+				this.messages.reference.value = errors.reference[0]
+			}
+			if (errors.etat_piece) {
+				this.messages.etat_piece.exist = true
+				this.messages.etat_piece.value = errors.etat_piece[0]
+			}
+			if (errors.type_piece) {
+				this.messages.type_piece.exist = true
+				this.messages.type_piece.value = errors.type_piece[0]
+			}
+			if (errors.image) {
+				this.messages.image.exist = true
+				this.messages.image.value = errors.image[0]
+			}
+			if (errors.vehicule) {
+				this.messages.vehicule.exist = true
+				this.messages.vehicule.value = errors.vehicule[0]
+			}
+			if (errors.emplacement) {
+				this.messages.emplacement.exist = true
+				this.messages.emplacement.value = errors.emplacement[0]
+			}
+			if (errors.vehicule) {
+				this.messages.vehicule.exist = true
+				this.messages.vehicule.value = "le véhicule est requis."
+			}
+		},
+		errorVehiculeWriting(errors) {
+			if (errors.marque) {
+				this.messages.marque.exist = true
+				this.messages.marque.value = errors.marque[0]
+			}
+			if (errors.modele) {
+				this.messages.modele.exist = true
+				this.messages.modele.value = errors.modele[0]
+			}
+			if (errors.annee) {
+				this.messages.annee.exist = true
+				this.messages.annee.value = errors.annee[0]
+			}
+			if (errors.carburant) {
+				this.messages.carburant.exist = true
+				this.messages.carburant.value = errors.carburant[0]
+			}
+			if (errors.boite_vitesse) {
+				this.messages.vitesse.exist = true
+				this.messages.vitesse.value = errors.boite_vitesse[0]
+			}
 		},
 		previousStep() {
 			currentStep--

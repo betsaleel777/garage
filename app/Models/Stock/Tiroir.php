@@ -27,4 +27,9 @@ class Tiroir extends Model
     {
         return $this->belongsTo(Etagere::class, 'etagere');
     }
+
+    public function pieces()
+    {
+        return $this->hasMany(Piece::class, 'emplacement');
+    }
 }

@@ -49,7 +49,9 @@ class DemandeStock extends Model
 
     public function pieces()
     {
-        return $this->belongsToMany(Piece::class, 'pieces_demandes_stock', 'demande', 'piece')->withPivot('quantite')->withTimestamps();
+        return $this->belongsToMany(Piece::class, 'pieces_demandes_stock', 'demande', 'piece')
+            ->withPivot('quantite')
+            ->withTimestamps();
     }
 
 }

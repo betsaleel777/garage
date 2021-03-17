@@ -86,9 +86,9 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="col-md-10"></div>
-						<div class="col-md-2">
-							<button @click="nextEtagere" class="btn btn-primary btn-sm ui-button">ok</button>
+						<div class="col-md-9"></div>
+						<div class="col-md-3">
+							<button @click="nextEtagere" class="btn btn-primary btn-sm ui-button">zone suivante</button>
 						</div>
 					</div>
 				</div>

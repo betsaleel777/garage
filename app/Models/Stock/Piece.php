@@ -10,13 +10,15 @@ use Illuminate\Database\Eloquent\Model;
 class Piece extends Model
 {
     use HasFactory;
-    protected $fillable = ['code', 'nom', 'sous_categorie', 'categorie', 'type_piece', 'fiche', 'vehicule', 'etat_piece', 'reference', 'image'];
+    protected $fillable = ['code', 'nom', 'sous_categorie', 'categorie', 'type_piece', 'fiche', 'vehicule', 'etat_piece', 'reference', 'image', 'emplacement'];
     const RULES = [
         'categorie' => 'required',
+        'vehicule' => 'required',
         'sous_categorie' => 'required',
         'type_piece' => 'required',
         'reference' => 'required',
         'etat_piece' => 'required',
+        'emplacement' => 'required',
         'fiche' => 'nullable|file|mimes:pdf',
     ];
 
@@ -45,6 +47,11 @@ class Piece extends Model
     public function vehiculeLinked()
     {
         return $this->belongsTo(Vehicule::class, 'vehicule');
+    }
+
+    public function emplacementLinked()
+    {
+        return $this->belongsTo(Tiroir::class, 'emplacement');
     }
 
     public function commandeSimple()

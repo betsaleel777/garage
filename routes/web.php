@@ -108,7 +108,7 @@ Route::prefix('finance')->group(function () {
 Route::prefix('stock')->group(function () {
     Route::get('index', 'DashboardController@stock')->name('stock_index');
     Route::prefix('piece')->group(function () {
-        Route::get('liste', 'Stock\PiecesController@liste')->name('pieces');
+        Route::get('/liste', 'Stock\PiecesController@liste')->name('pieces');
         Route::get('/edit/{id}', 'Stock\PiecesController@edit')->name('piece_edit');
         Route::post('/update', 'Stock\PiecesController@update')->name('piece_update');
         Route::get('/show/{id}', 'Stock\PiecesController@show')->name('piece_show');
@@ -136,6 +136,10 @@ Route::prefix('stock')->group(function () {
         Route::post('/store', 'Stock\DemandesStockController@store')->name('demande_store');
         Route::get('/show/{id}', 'Stock\DemandesStockController@show')->name('demande_show');
         Route::get('/delete/{id}', 'Stock\DemandesStockController@delete')->name('demande_delete');
+    });
+
+    Route::prefix('vehicule')->group(function () {
+        Route::post('/store', 'Stock\VehiculesController@storejs');
     });
 
 });
@@ -254,6 +258,7 @@ Route::prefix('systeme')->group(function () {
 
     Route::prefix('async')->group(function () {
         Route::get('/categories', 'Systeme\Stock\CategoriesController@getAll');
+        Route::get('/vehicules', 'Stock\VehiculesController@getAll');
         Route::get('/scategories/from/{categorie}', 'Systeme\Stock\SousCategoriesController@getFrom');
         Route::get('/scategories', 'Systeme\Stock\SousCategoriesController@getAll');
         Route::get('/personne/find/{critere}', 'PersonnesController@findjs');
