@@ -53,7 +53,7 @@ Vue.use(ModalPlugin);
 Vue.use(ToastPlugin);
 Vue.use(CoolSelectPlugin);
 Vue.use(VueAxios, axios);
-Vue.axios.defaults.baseURL = 'http://' + localBaseUrl
+Vue.axios.defaults.baseURL = 'http://' + deployBaseUrl
 Vue.config.performance = true;
 
 new Vue({

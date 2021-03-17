@@ -34,7 +34,7 @@ export default {
 		rediriger(lien) {
 			let urlProd = "/projects/garage/systeme/"
 			let local = "/systeme/"
-			location.href = local + lien
+			location.href = urlProd + lien
 		},
 	},
 }

@@ -637,7 +637,7 @@ export default {
 							centered: true,
 						})
 						.then(value => {
-							value ? location.reload() : (location.href = "/stock/piece/liste")
+							value ? location.reload() : (location.href = "/projects/garage/stock/piece/liste")
 						})
 						.catch(err => {})
 				})

@@ -95,7 +95,7 @@ export default {
 			axios
 				.post("/maintenance/reception/store", postObject)
 				.then(result => {
-					location.href = "/maintenance/reception/liste"
+					location.href = "/projects/garage/maintenance/reception/liste"
 				})
 				.catch(err => {
 					this.$root.$emit("delete-errors")

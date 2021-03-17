@@ -201,7 +201,7 @@ export default {
 					if (value) {
 						location.reload()
 					} else {
-						location.href = `/${this.from}/commande/simple/liste`
+						location.href = `/projects/garage/${this.from}/commande/simple/liste`
 					}
 				})
 				.catch(err => {})

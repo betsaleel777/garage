@@ -300,7 +300,7 @@ export default {
 					if (value) {
 						location.reload()
 					} else {
-						location.href = "/stock/demande"
+						location.href = "/projects/garage/stock/demande"
 					}
 				})
 				.catch(err => {})
