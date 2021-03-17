@@ -66,8 +66,8 @@ export default {
 						})
 						.then(value => {
 							value
-								? (location.href = "/projects/garage/systeme/etagere/zone/" + result.data.id)
-								: (location.href = "/projetcs/garage/systeme/zone/magasin/" + this.magasin)
+								? (location.href = "/systeme/etagere/zone/" + result.data.id)
+								: (location.href = "/systeme/zone/magasin/" + this.magasin)
 						})
 						.catch(err => {})
 				})

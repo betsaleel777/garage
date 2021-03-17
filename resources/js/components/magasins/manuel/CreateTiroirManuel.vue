@@ -70,9 +70,7 @@ export default {
 							centered: true,
 						})
 						.then(value => {
-							value
-								? location.reload()
-								: (location.href = "/projetcs/garage/systeme/tiroir/etagere/" + this.etagere)
+							value ? location.reload() : (location.href = "/systeme/tiroir/etagere/" + this.etagere)
 						})
 						.catch(err => {})
 				})
