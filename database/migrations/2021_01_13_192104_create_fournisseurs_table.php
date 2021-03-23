@@ -16,7 +16,7 @@ class CreateFournisseursTable extends Migration
         Schema::create('fournisseurs', function (Blueprint $table) {
             $table->id();
             $table->string('nom')->unique();
-            $table->string('email')->unique();
+            $table->string('email')->nullable()->unique();
             $table->string('contact')->unique();
             $table->string('siege')->unique();
             $table->unsignedBigInteger('user');

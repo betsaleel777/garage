@@ -2,6 +2,7 @@
 
 namespace App\Models\Finance\Commande;
 
+use App\Models\Finance\PieceCommande;
 use App\Models\Stock\DemandeStock;
 use App\Models\Stock\Fournisseur;
 use App\Models\Stock\Magasin;
@@ -15,6 +16,7 @@ class CommandeSimple extends Model
     use HasFactory;
     protected $fillable = ['notes', 'status', 'magasin', 'user', 'reference', 'code', 'fournisseur', 'demande'];
     protected $table = 'commandes_simples';
+    protected $dates = ['created_at'];
 
     public function genererCode(): void
     {
@@ -43,14 +45,29 @@ class CommandeSimple extends Model
         $this->attributes['status'] = self::EN_COURS;
     }
 
+    public function estEnCours()
+    {
+        return $this->attributes['status'] === self::EN_COURS;
+    }
+
     public function annulee()
     {
         $this->attributes['status'] = self::ANNULEE;
     }
 
+    public function estAnnulee()
+    {
+        return $this->attributes['status'] === self::ANNULEE;
+    }
+
     public function livree()
     {
         $this->attributes['status'] = self::LIVREE;
+    }
+
+    public function estLivree()
+    {
+        return $this->attributes['status'] === self::LIVREE;
     }
 
     public function medias()
@@ -65,12 +82,12 @@ class CommandeSimple extends Model
 
     public function utilisateur()
     {
-        return $this->hasOne(User::class, 'user');
+        return $this->belongsTo(User::class, 'user');
     }
 
     public function magasinLinked()
     {
-        return $this->hasOne(Magasin::class, 'magasin');
+        return $this->belongsTo(Magasin::class, 'magasin');
     }
 
     public function fournisseurLinked()
@@ -80,8 +97,8 @@ class CommandeSimple extends Model
 
     public function pieces()
     {
-        return $this->belongsToMany(Piece::class, 'pieces_commandes_simples', 'commande', 'piece')
-            ->withPivot('quantite', 'prix_achat', 'prix_vente')
+        return $this->belongsToMany(Piece::class, 'pieces_commandes_simples', 'commande', 'piece')->using(PieceCommande::class)
+            ->withPivot('quantite', 'prix_achat', 'prix_vente', 'vehicule')
             ->withTimestamps();
     }
 }

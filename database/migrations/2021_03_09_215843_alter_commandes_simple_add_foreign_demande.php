@@ -14,7 +14,7 @@ class AlterCommandesSimpleAddForeignDemande extends Migration
     public function up()
     {
         Schema::table('commandes_simples', function (Blueprint $table) {
-            $table->unsignedBigInteger('demande');
+            $table->unsignedBigInteger('demande')->nullable();
             $table->foreign('demande')->references('id')->on('demandes_stock')->onDelete('cascade');
         });
     }

@@ -11,6 +11,7 @@ import NotificationsUser from "./components/Notifications.vue";
 import DeleteButton from "./components/DeleteButton.vue";
 import DirectDelete from './components/DirectDelete.vue'
 import PreviewImage from './components/PreviewImage.vue'
+import LightboxComponent from './components/LightboxComponent.vue'
 import axios from "axios";
 import VueAxios from "vue-axios";
 //menu and layout component
@@ -36,7 +37,7 @@ import CreateTiroirManuel from './components/magasins/manuel/CreateTiroirManuel.
 import CommandeSimpleForm from './components/commande/CommandeSimpleForm.vue'
 import CommandeSimpleEditForm from './components/commande/CommandeSimpleEditForm.vue'
 import CreateDemandeForm from './components/demande/CreateDemandeForm.vue'
-
+import CommandeSimpleFormPlug from './components/commande/CommandeSimpleFormPlug.vue'
 //plugins
 import { ToastPlugin, ModalPlugin } from "bootstrap-vue";
 import { CoolSelectPlugin } from "vue-cool-select";
@@ -73,6 +74,7 @@ new Vue({
         MenuItemStock,
         MenuItemReparation,
         PreviewImage,
+        LightboxComponent,
         StepperPiece,
         CreateMagasinForm,
         MagasinTreeMaps,
@@ -81,6 +83,7 @@ new Vue({
         CreateEtagereManuel,
         CreateTiroirManuel,
         CommandeSimpleForm,
+        CommandeSimpleFormPlug,
         CommandeSimpleEditForm,
         CreateDemandeForm
     }

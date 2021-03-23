@@ -52,6 +52,7 @@ export default {
 			store.state.rowPieces.push({
 				code: option.code,
 				reference: reference,
+				vehicule: option.vehicule,
 				name: nom,
 				quantite: 0,
 			})

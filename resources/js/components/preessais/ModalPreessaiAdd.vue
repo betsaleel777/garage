@@ -57,12 +57,12 @@
 </template>
 
 <script>
-import BVModal from "bootstrap-vue"
+import { BModal } from "bootstrap-vue"
 import FsLightbox from "fslightbox-vue"
 import ModalDetailReception from "../ModalDetailReception"
 export default {
 	components: {
-		BVModal,
+		BModal,
 		ModalDetailReception,
 		FsLightbox,
 	},

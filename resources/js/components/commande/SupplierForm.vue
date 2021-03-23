@@ -1,13 +1,13 @@
 <template>
 	<div class="form-row">
-		<div class="col-11">
-			<label for="fournisseur">Fournisseur</label>
+		<div class="col-10">
+			<label for="fournisseur">A commander vers fournisseur</label>
 			<vue-select v-model="fournisseur" id="fournisseur" :options="fournisseurs"></vue-select>
 			<span v-if="error.exist" class="text-danger">
 				<small>{{ error.value }}</small>
 			</span>
 		</div>
-		<div class="col-1">
+		<div class="col-2">
 			<modal-fournisseur />
 		</div>
 	</div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Finance\Commande;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Commande\CommandeSimple;
 use App\Models\Finance\Commande\MediaCommande;
+use App\Models\Stock\DemandeStock;
 use App\Models\Stock\Fournisseur;
 use App\Models\Stock\Magasin;
 use App\Models\Stock\Piece;
@@ -19,11 +20,18 @@ class CommandesSimplesController extends Controller
         $this->middleware('auth');
     }
 
-    public function liste()
+    private static function mediaStorage($medias, $commande)
     {
-        $titre = 'Commandes simples';
-        $commandes = CommandeSimple::with('fournisseurLinked')->get();
-        return view('finance.commande.simple.liste', compact('titre', 'commandes'));
+        if (!empty($medias)) {
+            foreach ($medias as $file) {
+                $media = new MediaCommande();
+                $media->user = session('user_id');
+                $media->commande = $commande;
+                $path = Storage::putFile('public/commandes_simples', $file);
+                $media->media = Str::substr($path, 7);
+                $media->save();
+            }
+        }
     }
 
     private static function prepareForm()
@@ -49,11 +57,27 @@ class CommandesSimplesController extends Controller
         return ['pieces' => $pieces, 'magasins' => $magasins, 'fournisseurs' => $fournisseurs];
     }
 
+    public function liste()
+    {
+        $titre = 'Commandes simples';
+        $demandes = DemandeStock::with('commandes')->get();
+        $commandes = CommandeSimple::with('utilisateur', 'fournisseurLinked', 'magasinLinked')->doesntHave('demandeLinked')->get();
+        return view('finance.commande.simple.liste', compact('titre', 'demandes', 'commandes'));
+    }
+
     public function add()
     {
         $titre = 'Créer une commande simple';
         ['fournisseurs' => $fournisseurs, 'magasins' => $magasins, 'pieces' => $pieces] = self::prepareForm();
         return view('finance.commande.simple.add', compact('titre', 'fournisseurs', 'pieces', 'magasins'));
+    }
+
+    public function plug(int $demande)
+    {
+        $titre = 'Créer une commande simple';
+        $demande = DemandeStock::with('pieces', 'commandes')->find($demande);
+        ['fournisseurs' => $fournisseurs, 'magasins' => $magasins, 'pieces' => $pieces] = self::prepareForm();
+        return view('finance.commande.simple.plug', compact('titre', 'fournisseurs', 'pieces', 'magasins', 'demande'));
     }
 
     public function store(Request $request)
@@ -93,6 +117,33 @@ class CommandesSimplesController extends Controller
         return;
     }
 
+    public function storePlug(Request $request)
+    {
+        $request->validate(CommandeSimple::RULES);
+        $commande = new CommandeSimple($request->all());
+        $commande->user = session('user_id');
+        $commande->enCours();
+        $commande->genererCode();
+        $commande->save();
+        //associer les pieces à la commande qui vient d'être enregistrée
+        $commande = CommandeSimple::find($commande->id);
+        foreach ($request->pieces as $pieceJson) {
+            $piece = json_decode($pieceJson);
+            $commande->pieces()->attach($piece->id,
+                [
+                    'quantite' => (int) $piece->quantite,
+                    'prix_achat' => (int) $piece->achat,
+                    'prix_vente' => (int) $piece->vente,
+                    'vehicule' => (int) $piece->vehicule,
+                ]);
+        }
+        //créer les pieces jointes (document) si elles existent
+        self::mediaStorage($request->medias, $commande->id);
+        $message = "la commande $commande->code a été enregistrée avec succès.";
+        session()->flash('success', $message);
+        return;
+    }
+
     public function edit(int $id)
     {
         $commande = CommandeSimple::with('pieces', 'medias')->find($id);
@@ -108,5 +159,10 @@ class CommandesSimplesController extends Controller
         $message = "la commande $commande->code a été supprimé avec succes";
         session()->flash('success', $message);
         return response()->json(['message' => $message]);
+    }
+
+    public function show(int $id)
+    {
+
     }
 }

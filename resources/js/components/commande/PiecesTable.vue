@@ -99,13 +99,7 @@ export default {
 	data() {
 		return {
 			subtotaux: [],
-			fields: {
-				numero: 0,
-				code: "",
-				name: "",
-				achat: 0,
-				vente: 0,
-			},
+			fields: [],
 		}
 	},
 	methods: {

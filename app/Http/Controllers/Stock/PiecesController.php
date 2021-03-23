@@ -59,12 +59,9 @@ class PiecesController extends Controller
     {
         $request->validate(Piece::RULES);
         $piece = new Piece($request->all());
-        $piece->makeCode();
-        //choisir plusieurs vehicule après
-        $piece->vehicule = $request->vehicule;
-        $vehicule = Vehicule::find($request->vehicule);
+        $piece->genererCode();
         $scategorie = SousCategorie::find($request->sous_categorie);
-        $piece->makeName($scategorie->slug, $piece->etat_piece, $piece->type_piece, $vehicule->designation);
+        $piece->makeName($scategorie->slug, $piece->etat_piece, $piece->type_piece);
         $piece->user = session('user_id');
         //upload of image
         if ($request->hasFile('image')) {
@@ -72,6 +69,8 @@ class PiecesController extends Controller
             $piece->image = Str::substr($path, 7);
         }
         $piece->save();
+        $piece = Piece::find($piece->id);
+        $piece->vehicules()->attach($request->vehicules);
         $message = "la piece $piece->reference a été enregistrée avec succès.";
         session()->flash('success', $message);
         return;

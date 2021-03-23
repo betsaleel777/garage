@@ -33,16 +33,11 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="row">
-                           <div class="col-md-8"></div>
+                           <div class="col-md-10"></div>
                            <div class="col-md-2">
-                              <a class="btn btn-primary btn-sm ui-button"
-                                 href="{{ route('commande_simple_liste') }}">Commande
-                                 simple</a>
-                           </div>
-                           <div class="col-md-2">
-                              <a class="btn btn-primary btn-sm ui-button"
-                                 href="{{ route('commande_reparation_liste') }}">Commande
-                                 réparation</a>
+                              <a class="btn btn-primary btn-sm ui-button" href="{{ route('commande_simple_liste') }}">
+                                 <i class="fas fa-sm fa-list"></i> Liste des commandes
+                              </a>
                            </div>
                         </div>
                      </div>

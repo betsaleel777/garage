@@ -47,7 +47,7 @@
                         </div>
                      </div>
                      <div class="card-body">
-                        <table id="demande" class="table table-bordered table-hover">
+                        <table id="demandes" class="table table-bordered table-hover">
                            <thead>
                               <tr>
                                  <th>#</th>
@@ -84,8 +84,9 @@
                                     <td>{{ $demande->destinataire }}</td>
                                     <td>{{ $demande->utilisateur->name }}</td>
                                     <td>
-                                       <a href="{{ route('demande_show', $demande) }}"><i
-                                             class="fas fa-lg fa-eye"></i></a>
+                                       <a href="{{ route('demande_show', $demande) }}">
+                                          <i class="fas fa-lg fa-eye"></i>
+                                       </a>
                                        <delete-button :url="'/stock/demande/delete/'" :identifiant="{{ $demande->id }}">
                                        </delete-button>
                                     </td>
@@ -114,7 +115,7 @@
    <script src=" {{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }} "></script>
    <script>
       $(function() {
-         $('#demande').DataTable({
+         $('#demandes').DataTable({
             "paging": true,
             "lengthChange": true,
             "searching": true,

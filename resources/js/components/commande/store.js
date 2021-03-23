@@ -2,7 +2,8 @@ class Store {
     constructor() {
         this.state = {
             pieces: [],
-            fournisseur: null
+            fournisseur: null,
+            demande: {}
         };
     }
 }

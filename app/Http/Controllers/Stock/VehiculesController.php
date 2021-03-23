@@ -27,4 +27,10 @@ class VehiculesController extends Controller
         }, $data->all());
         return response()->json(['vehicules' => $vehicules]);
     }
+
+    public function getVehicule(int $id)
+    {
+        $vehicule = Vehicule::find($id);
+        return response()->json(['vehicule' => $vehicule]);
+    }
 }

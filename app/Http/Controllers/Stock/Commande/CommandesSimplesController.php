@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Stock\Commande;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Commande\CommandeSimple;
 use App\Models\Finance\Commande\MediaCommande;
+use App\Models\Stock\DemandeStock;
 use App\Models\Stock\Fournisseur;
 use App\Models\Stock\Magasin;
 use App\Models\Stock\Piece;
@@ -22,18 +23,22 @@ class CommandesSimplesController extends Controller
     public function liste()
     {
         $titre = 'Commandes simples';
-        $commandes = CommandeSimple::with('fournisseurLinked')->get();
-        return view('stock.commande.simple.liste', compact('titre', 'commandes'));
+        $demandes = DemandeStock::with('commandes')->get();
+        $commandes = CommandeSimple::with('utilisateur', 'fournisseurLinked', 'magasinLinked')->doesntHave('demandeLinked')->get();
+        return view('stock.commande.simple.liste', compact('titre', 'demandes', 'commandes'));
     }
 
     private static function prepareForm()
     {
-        $pieces = array_map(function ($piece) {
-            return [
-                'code' => $piece->id,
-                'name' => $piece->reference . '.' . $piece->nom,
-            ];
-        }, Piece::get()->all());
+        foreach (Piece::with('vehicules')->get()->all() as $piece) {
+            foreach ($piece->vehicules as $vehicule) {
+                $pieces[] = [
+                    'code' => $piece->id,
+                    'name' => $piece->reference . '.' . $piece->nom . " ($vehicule->designation)",
+                    'vehicule' => $vehicule->id,
+                ];
+            }
+        }
         $fournisseurs = array_map(function ($fournisseur) {
             return [
                 'code' => $fournisseur->id,
@@ -70,6 +75,14 @@ class CommandesSimplesController extends Controller
         return view('stock.commande.simple.add', compact('titre', 'fournisseurs', 'pieces', 'magasins'));
     }
 
+    public function plug(int $demande)
+    {
+        $titre = 'Créer une commande simple';
+        $demande = DemandeStock::with('pieces', 'commandes')->find($demande);
+        ['fournisseurs' => $fournisseurs, 'magasins' => $magasins, 'pieces' => $pieces] = self::prepareForm();
+        return view('stock.commande.simple.plug', compact('titre', 'fournisseurs', 'pieces', 'magasins', 'demande'));
+    }
+
     public function store(Request $request)
     {
         //création de la commande simple
@@ -88,6 +101,34 @@ class CommandesSimplesController extends Controller
                     'quantite' => (int) $piece->quantite,
                     'prix_achat' => (int) $piece->achat,
                     'prix_vente' => (int) $piece->vente,
+                    'vehicule' => (int) $piece->vehicule,
+                ]);
+        }
+        //créer les pieces jointes (document) si elles existent
+        self::mediaStorage($request->medias, $commande->id);
+        $message = "la commande $commande->code a été enregistrée avec succès.";
+        session()->flash('success', $message);
+        return;
+    }
+
+    public function storePlug(Request $request)
+    {
+        $request->validate(CommandeSimple::RULES);
+        $commande = new CommandeSimple($request->all());
+        $commande->user = session('user_id');
+        $commande->enCours();
+        $commande->genererCode();
+        $commande->save();
+        //associer les pieces à la commande qui vient d'être enregistrée
+        $commande = CommandeSimple::find($commande->id);
+        foreach ($request->pieces as $pieceJson) {
+            $piece = json_decode($pieceJson);
+            $commande->pieces()->attach($piece->id,
+                [
+                    'quantite' => (int) $piece->quantite,
+                    'prix_achat' => (int) $piece->achat,
+                    'prix_vente' => (int) $piece->vente,
+                    'vehicule' => (int) $piece->vehicule,
                 ]);
         }
         //créer les pieces jointes (document) si elles existent
@@ -136,5 +177,10 @@ class CommandesSimplesController extends Controller
         //self::mediaStorage();
         $message = "la commande $commande->code a été modifiée avec succès";
         session()->flash('success', $message);
+    }
+
+    public function show(int $id)
+    {
+
     }
 }

@@ -56,6 +56,7 @@ export default {
 			store.state.pieces.push({
 				code: option.code,
 				reference: reference,
+				vehicule: option.vehicule,
 				name: nom,
 				achat: 0,
 				vente: 0,

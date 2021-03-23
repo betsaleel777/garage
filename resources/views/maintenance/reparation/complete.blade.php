@@ -451,7 +451,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="protection_interne" class="form-control" id="protection_interne"
                                              cols="15" rows="2">{{ $reception->prediagnostique->protection_interne }}
-                                          </textarea>
+                                                </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -467,7 +467,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="protection_interne" class="form-control" id="protection_interne"
                                              cols="15" rows="2">{{ $reception->prediagnostique->protection_interne }}
-                                          </textarea>
+                                                </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -486,7 +486,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="eclairage_int" class="form-control" id="eclairage_int" cols="30"
                                              rows="6">{{ $reception->prediagnostique->eclairage_int }}
-                                          </textarea>
+                                                </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -499,9 +499,8 @@ use Carbon\Carbon;
                                           @endif
                                        </td>
                                        <td>
-                                          <textarea name="klaxon" class="form-control" id="klaxon" cols="30"
-                                             rows="6">{{ $reception->prediagnostique->klaxon }}
-                                          </textarea>
+                                          <textarea name="klaxon" class="form-control" id="klaxon" cols="30" rows="6">{{ $reception->prediagnostique->klaxon }}
+                                                </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -547,7 +546,7 @@ use Carbon\Carbon;
                                        <td>
                                           <textarea name="frein_main" class="form-control" id="frein_main" cols="30"
                                              rows="6">{{ $reception->prediagnostique->frein_main }}
-                                          </textarea>
+                                                </textarea>
                                        </td>
                                     </tr>
                                     <tr>
@@ -892,7 +891,7 @@ use Carbon\Carbon;
                                        <label for="protection_interne">protection interne</label>
                                        <textarea name="protection_interne" class="form-control" id="protection_interne"
                                           cols="15" rows="2">{{ $reception->prediagnostique->protection_interne }}
-                                       </textarea>
+                                             </textarea>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
@@ -933,9 +932,8 @@ use Carbon\Carbon;
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="frein_main">Frein à main</label>
-                                       <textarea name="frein_main" class="form-control" id="frein_main" cols="30"
-                                          rows="6">{{ $reception->prediagnostique->frein_main }}
-                                       </textarea>
+                                       <textarea name="frein_main" class="form-control" id="frein_main" cols="30" rows="6">{{ $reception->prediagnostique->frein_main }}
+                                             </textarea>
                                     </div>
                                     <div class="form-group">
                                        <label for="ceintures_securite">Etat de fonctionnement des ceintures de
@@ -1070,7 +1068,8 @@ use Carbon\Carbon;
                                     <div class="form-group">
                                        <label for="volant_direction">Volant, direction</label>
                                        <textarea name="volant_direction" class="form-control" id="volant_direction"
-                                          cols="30" rows="6">{{ $reception->prediagnostique->volant_direction }}</textarea>
+                                          cols="30"
+                                          rows="6">{{ $reception->prediagnostique->volant_direction }}</textarea>
                                     </div>
                                     <div class="form-group">
                                        <label for="pot_echappement">Pot d'échappement</label>
@@ -1087,7 +1086,8 @@ use Carbon\Carbon;
                                     <div class="form-group">
                                        <label for="tuyauterie_frein">Tuyauterie frein</label>
                                        <textarea name="tuyauterie_frein" class="form-control" id="tuyauterie_frein"
-                                          cols="30" rows="6">{{ $reception->prediagnostique->tuyauterie_frein }}</textarea>
+                                          cols="30"
+                                          rows="6">{{ $reception->prediagnostique->tuyauterie_frein }}</textarea>
                                     </div>
                                     <div class="form-group">
                                        <label for="fuite_huile">Fuite d'huile</label>
@@ -1097,7 +1097,8 @@ use Carbon\Carbon;
                                     <div class="form-group">
                                        <label for="sous_carrosserie">Etat générale sous la carrosserie</label>
                                        <textarea name="sous_carrosserie" class="form-control" id="sous_carrosserie"
-                                          cols="30" rows="6">{{ $reception->prediagnostique->sous_carrosserie }}</textarea>
+                                          cols="30"
+                                          rows="6">{{ $reception->prediagnostique->sous_carrosserie }}</textarea>
                                     </div>
                                     <div class="form-group">
                                        <label for="test_routier">Test routier</label>
@@ -1150,7 +1151,7 @@ use Carbon\Carbon;
                </div>
                {{-- anciennes interventions --}}
                <div class="col-md-12">
-                  <div class="card collapsed-card">
+                  <div class="card card-light collapsed-card">
                      <div class="card-header">
                         <h3 class="card-title">Interventions de Réparation</h3>
                         <div class="card-tools">

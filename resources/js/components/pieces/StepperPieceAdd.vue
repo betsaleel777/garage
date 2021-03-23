@@ -219,7 +219,11 @@
 						<div v-if="!nouveau" class="row">
 							<div class="col-md-9">
 								<div class="form-group">
-									<vue-select v-model="piece.oldcar" :options="vehiculesOptions"></vue-select>
+									<vue-select
+										:multiple="true"
+										v-model="piece.oldcar"
+										:options="vehiculesOptions"
+									></vue-select>
 								</div>
 								<small>
 									<span v-if="messages.vehicule.exist" class="text-danger">
@@ -420,7 +424,7 @@ export default {
 				etat_piece: "",
 				emplacement: "",
 				fabricant: "",
-				oldcar: "",
+				oldcar: [],
 			},
 			image: {
 				scategorie: null,
@@ -616,7 +620,13 @@ export default {
 			formData.append("etat_piece", this.piece.etat_piece)
 			formData.append("type_piece", this.piece.type_piece)
 			formData.append("fabricant", this.piece.fabricant ? this.piece.fabricant.code : "")
-			formData.append("vehicule", this.piece.oldcar ? this.piece.oldcar.code : "")
+			if (this.piece.oldcar.length > 0) {
+				this.piece.oldcar.forEach(vehicule => {
+					formData.append("vehicules[]", vehicule.code)
+				})
+			} else {
+				this.notifier("Vous devez associer au moins un véhicule à cette pièce.", "OPERATION ECHOUEE", "danger")
+			}
 			axios
 				.post("/stock/piece/store", formData, {
 					headers: {
