@@ -70,6 +70,39 @@ class CommandeSimple extends Model
         return $this->attributes['status'] === self::LIVREE;
     }
 
+    //vérifier si la quantité demandée pour chaque piece a été commandée
+    public function estHonoree()
+    {
+        $honoree = true;
+        $commande = $this->with('demandeLinked.pieces.pivot.vehiculeLinked', 'pieces.pivot.vehiculeLinked')->get();
+        if (empty($commande->demandeLinked)) {
+            return;
+        } else {
+            $piecesDemandees = $commande->demandeLinked->pieces;
+            $piecesCommandees = $commande->pieces;
+            foreach ($piecesDemandees as $pieceDem) {
+                $totalCommandees = 0;
+                foreach ($piecesCommandees as $pieceCom) {
+                    if (($pieceDem->id === $pieceCom->id) and ($pieceDem->pivot->vehiculeLinked->id === $pieceCom->pivot->vehiculeLinked->id)) {
+                        $totalCommandees += $pieceCom->pivot->quantite;
+                    }
+                }
+                if ($totalCommandees < $pieceDem->pivot->quantite) {
+                    $honoree = false;
+                    break;
+                }
+            }
+        }
+        return $honoree;
+    }
+
+    public function livrable()
+    {
+        if ($this->estHonoree()) {
+            $this->livree();
+        }
+    }
+
     public function medias()
     {
         return $this->hasMany(MediaCommande::class, 'commande');

@@ -1,5 +1,12 @@
 <template>
-	<GChart :settings="{ packages: ['treemap'] }" type="TreeMap" :data="chartData" :options="chartOptions" />
+	<GChart
+		ref="gChart"
+		:settings="{ packages: ['treemap'] }"
+		:events="chartEvents"
+		type="TreeMap"
+		:data="chartData"
+		:options="chartOptions"
+	/>
 </template>
 
 <script>
@@ -31,7 +38,7 @@ export default {
 					donneesFormatees.push([etagereNom, nomZone, nombreTiroir, -63])
 					numeroTiroir++
 					etagere.tiroirs.forEach(tiroir => {
-						const tiroirNom = "#" + numeroTiroir + " " + tiroir.nom + "." + tiroir.id
+						const tiroirNom = "#" + numeroTiroir + " " + tiroir.nom + "-" + tiroir.id
 						donneesFormatees.push([tiroirNom, etagereNom, 5, -52])
 					})
 				})
@@ -47,17 +54,15 @@ export default {
 				donneesFormatees.push([etagereNom, "etageres", 0, 0])
 				numeroTiroir++
 				etagere.tiroirs.forEach(tiroir => {
-					const tiroirNom = "#" + numeroTiroir + " " + tiroir.nom + "." + tiroir.id
+					const tiroirNom = "#" + numeroTiroir + " " + tiroir.nom + "-" + tiroir.id
 					donneesFormatees.push([tiroirNom, etagereNom, 5, -52])
 				})
 			})
 		}
-		console.log(this.donnees, donneesFormatees)
 		this.chartData = donneesFormatees
 	},
 	data() {
 		return {
-			// Array will be automatically processed with visualization.arrayToDataTable function
 			chartData: [],
 			chartOptions: {
 				chart: {
@@ -68,11 +73,24 @@ export default {
 					maxColor: "#4374e0",
 					showScale: true,
 				},
-				generateTooltip: (row, size, value) => {
-					return `<div style="background:#fd9; padding:10px; border-style:solid">
-                                Read more about the
-                                <a href="http://en.wikipedia.org/wiki/Kingdom_(biology)">kingdoms of life</a>.
-                            </div>`
+				// generateTooltip: (row, size, value) => {
+				// 	const table = this.$refs.gChart.chartObject
+				// 	return `<div style="background:#fd9; padding:10px; border-style:solid">
+				//               ${row},${size},${value}.
+				//             </div>`
+				// },
+			},
+			chartEvents: {
+				select: () => {
+					const table = this.$refs.gChart.chartObject
+					const selection = table.getSelection()
+					if (selection.length !== 0) {
+						const [name, ...rest] = this.chartData[selection[0].row + 1]
+						const id = parseInt(name.split("-")[1])
+						if (!isNaN(id)) {
+							location.href = "/systeme/tiroir/show/" + id
+						}
+					}
 				},
 			},
 		}

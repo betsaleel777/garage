@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tiroir extends Model
 {
     use HasFactory;
-    protected $fillable = ['nom', 'identifiant', 'etagere'];
+    protected $fillable = ['nom', 'identifiant', 'etagere', 'zone'];
 
     const RULES = [
         'nom' => 'required|unique:tiroirs,nom',

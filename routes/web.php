@@ -148,6 +148,13 @@ Route::prefix('stock')->group(function () {
         Route::post('/store', 'Stock\VehiculesController@storejs');
     });
 
+    Route::prefix('entree')->group(function () {
+        Route::get('/', 'Stock\EntreesController@index')->name('entrees');
+        Route::get('/add', 'Stock\EntreesController@add')->name('entree_add');
+        Route::post('/store', 'Stock\EntreesController@store');
+        Route::get('/print/{id}', 'Stock\EntreesController@print')->name('entree_print');
+        Route::delete('/delete/{id}', 'Stock\EntreesController@delete')->name('entree_delete');
+    });
 });
 
 Route::prefix('systeme')->group(function () {
@@ -233,6 +240,7 @@ Route::prefix('systeme')->group(function () {
         Route::get('/plug/{id}', 'Systeme\Stock\TiroirsController@plugTiroir')->name('tiroir_plug');
         Route::get('/store/plug', 'Systeme\Stock\TiroirsController@storePlug')->name('tiroir_store_plug');
         Route::get('/edit/{id}', 'Systeme\Stock\TiroirsController@edit')->name('tiroir_edit');
+        Route::get('/show/{id}', 'Systeme\Stock\TiroirsController@show')->name('tiroir_show');
         Route::get('/edit/plug/{id}', 'Systeme\Stock\TiroirsController@editPlug')->name('tiroir_edit_plug');
         Route::post('/update', 'Systeme\Stock\TiroirsController@update')->name('tiroir_update');
         Route::post('/update/plug', 'Systeme\Stock\TiroirsController@updatePlug')->name('tiroir_update_plug');

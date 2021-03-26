@@ -33,6 +33,14 @@
       @endphp">Commandes
       </a>
    </li>
+   <li class="nav-item d-none d-sm-inline-block">
+      <a href="{{ route('entrees') }}" class="nav-link @php
+         if ($controller == 'EntreesController') {
+             echo 'text-pink';
+         }
+      @endphp">Entrées
+      </a>
+   </li>
    {{-- <li class="nav-item d-none d-sm-inline-block">
       <a href="{{ route('essais') }}"
          class="nav-link @php if($controller == 'EssaisController' or $controller == 'PreessaisController' or $controller == 'PostessaisController') { echo 'text-pink' ;} @endphp">Essais

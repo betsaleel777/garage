@@ -21,7 +21,7 @@
                </div><!-- /.col -->
                <div class="col-md-9">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="{{ route('finance_index') }}">Tableau finance</a></li>
+                     <li class="breadcrumb-item"><a href="{{ route('finance_index') }}">Tableau des finances</a></li>
                      <li class="breadcrumb-item"><a href="{{ route('commandes') }}">Tableau des commandes</a></li>
                      <li class="breadcrumb-item active">Commandes</li>
                   </ol>
@@ -46,16 +46,16 @@
                         </div>
                      </div>
                      <div class="card-body">
-                        <table id="demandes" class="table table-bordered table-hover">
+                        <table id="demandes" class="table table-bordered table-hover text-center">
                            <thead>
                               <tr>
                                  <th>#</th>
                                  <th>Code</th>
-                                 <th>Libelle</th>
                                  <th>Motif</th>
                                  <th>Urgence</th>
                                  <th>Destinataire</th>
                                  <th>Commande</th>
+                                 <th>Date</th>
                                  <th>Utilisateur</th>
                                  <th>Options</th>
                               </tr>
@@ -65,7 +65,6 @@
                                  <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $demande->code }}</td>
-                                    <td>{{ $demande->nom }}</td>
                                     <td>{{ $demande->motif }}</td>
                                     <td>
                                        @if ($demande->urgence === 'normale')
@@ -88,6 +87,7 @@
                                           <span class="badge badge-primary">en cours</span>
                                        @endif
                                     </td>
+                                    <td>{{ $demande->created_at->format('d-m-Y') }}</td>
                                     <td>{{ $demande->utilisateur->name }}</td>
                                     <td>
                                        <a href="{{ route('demande_show', $demande) }}">
@@ -124,7 +124,7 @@
                         </div>
                      </div>
                      <div class="card-body">
-                        <table id="commandes" class="table table-bordered table-hover">
+                        <table id="commandes" class="table table-bordered table-hover text-center">
                            <thead>
                               <tr>
                                  <th>#</th>
@@ -132,6 +132,7 @@
                                  <th>Pour le magasin</th>
                                  <th>Adressée à</th>
                                  <th>Status</th>
+                                 <th>Date</th>
                                  <th>Utilisateur</th>
                                  <th>Options</th>
                               </tr>
@@ -152,6 +153,7 @@
                                           <span class="badge badge-danger">{{ $commande::ANNULEE }}</span>
                                        @endif
                                     </td>
+                                    <td>{{ $commande->created_at->format('d-m-Y') }}</td>
                                     <td>{{ $commande->utilisateur->name }}</td>
                                     <td>
                                        <a href="{{ route('commande_simple_show', $commande) }}">

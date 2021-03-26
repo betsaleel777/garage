@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class PieceCommande extends Pivot
 {
-    protected $fillable = ['commande', 'piece', 'quantite', 'vehicule'];
+    protected $fillable = ['commande', 'piece', 'quantite', 'vehicule', 'prix_achat', 'prix_vente'];
     protected $table = 'pieces_commandes_simples';
     public $incrementing = true;
 

@@ -44,7 +44,9 @@ class ReceptionsController extends Controller
     private static function decompte()
     {
         session()->put('receptions', Reception::recent()->get()->count());
-        session()->put('essais', Reception::preEssayable()->get()->count() + Reception::postEssayable()->get()->count());
+        $preessais = Reception::preEssayable()->get()->count();
+        $postessais = Reception::postEssayable()->get()->count();
+        session()->put('essais', $preessais + $postessais);
     }
 
     private static function downloadableMedia(array $medias)

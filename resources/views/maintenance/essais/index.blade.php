@@ -33,15 +33,17 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="row">
-                           <div class="col-md-8"></div>
-                           <div class="col-md-2">
+                           <div class="col-md-6"></div>
+                           <div class="col-md-3 text-left">
                               <a class="btn btn-primary btn-sm ui-button" href="{{ route('preessai_liste') }}">
                                  <i class="fas fa-list-ul"></i> Essais avant réparations
+                                 <span class="badge badge-pill badge-light">{{ Session::get('preessais') }}</span>
                               </a>
                            </div>
-                           <div class="col-md-2">
+                           <div class="col-md-3 text-left">
                               <a class="btn btn-primary btn-sm ui-button" href="{{ route('postessai_liste') }}">
                                  <i class="fas fa-list-ul"></i> Essais après réparations
+                                 <span class="badge badge-pill badge-light">{{ Session::get('postessais') }}</span>
                               </a>
                            </div>
                         </div>

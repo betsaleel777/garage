@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class SousCategoriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function add(int $categorie)
     {
         $categorie = Categorie::find($categorie);

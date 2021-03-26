@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 
 class DemandesStockController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $titre = 'Demandes du stock';
@@ -24,7 +29,8 @@ class DemandesStockController extends Controller
         foreach (Piece::with('vehicules')->get()->all() as $piece) {
             foreach ($piece->vehicules as $vehicule) {
                 $pieces[] = [
-                    'code' => $piece->id,
+                    'code' => $piece->id . '-' . $vehicule,
+                    'id' => $piece->id,
                     'name' => $piece->reference . '.' . $piece->nom . " ($vehicule->designation)",
                     'vehicule' => $vehicule->id,
                 ];
@@ -65,7 +71,7 @@ class DemandesStockController extends Controller
         $demande->save();
         $demande = DemandeStock::find($demande->id);
         foreach ($request->pieces as $piece) {
-            $demande->pieces()->attach($piece['code'], ['quantite' => $piece['quantite'], 'vehicule' => $piece['vehicule']]);
+            $demande->pieces()->attach($piece['id'], ['quantite' => $piece['quantite'], 'vehicule' => $piece['vehicule']]);
         }
         $message = "la demande $demande->code a été crée avec succès.";
         session()->flash('success', $message);

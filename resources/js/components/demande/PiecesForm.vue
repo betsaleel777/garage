@@ -51,6 +51,7 @@ export default {
 			const nom = calebasse[1]
 			store.state.rowPieces.push({
 				code: option.code,
+				id: option.id,
 				reference: reference,
 				vehicule: option.vehicule,
 				name: nom,

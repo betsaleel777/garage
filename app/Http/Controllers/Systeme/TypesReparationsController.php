@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class TypesReparationsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $titre = 'Types réparations';

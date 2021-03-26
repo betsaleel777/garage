@@ -36,7 +36,7 @@
                            <div class="col-md-2">
                               <a class="btn btn-primary btn-sm ui-button"
                                  href="{{ route('commande_simple_liste_bystock') }}">
-                                 <i class="fas fa-list fa-sm"></i>liste des commandes</a>
+                                 <i class="fas fa-list fa-sm"></i> liste des commandes</a>
                            </div>
                         </div>
                      </div>

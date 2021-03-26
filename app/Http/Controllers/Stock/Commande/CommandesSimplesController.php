@@ -33,7 +33,8 @@ class CommandesSimplesController extends Controller
         foreach (Piece::with('vehicules')->get()->all() as $piece) {
             foreach ($piece->vehicules as $vehicule) {
                 $pieces[] = [
-                    'code' => $piece->id,
+                    'code' => $piece->id . '-' . $vehicule->id,
+                    'id' => $piece->id,
                     'name' => $piece->reference . '.' . $piece->nom . " ($vehicule->designation)",
                     'vehicule' => $vehicule->id,
                 ];
@@ -96,7 +97,7 @@ class CommandesSimplesController extends Controller
         $commande = CommandeSimple::find($commande->id);
         foreach ($request->pieces as $pieceJson) {
             $piece = json_decode($pieceJson);
-            $commande->pieces()->attach($piece->code,
+            $commande->pieces()->attach($piece->id,
                 [
                     'quantite' => (int) $piece->quantite,
                     'prix_achat' => (int) $piece->achat,
@@ -181,6 +182,8 @@ class CommandesSimplesController extends Controller
 
     public function show(int $id)
     {
-
+        $commande = CommandeSimple::with('magasinLinked', 'utilisateur', 'fournisseurLinked', 'pieces.categorieEnfant', 'pieces.pivot.vehiculeLinked', 'medias')->find($id);
+        $titre = 'Détails commande ' . $commande->code;
+        return view('stock.commande.simple.show', compact('commande', 'titre'));
     }
 }

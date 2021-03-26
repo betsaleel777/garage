@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class DevisesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $devises = Devise::get();

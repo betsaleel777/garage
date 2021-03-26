@@ -71,4 +71,14 @@ class TiroirsController extends Controller
         $message = "le tiroir a été modifié avec succès";
         return redirect()->route('tiroir_etagere', $tiroir->etagere)->with('success', $message);
     }
+
+    public function show(int $id)
+    {
+        $tiroir = Tiroir::with('pieces.vehicules', 'etagereLinked.zoneLinked.magasinLinked')->has('etagereLinked.zoneLinked')->find($id);
+        if (empty($tiroir)) {
+            $tiroir = Tiroir::with('pieces.vehicules', 'pieces.categorieEnfant', 'etagereLinked.magasinLinked')->has('etagereLinked.magasinLinked')->find($id);
+        }
+        $titre = 'Détails ' . $tiroir->nom;
+        return view('systeme.stock.magasin.tiroir.show', compact('titre', 'tiroir'));
+    }
 }

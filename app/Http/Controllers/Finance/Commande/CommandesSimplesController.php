@@ -36,12 +36,16 @@ class CommandesSimplesController extends Controller
 
     private static function prepareForm()
     {
-        $pieces = array_map(function ($piece) {
-            return [
-                'code' => $piece->id,
-                'name' => $piece->reference . '.' . $piece->nom,
-            ];
-        }, Piece::get()->all());
+        foreach (Piece::with('vehicules')->get()->all() as $piece) {
+            foreach ($piece->vehicules as $vehicule) {
+                $pieces[] = [
+                    'code' => $piece->id . '-' . $vehicule->id,
+                    'id' => $piece->id,
+                    'name' => $piece->reference . '.' . $piece->nom . " ($vehicule->designation)",
+                    'vehicule' => $vehicule->id,
+                ];
+            }
+        }
         $fournisseurs = array_map(function ($fournisseur) {
             return [
                 'code' => $fournisseur->id,
@@ -93,9 +97,10 @@ class CommandesSimplesController extends Controller
         $commande = CommandeSimple::find($commande->id);
         foreach ($request->pieces as $pieceJson) {
             $piece = json_decode($pieceJson);
-            $commande->pieces()->attach($piece->code,
+            $commande->pieces()->attach($piece->id,
                 [
                     'quantite' => (int) $piece->quantite,
+                    'vehicule' => $piece->vehicule,
                     'prix_achat' => (int) $piece->achat,
                     'prix_vente' => (int) $piece->vente,
                 ]);
@@ -163,6 +168,9 @@ class CommandesSimplesController extends Controller
 
     public function show(int $id)
     {
+        $commande = CommandeSimple::with('magasinLinked', 'utilisateur', 'fournisseurLinked', 'pieces.categorieEnfant', 'pieces.pivot.vehiculeLinked', 'medias')->find($id);
+        $titre = 'Détails commande ' . $commande->code;
+        return view('finance.commande.simple.show', compact('commande', 'titre'));
 
     }
 }

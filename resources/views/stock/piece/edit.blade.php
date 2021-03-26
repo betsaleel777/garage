@@ -45,7 +45,7 @@
                <div class="col-md-6">
                   <div class="card">
                      <div class="card-header">
-                        {{-- <h5 class="m-0">Featured</h5> --}}
+                        <h5 class="m-0">{{ Str::upper($piece->categorieEnfant->nom) }}</h5>
                      </div>
                      <div class="card-body">
                         <form enctype="multipart/form-data" method="post" action="{{ route('piece_update') }}"
@@ -56,11 +56,17 @@
                               <div class="row">
                                  <div class="col-md-4"></div>
                                  <div class="col-md-4">
-                                    <img class="img-thumbnail" src="{{ url('storage/' . $piece->image) }}"
-                                       alt="{{ $piece->reference }}">
-                                    <center><span
-                                          class="text-dark"><b>{{ $piece->reference }}</b>:{{ $piece->categorieEnfant->nom }}</span>
-                                    </center>
+                                    @if (empty($piece->image))
+                                       <center>
+                                          <span class="text-danger">Pas d'image</span>
+                                       </center>
+                                    @else
+                                       <img class="img-thumbnail" src="{{ url('storage/' . $piece->image) }}"
+                                          alt="{{ $piece->reference }}">
+                                       <center>
+                                          <span class="text-dark"><b>{{ $piece->reference }}</b></span>
+                                       </center>
+                                    @endif
                                  </div>
                                  <div class="col-md-4"></div>
                               </div>
@@ -71,14 +77,25 @@
                            </div>
                            <div class="form-group">
                               <label for="description">Description</label>
-                              <textarea name="description" class="form-control" id="description" cols="30"
-                                 rows="4">{{ $piece->description }}</textarea>
+                              <textarea name="description" class="form-control" id="description" cols="30" rows="4">
+                                {{ $piece->description }}
+                                       </textarea>
                               @error('description')
                                  <span class="text-danger"> {{ $message }}</span>
                               @enderror
                            </div>
+                           <div class="form-group">
+                              <label for="emplacement">Emplacement</label>
+                              <select class="form-control form-control-sm select2" name="emplacement" id="emplacement">
+                                 @foreach ($emplacements as $emplacement)
+                                    <option @if ($emplacement['code'] === $piece->emplacement) selected @endif value="{{ $emplacement['code'] }}">
+                                       {{ $emplacement['label'] }}
+                                    </option>
+                                 @endforeach
+                              </select>
+                           </div>
                            <div style="text-align: right" class="form-group">
-                              <button type="submit" class="btn btn-primary">Enregistrer</button>
+                              <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
                            </div>
                         </form>
                      </div>
@@ -94,4 +111,15 @@
       <!-- /.content -->
    </div>
    <!-- /.content-wrapper -->
+@endsection
+@section('scripts')
+   <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+   <script>
+      $(function() {
+         $('.select2').select2({
+            theme: 'bootstrap4'
+         })
+      })
+
+   </script>
 @endsection

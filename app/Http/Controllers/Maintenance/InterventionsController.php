@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class InterventionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function storejs(Request $request)
     {
         $request->validate(Intervention::RULES);

@@ -68,6 +68,7 @@
                               </div>
                            </div>
                            <hr>
+                           {{-- elements descriptifs --}}
                            <div class="row">
                               <div class="col-md-3 text-left">
                                  <b>MOTIF:</b> {{ $demande->motif }}
@@ -91,45 +92,51 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                       @foreach ($demande->pieces as $piece)
-                                          <div class="card text-center" style="width: 18rem;">
-                                             <img width="286" height="180" style="object-fit: cover" class="card-img-top"
-                                                src="{{ url('/storage/' . $piece->categorieEnfant->image) }}"
-                                                alt="Card image cap">
-                                             <ul style="font-size: 13px" class="list-group list-group-flush">
-                                                <li class="list-group-item">
-                                                   <span class="text-muted">
-                                                      {{ $piece->reference }}
-                                                   </span>
-                                                </li>
-                                                <li class="list-group-item">
-                                                   <span class="text-muted">
-                                                      {{ $piece->pivot->quantite }} pièce(s) demandée(s)
-                                                   </span>
-                                                </li>
-                                                <li class="list-group-item">
-                                                   <span class="text-muted">
-                                                      {{ $piece->categorieEnfant->nom }} pour <br>
-                                                      {{ $piece->pivot->vehiculeLinked->getName() }}
-                                                   </span>
-                                                </li>
-                                             </ul>
-                                             <div class="card-body">
-                                                @if (empty($piece->image))
-                                                   Aucune visualisation possible
-                                                @else
-                                                   <lightbox-component message="'Visualiser la pièce'"
-                                                      source="{{ '/storage/' . $piece->image }}">
-                                                   </lightbox-component>
-                                                @endif
+                                       <div class="row">
+                                          @foreach ($demande->pieces as $piece)
+                                             <div class="col-md-4">
+                                                <div class="card" style="width: 18rem;">
+                                                   <img width="286" height="180" style="object-fit: cover"
+                                                      class="card-img-top"
+                                                      src="{{ url('/storage/' . $piece->categorieEnfant->image) }}"
+                                                      alt="Card image cap">
+                                                   <ul style="font-size: 13px" class="list-group list-group-flush">
+                                                      <li class="list-group-item">
+                                                         <span class="text-muted">
+                                                            {{ $piece->reference }}
+                                                         </span>
+                                                      </li>
+                                                      <li class="list-group-item">
+                                                         <span class="text-muted">
+                                                            {{ $piece->pivot->quantite }} pièce(s) demandée(s)
+                                                         </span>
+                                                      </li>
+                                                      <li class="list-group-item">
+                                                         <span class="text-muted">
+                                                            {{ $piece->categorieEnfant->nom }} pour
+                                                            {{ $piece->pivot->vehiculeLinked->getName() }}
+                                                         </span>
+                                                      </li>
+                                                   </ul>
+                                                   <div class="card-body">
+                                                      @if (empty($piece->image))
+                                                         Pas d'image pour cette pièce
+                                                      @else
+                                                         <lightbox-component message="'Visualiser la pièce'"
+                                                            source="{{ '/storage/' . $piece->image }}">
+                                                         </lightbox-component>
+                                                      @endif
+                                                   </div>
+                                                </div>
                                              </div>
-                                          </div>
-                                       @endforeach
+                                          @endforeach
+                                       </div>
                                     </div>
                                     <!-- /.card-body -->
                                  </div>
                               </div>
                            </div>
+                           {{-- liste des commandes liées à cette demande --}}
                            <div class="row">
                               <div class="col-md-12 mt-4">
                                  <p>
@@ -193,8 +200,8 @@
                                                             <li>
                                                                <lightbox-component
                                                                   message="'{{ $piece->nom . ' pour ' }}
-                                                                                    {{ $piece->pivot->vehiculeLinked->getName() }}
-                                                                                    {{ '(x' . $piece->pivot->quantite . ')' }}'"
+                                                                                                                                                                                                         {{ $piece->pivot->vehiculeLinked->getName() }}
+                                                                                                                                                                                                         {{ '(x' . $piece->pivot->quantite . ')' }}'"
                                                                   source="{{ $lienImage }}">
                                                                </lightbox-component>
                                                             </li>
@@ -218,15 +225,16 @@
                            </div>
                         </div>
                      </div>
-                     <!-- /.card-body -->
                   </div>
+                  <!-- /.card-body -->
                </div>
-               <!-- /.col-md-12 -->
             </div>
-            <!-- /.row -->
-         </div><!-- /.container-fluid -->
-      </div>
-      <!-- /.content -->
+            <!-- /.col-md-12 -->
+         </div>
+         <!-- /.row -->
+      </div><!-- /.container-fluid -->
+   </div>
+   <!-- /.content -->
    </div>
    <!-- /.content-wrapper -->
 @endsection

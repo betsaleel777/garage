@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class VehiculesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function storejs(Request $request)
     {
         $request->validate(Vehicule::RULES);

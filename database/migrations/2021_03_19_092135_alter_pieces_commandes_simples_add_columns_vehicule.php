@@ -15,7 +15,6 @@ class AlterPiecesCommandesSimplesAddColumnsVehicule extends Migration
     {
         Schema::table('pieces_commandes_simples', function (Blueprint $table) {
             $table->unsignedBigInteger('vehicule');
-
         });
     }
 
